@@ -1,0 +1,18 @@
+My build of tabbed by suckless.org
+
+# Requirements
+- Xlib
+
+# Patches
+- alpha
+- autohide
+- clientnumber
+- xft
+
+# Installation
+git clone https://github.com/baj0k/SB
+cd SB/tabbed
+sudo make install
+
+# Recompiling
+sudo make clean install

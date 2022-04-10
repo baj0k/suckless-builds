@@ -1,0 +1,19 @@
+My build of dmenu, the dynamic menu for X by suckless.org
+
+# Patches applied
+- alpha
+- border
+- center
+- highlight
+- initial text
+- password
+- prefix completion
+- xresources
+
+# Installation
+git clone https://github.com/baj0k/SB
+cd SB/dmenu
+sudo make install
+
+# Recompilation
+sudo make clean install
