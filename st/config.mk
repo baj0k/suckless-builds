@@ -1,5 +1,5 @@
 # st version
-VERSION = 0.8.4
+VERSION = 0.8.5
 
 # paths
 PREFIX ?= /usr/local

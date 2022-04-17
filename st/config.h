@@ -87,22 +87,22 @@ static const char *colorname[] = {
 	"#8ec07c",
 	"#ebdbb2",
 	[255] = 0,
-	/* more colors can be added after 255 */
+	/* more colors can be added after 255 to use with DefaultXX */
 	"#cccccc", /* 256 -> cursor */
 	"#555555", /* 257 -> rev cursor*/
-	"#2e3440", /* 258 -> bg */
-	"#ebdbb2", /* 259 -> fg */
+	"#ebdbb2", /* 258 -> foreground colour */
+	"#2e3440", /* 259 -> background colour */
 	"#2e3440", /* 260 -> selbg */
 	"#ebdbb2", /* 261 -> selfg */
 };
 
 /* cursor, reverse cursor colors */
-static unsigned int defaultcs  = 256;
+unsigned int defaultcs = 256;
 static unsigned int defaultrcs = 257;
 
 /* fg, bg colors */
-unsigned int defaultfg = 259;
 unsigned int defaultbg = 258;
+unsigned int defaultfg = 259;
 
 /* selection colors */
 unsigned int selectionbg = 260;
