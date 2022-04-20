@@ -59,5 +59,6 @@ uninstall:
 	@rm -f ${DESTDIR}${MANPREFIX}/man1/slock.1
 
 cleaninstall: install clean
+	rm -f *.orig *.rej *.diff
 
 .PHONY: all options clean dist install uninstall cleaninstall

@@ -58,5 +58,6 @@ uninstall:
 	@rm -f ${DESTDIR}${PREFIX}/bin/sent
 
 cleaninstall: install clean
+	rm -f *.orig *.rej *.diff
 
 .PHONY: all options clean dist install uninstall cscope cleaninstall
