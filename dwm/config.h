@@ -1,14 +1,15 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx    = 0;  /* border pixel of windows */
-static const unsigned int gappx       = 10; /* gaps between windows */
-static const unsigned int snap        = 32; /* snap pixel */
-static const int showbar              = 1;  /* 0 means no bar */
-static const int topbar               = 1;  /* 0 means bottom bar */
-static const unsigned int ulinepad	  = 10;	/* horizontal padding between the underline and tag */
-static const unsigned int ulinestroke = 1;  /* thickness / height of the underline */
-static const int viewonrulestag       = 1;  /* 1 means follow applications when opened in tags defined by rules*/
+static const unsigned int borderpx    = 0;    /* border pixel of windows */
+static const unsigned int gappx       = 10;   /* gaps between windows */
+static const unsigned int snap        = 32;   /* snap pixel */
+static const int showbar              = 1;    /* 0 means no bar */
+static const int topbar               = 1;    /* 0 means bottom bar */
+static const unsigned int ulinepad	  = 10;	  /* horizontal padding between the underline and tag */
+static const unsigned int ulinestroke = 1;    /* thickness / height of the underline */
+static const int viewonrulestag       = 1;    /* 1 means follow applications when opened in tags defined by rules*/
+static const Bool viewontag           = True; /* Follow window when sent to another tag */
 
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
