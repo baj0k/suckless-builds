@@ -18,6 +18,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [save floats](https://dwm.suckless.org/patches/save_floats/dwm-savefloats-20181212-b69c870.diff)
 - [sticky](https://dwm.suckless.org/patches/sticky/dwm-sticky-6.1.diff)
 - [tab](https://dwm.suckless.org/patches/tab/dwm-tab-i3like-20211121-a786211.diff)
+- [togglefloatingcenter](https://dwm.suckless.org/patches/togglefloatingcenter/dwm-togglefloatingcenter-20210806-138b405f.diff)
 - [underlinetags](https://dwm.suckless.org/patches/underlinetags/dwm-underlinetags-6.2.diff)
 - [viewonrulestag](https://dwm.suckless.org/patches/viewonrulestag/dwm-viewonrulestag-20220410-bece862.diff)
 - [viewontag](https://dwm.suckless.org/patches/viewontag/dwm-viewontag-20210312-61bb8b2.diff)
