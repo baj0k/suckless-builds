@@ -3,6 +3,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 
 ## Patches applied
 - [alwaysontop](https://dwm.suckless.org/patches/alwaysontop/alwaysontop-6.2.diff)
+- [alpha](https://dwm.suckless.org/patches/alpha/dwm-alpha-20201019-61bb8b2.diff)
 - [attachaside](https://dwm.suckless.org/patches/attachaside/dwm-attachaside-6.3.diff)
 - [canfocusfloating](https://dwm.suckless.org/patches/canfocusfloating/dwm-canfocusfloating-20210724-b914109.diff)
 - [floatrules](https://dwm.suckless.org/patches/floatrules/dwm-floatrules-20210801-138b405.diff)
@@ -27,7 +28,7 @@ Removed floatborderpx rule as border size was already set to 0 for all windows b
 - [fullgaps](https://github.com/baj0k/suckless-builds/commit/bb92d6fcc7fd2850ed8474a85ad57ddcc9454914)  
 The setgaps function was removed to free the bindings for more useful features than changing gap size on runtime.
 - [tab](https://github.com/baj0k/suckless-builds/commit/cb4448b3600081358d5fcf05084e03980ac25c77)  
-The tabmode function was removed as well as showtab and toptab variables. The patch was changed so that tab bar position and showtab mode are now hardcoded in the source (respectively - top and monocle in the presence of several windows).
+The tabmode function was removed as well as showtab and toptab variables. The patch was changed so that tab bar position and showtab mode are now hardcoded in the source (respectively - top and monocle in the presence of several windows). In addition this patch wasn't working with the 'alpha' patch. Particularly the updatebars(void) function changed in alpha patch and the m->tabwin initialization had to be changed respectively to the m->barwin changes introduced in the alpha patch.
 <!-- TODO: change tab patch so that it respects gaps. Probably can be done by making monocle layout respect gaps --> 
 - [underlinetags](tbd)  
 Removed ulineall and ulinevoffset options.
