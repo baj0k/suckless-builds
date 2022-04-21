@@ -18,6 +18,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [sticky](https://dwm.suckless.org/patches/sticky/dwm-sticky-6.1.diff)
 - [tab](https://dwm.suckless.org/patches/tab/dwm-tab-i3like-20211121-a786211.diff)
 - [underlinetags](https://dwm.suckless.org/patches/underlinetags/dwm-underlinetags-6.2.diff)
+- [viewonrulestag](https://dwm.suckless.org/patches/viewonrulestag/dwm-viewonrulestag-20220410-bece862.diff)
 
 ## Patch customizations
 Some functionalities of the above-mentioned patches were changed or removed either due to conflicts with other patches or simply because the features were of no use in my workflow. Listed below are changes made to the original patches. Links lead to relevant commits in which the changes were made.
