@@ -29,7 +29,7 @@ static const Rule rules[] = {
 	 */
     /* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h       floatborderpx*/
     { "firefox",  NULL,       NULL,        1 << 1,      0,            1,        -1,-1,-1,-1,        -1 },
-    { "mpv",      NULL,       NULL,       ~0,           1,           -1,         2055,1150,500,275, -1 },
+    { "mpv",      NULL,       NULL,        0,           1,           -1,         2055,1150,500,275, -1 },
     { "Spotify",  NULL,       NULL,        1 << 8,      1,            1,        -1,-1,-1,-1,        -1 },
 };
 
@@ -78,12 +78,13 @@ static Key keys[] = {
 	{ MODKEY,             XK_BackSpace, view,                   {0} },
 	{ MODKEY|ShiftMask,   XK_q,         killclient,             {0} },
 	{ MODKEY,             XK_t,         setlayout,              {.v = &layouts[0]} },
-	{ MODKEY,             XK_f,         setlayout,              {.v = &layouts[1]} },
+	{ MODKEY|ShiftMask,   XK_f,         setlayout,              {.v = &layouts[1]} },
 	{ MODKEY,             XK_m,         setlayout,              {.v = &layouts[2]} },
 	{ MODKEY,             XK_space,     setlayout,              {0} },
 	{ MODKEY|ShiftMask,   XK_space,     togglefloating,         {0} },
 	{ MODKEY|ShiftMask,   XK_u,         togglealwaysontop,      {0} },
-    { MODKEY,             XK_s,         togglecanfocusfloating, {0} },
+    { MODKEY,             XK_f,         togglecanfocusfloating, {0} },
+    { MODKEY,             XK_s,         togglesticky,           {0} },
 	{ MODKEY,             XK_0,         view,                   {.ui = ~0 } },
 	{ MODKEY|ShiftMask,   XK_0,         tag,                    {.ui = ~0 } },
 	{ MODKEY,             XK_comma,     focusmon,               {.i = -1 } },

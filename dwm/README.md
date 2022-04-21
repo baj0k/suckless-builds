@@ -6,7 +6,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [attachaside](https://dwm.suckless.org/patches/attachaside/dwm-attachaside-6.3.diff)
 - [canfocusfloating](https://dwm.suckless.org/patches/canfocusfloating/dwm-canfocusfloating-20210724-b914109.diff)
 - [floatrules](https://dwm.suckless.org/patches/floatrules/dwm-floatrules-20210801-138b405.diff)
-- [fullgaps](https://dwm.suckless.org/patches/fullgaps/dwm-fullgaps-6.2.diff) - But without the setgaps function. In result the gap size cannot be changed dynamically.
+- [fullgaps](https://dwm.suckless.org/patches/fullgaps/dwm-fullgaps-6.2.diff) - But without the setgaps function. In result the gap size cannot be changed at runtime.
 - [hide vacant tags](https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.3.diff)
 - [shiftview] - tbd <!-- TODO: upload diff to suckless.org -->
 - [pertag](https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff) <!-- TODO: check if any of the previous patches had a version that works with pertag -->
@@ -15,6 +15,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [restartsig](https://dwm.suckless.org/patches/restartsig/dwm-restartsig-20180523-6.2.diff)
 - [rulerefresher](https://dwm.suckless.org/patches/rulerefresher/dwm-rulerefresher-6.2.diff)
 - [save floats](https://dwm.suckless.org/patches/save_floats/dwm-savefloats-20181212-b69c870.diff)
+- [sticky](https://dwm.suckless.org/patches/sticky/dwm-sticky-6.1.diff)
 
 ## Installation
 Use GNU make inside the suckless-builds/dwm directory to build and install binary.
