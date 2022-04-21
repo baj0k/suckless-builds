@@ -22,6 +22,8 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 
 ## Patch customizations
 Some functionalities of the above-mentioned patches were changed or removed either due to conflicts with other patches or simply because the features were of no use in my workflow. Listed below are changes made to the original patches. Links lead to relevant commits in which the changes were made.
+- [floatrules](tbd)  
+Removed floatborderpx rule as border size was already set to 0 for all windows by borderpx variable. 
 - [fullgaps](https://github.com/baj0k/suckless-builds/commit/bb92d6fcc7fd2850ed8474a85ad57ddcc9454914)  
 The setgaps function was removed to free the bindings for more useful features than changing gap size on runtime.
 - [tab](https://github.com/baj0k/suckless-builds/commit/cb4448b3600081358d5fcf05084e03980ac25c77)  

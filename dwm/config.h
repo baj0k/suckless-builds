@@ -30,12 +30,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-    /* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h       floatborderpx*/
-    { "firefox",  NULL,       NULL,        1 << 1,      0,            1,        -1,-1,-1,-1,        -1 },
-    { "mpv",      NULL,       NULL,        0,           1,           -1,         2055,1150,500,275, -1 },
-    { "Spotify",  NULL,       NULL,        1 << 8,      1,            1,        -1,-1,-1,-1,        -1 },
-    { "Caprine",  NULL,       NULL,        0,           1,           -1,        -1,-1,-1,-1,        -1 },
-    { "Signal",   NULL,       NULL,        0,           1,           -1,        -1,-1,-1,-1,        -1 },
+    /* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h */
+    { "firefox",  NULL,       NULL,        1 << 1,      0,            1,        -1,-1,-1,-1         },
+    { "mpv",      NULL,       NULL,        0,           1,           -1,         2055,1150,500,275  },
+    { "Spotify",  NULL,       NULL,        1 << 8,      1,            1,        -1,-1,-1,-1         },
+    { "Caprine",  NULL,       NULL,        0,           1,           -1,        -1,-1,-1,-1         },
+    { "Signal",   NULL,       NULL,        0,           1,           -1,        -1,-1,-1,-1         },
 };
 
 /* layout(s) */
