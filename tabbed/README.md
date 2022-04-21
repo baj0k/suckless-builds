@@ -12,5 +12,5 @@ My personalized build of tabbed by suckless.org
 ## Installation
 Use GNU make inside the suckless-builds/tabbed directory to build and install binary.
 ```
-$ sudo make cleaninstall
+$ sudo make clean install
 ```

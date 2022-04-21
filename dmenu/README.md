@@ -13,5 +13,5 @@ My personalized build of dmenu - the dynamic menu for X by suckless.org
 ## Installation
 Use GNU make inside the suckless-builds/dmenu directory to build and install binary.
 ```
-$ sudo make cleaninstall
+$ sudo make clean install
 ```
