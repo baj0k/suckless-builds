@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
+static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -102,6 +102,7 @@ static Key keys[] = {
 	TAGKEYS(              XK_8,                                 7)
 	TAGKEYS(              XK_9,                                 8)
 	{ MODKEY|ShiftMask,   XK_e,         quit,                   {0} },
+    { MODKEY|ShiftMask,   XK_r,         quit,                   {1} }, /* restart dwm */
 };
 
 /* button definitions */
