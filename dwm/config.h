@@ -2,16 +2,10 @@
 
 /* appearance */
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const unsigned int gappx     = 10;        /* gaps between windows */
+static const unsigned int gappx     = 10;       /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-/*  Display modes of the tab bar: never shown, always shown, shown only in  */
-/*  monocle mode in the presence of several windows.                        */
-/*  Modes after showtab_nmodes are disabled.                                */
-enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
-static const int showtab			= showtab_auto;        /* Default tab bar show mode */
-static const int toptab				= True;               /* False means bottom tab bar */
 
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
@@ -74,7 +68,6 @@ static Key keys[] = {
 	{ MODKEY,             XK_d,         spawn,                  {.v = dmenucmd } },
 	{ MODKEY,             XK_Return,    spawn,                  {.v = termcmd } },
 	{ MODKEY,             XK_b,         togglebar,              {0} },
-    { MODKEY,             XK_w,         tabmode,                {-1} },
 	{ MODKEY,             XK_j,         focusstack,             {.i = +1 } },
 	{ MODKEY,             XK_k,         focusstack,             {.i = -1 } },
 	{ MODKEY,             XK_i,         incnmaster,             {.i = +1 } },
