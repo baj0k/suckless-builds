@@ -19,10 +19,10 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [tab](https://dwm.suckless.org/patches/tab/dwm-tab-i3like-20211121-a786211.diff)
 
 ## Patch customizations
-Some functionalities of the above-mentioned patches were changed or removed either due to conflicts with other patches or simply because the features were of no use in my workflow. Following is the list of changes made to the original patches.
-- [fullgaps](https://dwm.suckless.org/patches/fullgaps/dwm-fullgaps-6.2.diff)
+Some functionalities of the above-mentioned patches were changed or removed either due to conflicts with other patches or simply because the features were of no use in my workflow. Listed below are changes made to the original patches. Links lead to relevant commit in which the changes were made.
+- [fullgaps](https://github.com/baj0k/suckless-builds/commit/bb92d6fcc7fd2850ed8474a85ad57ddcc9454914)
 The setgaps function was removed to free the bindings for more useful features than changing gap size on runtime.
-- [tab](https://dwm.suckless.org/patches/tab/dwm-tab-i3like-20211121-a786211.diff)
+- [tab](https://github.com/baj0k/suckless-builds/commit/cb4448b3600081358d5fcf05084e03980ac25c77)
 The tabmode function was removed as well as showtab and toptab variables. The patch was changed so that tab bar position and showtab mode are now hardcoded in the source (respectively - top and monocle in the presence of several windows).
 <!-- TODO: change tab patch so that it respects gaps. Probably can be done by making monocle layout respect gaps --> 
 
