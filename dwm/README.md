@@ -9,7 +9,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [floatrules](https://dwm.suckless.org/patches/floatrules/dwm-floatrules-20210801-138b405.diff)
 - [fullgaps](https://dwm.suckless.org/patches/fullgaps/dwm-fullgaps-6.2.diff)
 - [hide vacant tags](https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.3.diff)
-- [shiftview] - tbd <!-- TODO: upload diff to suckless.org -->
+- [shiftview](https://github.com/baj0k/suckless-builds/commit/eedb5ce78ce2a2b87dc1012479d8301ba8482b84)
 - [pertag](https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff) <!-- TODO: check if any of the previous patches had a version that works with pertag -->
 - [resetnmaster](https://dwm.suckless.org/patches/resetnmaster/dwm-resetnmaster-pertag-6.3.diff)
 - [resizecorners](https://dwm.suckless.org/patches/resizecorners/dwm-resizecorners-6.2.diff)
@@ -23,14 +23,14 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 
 ## Patch customizations
 Some functionalities of the above-mentioned patches were changed or removed either due to conflicts with other patches or simply because the features were of no use in my workflow. Listed below are changes made to the original patches. Links lead to relevant commits in which the changes were made.
-- [floatrules](tbd)  
+- floatrules - [diff](https://github.com/baj0k/suckless-builds/commit/8fe82911a5c340dde990d57b0c58fbdf98942ed0)  
 Removed floatborderpx rule as border size was already set to 0 for all windows by borderpx variable. 
-- [fullgaps](https://github.com/baj0k/suckless-builds/commit/bb92d6fcc7fd2850ed8474a85ad57ddcc9454914)  
+- fullgaps - [diff](https://github.com/baj0k/suckless-builds/commit/bb92d6fcc7fd2850ed8474a85ad57ddcc9454914)  
 The setgaps function was removed to free the bindings for more useful features than changing gap size on runtime.
-- [tab](https://github.com/baj0k/suckless-builds/commit/cb4448b3600081358d5fcf05084e03980ac25c77)  
+- tab - [diff1](https://github.com/baj0k/suckless-builds/commit/cb4448b3600081358d5fcf05084e03980ac25c77), [diff2](https://github.com/baj0k/suckless-builds/commit/351a574484cd6e550985b6990adbc45c671ed98e)  
 The tabmode function was removed as well as showtab and toptab variables. The patch was changed so that tab bar position and showtab mode are now hardcoded in the source (respectively - top and monocle in the presence of several windows). In addition this patch wasn't working with the 'alpha' patch. Particularly the updatebars(void) function changed in alpha patch and the m->tabwin initialization had to be changed respectively to the m->barwin changes introduced in the alpha patch.
 <!-- TODO: change tab patch so that it respects gaps. Probably can be done by making monocle layout respect gaps --> 
-- [underlinetags](tbd)  
+- underlinetags - [diff](https://github.com/baj0k/suckless-builds/commit/5ffea6b226be0f670c984e53410a545b8fb86c66)  
 Removed ulineall and ulinevoffset options.
 
 ## Installation
