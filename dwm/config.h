@@ -23,6 +23,9 @@ static const char *colors[][3]      = {
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
+static const unsigned int ulinepad	= 10;	/* horizontal padding between the underline and tag */
+static const unsigned int ulinestroke	= 1;	/* thickness / height of the underline */
+
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -32,6 +35,8 @@ static const Rule rules[] = {
     { "firefox",  NULL,       NULL,        1 << 1,      0,            1,        -1,-1,-1,-1,        -1 },
     { "mpv",      NULL,       NULL,        0,           1,           -1,         2055,1150,500,275, -1 },
     { "Spotify",  NULL,       NULL,        1 << 8,      1,            1,        -1,-1,-1,-1,        -1 },
+    { "Caprine",  NULL,       NULL,        0,           1,           -1,        -1,-1,-1,-1,        -1 },
+    { "Signal",   NULL,       NULL,        0,           1,           -1,        -1,-1,-1,-1,        -1 },
 };
 
 /* layout(s) */
