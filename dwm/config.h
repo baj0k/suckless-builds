@@ -28,9 +28,9 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
     /* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h       floatborderpx*/
-    { "firefox",  NULL,       NULL,        1 << 1,      0,            1,        -1,-1,-1,-1,        0 },
-    { "mpv",      NULL,       NULL,       ~0,           1,           -1,         2055,1150,500,275, 0 },
-    { "Spotify",  NULL,       NULL,        1 << 3,      1,           -1,        -1,-1,-1,-1,        0 }, // TODO: this doesn't currently enforce floating on spotify window. debug
+    { "firefox",  NULL,       NULL,        1 << 1,      0,            1,        -1,-1,-1,-1,        -1 },
+    { "mpv",      NULL,       NULL,       ~0,           1,           -1,         2055,1150,500,275, -1 },
+    { "Spotify",  NULL,       NULL,        1 << 8,      1,            1,        -1,-1,-1,-1,        -1 },
 };
 
 /* layout(s) */

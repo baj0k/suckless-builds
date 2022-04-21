@@ -13,6 +13,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [resetnmaster](https://dwm.suckless.org/patches/resetnmaster/dwm-resetnmaster-pertag-6.3.diff)
 - [resizecorners](https://dwm.suckless.org/patches/resizecorners/dwm-resizecorners-6.2.diff)
 - [restartsig](https://dwm.suckless.org/patches/restartsig/dwm-restartsig-20180523-6.2.diff)
+- [rulerefresher](https://dwm.suckless.org/patches/rulerefresher/dwm-rulerefresher-6.2.diff)
 
 ## Installation
 Use GNU make inside the suckless-builds/dwm directory to build and install binary.
