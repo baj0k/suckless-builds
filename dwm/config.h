@@ -8,8 +8,12 @@ static const int showbar              = 1;    /* 0 means no bar */
 static const int topbar               = 1;    /* 0 means bottom bar */
 static const unsigned int ulinepad	  = 10;	  /* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke = 1;    /* thickness / height of the underline */
-static const int viewonrulestag       = 1;    /* 1 means follow applications when opened in tags defined by rules*/
+static const int viewonrulestag       = 1;    /* Follow applications when opened in tags defined by rules*/
 static const Bool viewontag           = True; /* Follow window when sent to another tag */
+static const double activeopacity   = 0.95f;   /* Window opacity when it's focused (0 <= opacity <= 1) */
+static const double inactiveopacity = 0.8f; /* Window opacity when it's inactive (0 <= opacity <= 1) */
+static       Bool bUseOpacity       = True;   /* Starts with opacity on any unfocused windows */
+
 
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
@@ -89,6 +93,7 @@ static Key keys[] = {
 	{ MODKEY,             XK_l,         setmfact,               {.f = +0.05} },
 	{ MODKEY|ShiftMask,   XK_Return,    zoom,                   {0} },
 	{ MODKEY,             XK_BackSpace, view,                   {0} },
+    { MODKEY,             XK_a,         toggleopacity,          {0} },
 	{ MODKEY|ShiftMask,   XK_q,         killclient,             {0} },
 	{ MODKEY,             XK_t,         setlayout,              {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,   XK_f,         setlayout,              {.v = &layouts[1]} },
