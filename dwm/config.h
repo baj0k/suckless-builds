@@ -96,12 +96,13 @@ static Key keys[] = {
 	{ MODKEY,			XK_a,			toggleopacity,			{0} },
 	{ MODKEY|ShiftMask,	XK_q,			killclient,				{0} },
 	{ MODKEY,			XK_t,			setlayout,				{.v = &layouts[0]} },
-	{ MODKEY|ShiftMask,	XK_f,			setlayout,				{.v = &layouts[1]} },
+//	{ MODKEY|ShiftMask,	XK_f,			setlayout,				{.v = &layouts[1]} }, not used
 	{ MODKEY,			XK_m,			setlayout,				{.v = &layouts[2]} },
 	{ MODKEY,			XK_space,		setlayout,				{0} },
 	{ MODKEY|ShiftMask,	XK_space,		togglefloating,			{0} },
 	{ MODKEY|ShiftMask,	XK_u,			togglealwaysontop,		{0} },
 	{ MODKEY,			XK_f,			togglecanfocusfloating,	{0} },
+	{ MODKEY|ShiftMask,	XK_f,			fullscreen,				{0} },
 	{ MODKEY,			XK_s,			togglesticky,			{0} },
 	{ MODKEY,			XK_0,			view,					{.ui = ~0 } },
 	{ MODKEY|ShiftMask,	XK_0,			tag,					{.ui = ~0 } },
@@ -109,8 +110,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_period,		focusmon,				{.i = +1 } },
 	{ MODKEY|ShiftMask,	XK_comma,		tagmon,					{.i = -1 } },
 	{ MODKEY|ShiftMask,	XK_period,		tagmon,					{.i = +1 } },
-	{ MODKEY,			XK_Tab,			shiftview,				{ .i = +1 } },
-	{ MODKEY|ShiftMask,	XK_Tab,			shiftview,				{ .i = -1 } },
+	{ MODKEY,			XK_Tab,			shiftview,				{.i = +1 } },
+	{ MODKEY|ShiftMask,	XK_Tab,			shiftview,				{.i = -1 } },
 	TAGKEYS(			XK_1,									0)
 	TAGKEYS(			XK_2,									1)
 	TAGKEYS(			XK_3,									2)
