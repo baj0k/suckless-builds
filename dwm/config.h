@@ -58,9 +58,10 @@ static const int lockfullscreen = 0;	/* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol	 arrange function */
-	{ "=|=",	  tile },		/* first entry is default */
+	{ "-|-",	  tile },		/* first entry is default */
 	{ "><",		  NULL },		/* no layout function means floating behavior */
 	{ "[M]",	  monocle },
+	{ "[+]",      horizgrid },
 };
 
 /* key definitions */
@@ -98,6 +99,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_t,			setlayout,				{.v = &layouts[0]} },
 //	{ MODKEY|ShiftMask,	XK_f,			setlayout,				{.v = &layouts[1]} }, not used
 	{ MODKEY,			XK_m,			setlayout,				{.v = &layouts[2]} },
+	{ MODKEY,			XK_g,			setlayout,				{.v = &layouts[3]} },
 	{ MODKEY,			XK_space,		setlayout,				{0} },
 	{ MODKEY|ShiftMask,	XK_space,		togglefloating,			{0} },
 	{ MODKEY|ShiftMask,	XK_u,			togglealwaysontop,		{0} },
@@ -121,6 +123,7 @@ static Key keys[] = {
 	TAGKEYS(			XK_7,									6)
 	TAGKEYS(			XK_8,									7)
 	TAGKEYS(			XK_9,									8)
+	{ MODKEY,			XK_o,			winview,				{0} },
 	{ MODKEY|ShiftMask,	XK_e,			quit,					{0} },
 	{ MODKEY|ShiftMask,	XK_r,			quit,					{1} }, /* restart dwm */
 };

@@ -13,6 +13,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [fullgaps](https://dwm.suckless.org/patches/fullgaps/dwm-fullgaps-6.2.diff)
 - [fullscreen](https://dwm.suckless.org/patches/fullscreen/dwm-fullscreen-6.2.diff)
 - [hide vacant tags](https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.3.diff)
+- [horizgrid](https://dwm.suckless.org/patches/horizgrid/dwm-horizgrid-6.1.diff)
 - [shiftview](https://github.com/baj0k/suckless-builds/commit/eedb5ce78ce2a2b87dc1012479d8301ba8482b84)
 - [pertag](https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff) <!-- TODO: check if any of the previous patches had a version that works with pertag -->
 - [resetnmaster](https://dwm.suckless.org/patches/resetnmaster/dwm-resetnmaster-pertag-6.3.diff)
@@ -25,6 +26,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [underlinetags](https://dwm.suckless.org/patches/underlinetags/dwm-underlinetags-6.2.diff)
 - [viewonrulestag](https://dwm.suckless.org/patches/viewonrulestag/dwm-viewonrulestag-20220410-bece862.diff)
 - [viewontag](https://dwm.suckless.org/patches/viewontag/dwm-viewontag-20210312-61bb8b2.diff)
+- [winview](https://dwm.suckless.org/patches/winview/dwm-6.0-winview.diff)
 
 ## Patch customizations
 Some functionalities of the above-mentioned patches were changed or removed either due to conflicts with other patches or simply because the features were of no use in my workflow. Listed below are changes made to the original patches. Links lead to relevant commits in which the changes were made.

@@ -198,6 +198,7 @@ static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
 static void monocle(Monitor *m);
+static void horizgrid(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
 static Client *nexttagged(Client *c);
@@ -259,6 +260,7 @@ static void updatewmhints(Client *c);
 static void view(const Arg *arg);
 static Client *wintoclient(Window w);
 static Monitor *wintomon(Window w);
+static void winview(const Arg* arg);
 static int xerror(Display *dpy, XErrorEvent *ee);
 static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
@@ -2582,6 +2584,61 @@ wintomon(Window w)
 	if ((c = wintoclient(w)))
 		return c->mon;
 	return selmon;
+}
+
+/* Selects for the view of the focused window. The list of tags */
+/* to be displayed is matched to the focused window tag list. */
+void
+winview(const Arg* arg){
+	Window win, win_r, win_p, *win_c;
+	unsigned nc;
+	int unused;
+	Client* c;
+	Arg a;
+
+	if (!XGetInputFocus(dpy, &win, &unused)) return;
+	while(XQueryTree(dpy, win, &win_r, &win_p, &win_c, &nc)
+	      && win_p != win_r) win = win_p;
+
+	if (!(c = wintoclient(win))) return;
+
+	a.ui = c->tags;
+	view(&a);
+}
+
+void
+horizgrid(Monitor *m) {
+       Client *c;
+       unsigned int n, i;
+       int w = 0;
+       int ntop, nbottom = 0;
+
+       /* Count windows */
+       for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+
+       if(n == 0)
+               return;
+       else if(n == 1) { /* Just fill the whole screen */
+               c = nexttiled(m->clients);
+               resize(c, m->wx, m->wy, m->ww - (2*c->bw), m->wh - (2*c->bw), False);
+       } 
+       else if(n == 2) { /* Split vertically */
+               w = m->ww / 2;
+               c = nexttiled(m->clients);
+               resize(c, m->wx, m->wy, w - (2*c->bw), m->wh - (2*c->bw), False);
+               c = nexttiled(c->next);
+               resize(c, m->wx + w, m->wy, w - (2*c->bw), m->wh - (2*c->bw), False);
+       }
+       else {
+               ntop = n / 2;
+               nbottom = n - ntop;
+               for(i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+                       if(i < ntop)
+                               resize(c, m->wx + i * m->ww / ntop, m->wy, m->ww / ntop - (2*c->bw), m->wh / 2 - (2*c->bw), False);
+                       else
+                               resize(c, m->wx + (i - ntop) * m->ww / nbottom, m->wy + m->wh / 2, m->ww / nbottom - (2*c->bw), m->wh / 2 - (2*c->bw), False);
+               }
+       }
 }
 
 /* There's no way to check accesses to destroyed windows, thus those cases are
