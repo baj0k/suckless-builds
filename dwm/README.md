@@ -34,7 +34,7 @@ Some functionalities of the above-mentioned patches were changed or removed eith
 Removed floatborderpx rule as border size was already set to 0 for all windows by borderpx variable. 
 - fullgaps - [diff](https://github.com/baj0k/suckless-builds/commit/bb92d6fcc7fd2850ed8474a85ad57ddcc9454914)  
 The setgaps function was removed to free the bindings for more useful features than changing gap size on runtime.
-- horizgrid - [diff](tbd)
+- horizgrid - [diff](https://github.com/baj0k/suckless-builds/commit/58991f029ff07f8965608234aa80eab27534ac31)
 The grid was made to respect the gappx value from the fullgaps patch.
 - tab - [diff1](https://github.com/baj0k/suckless-builds/commit/cb4448b3600081358d5fcf05084e03980ac25c77), [diff2](https://github.com/baj0k/suckless-builds/commit/351a574484cd6e550985b6990adbc45c671ed98e)  
 The tabmode function was removed as well as showtab and toptab variables. The patch was changed so that tab bar position and showtab mode are now hardcoded in the source (respectively - top and monocle in the presence of several windows). In addition this patch wasn't working with the 'alpha' patch. Particularly the updatebars(void) function changed in alpha patch and the m->tabwin initialization had to be changed respectively to the m->barwin changes introduced in the alpha patch.

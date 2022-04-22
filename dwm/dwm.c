@@ -2636,7 +2636,7 @@ horizgrid(Monitor *m) {
                        if(i < ntop)
                                resize(c, m->wx + m->gappx + i * m->ww / ntop, m->wy + m->gappx, m->ww / ntop - (2*c->bw) - ((i+1 == ntop) ? (2*m->gappx) : m->gappx), m->wh / 2 - (2*c->bw) - (2*m->gappx), False);
                        else
-                               resize(c, m->wx + m->gappx + (i - ntop) * m->ww / nbottom, m->wy + m->wh / 2, m->ww / nbottom - (2*c->bw) - ((i+1 == ntop) ? (2*m->gappx) : m->gappx), m->wh / 2 - (2*c->bw) - m->gappx, False);
+                               resize(c, m->wx + m->gappx + (i - ntop) * m->ww / nbottom, m->wy + m->wh / 2, m->ww / nbottom - (2*c->bw) - ((i+1 == n) ? (2*m->gappx) : m->gappx), m->wh / 2 - (2*c->bw) - m->gappx, False);
                }
        }
 }
