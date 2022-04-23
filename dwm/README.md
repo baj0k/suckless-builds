@@ -1,6 +1,11 @@
 My personalized build of dwm - the dynamic window manager for X by suckless.org
 <!-- TODO: Update manual so it shows correct keybinds -->
 
+## Dependencies
+- libxcb
+- Xlib-libxcb
+- xcb-res
+
 ## Patches applied
 - [alpha](https://dwm.suckless.org/patches/alpha/dwm-alpha-20201019-61bb8b2.diff)
 - [alwayscenter](https://dwm.suckless.org/patches/alwayscenter/dwm-alwayscenter-20200625-f04cac6.diff)
@@ -22,6 +27,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [rulerefresher](https://dwm.suckless.org/patches/rulerefresher/dwm-rulerefresher-6.2.diff)
 - [save floats](https://dwm.suckless.org/patches/save_floats/dwm-savefloats-20181212-b69c870.diff)
 - [sticky](https://dwm.suckless.org/patches/sticky/dwm-sticky-6.1.diff)
+- [swallow](https://dwm.suckless.org/patches/swallow/dwm-swallow-20201211-61bb8b2.diff)
 - [tab](https://dwm.suckless.org/patches/tab/dwm-tab-i3like-20211121-a786211.diff)
 - [underlinetags](https://dwm.suckless.org/patches/underlinetags/dwm-underlinetags-6.2.diff)
 - [viewonrulestag](https://dwm.suckless.org/patches/viewonrulestag/dwm-viewonrulestag-20220410-bece862.diff)
