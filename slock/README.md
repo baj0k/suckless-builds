@@ -1,6 +1,6 @@
 My personalized build of slock - the simple screen locker for X by suckless.org
 
-# Requirements
+# Dependencies
 - Xlib
 
 ## Patches applied

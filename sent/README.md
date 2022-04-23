@@ -1,6 +1,6 @@
 My personalized build of sent - the simple plaintext presentation tool by suckless.org
 
-## Requirements
+## Dependencies
 - Xlib
 - Xft
 - farbfeld

@@ -1,6 +1,6 @@
 My personalized build of tabbed by suckless.org
 
-## Requirements
+## Dependencies
 - Xlib
 
 ## Patches applied
