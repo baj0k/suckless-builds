@@ -84,51 +84,63 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
-	/* modifier			key				function				argument */
-	{ MODKEY,			XK_d,			spawn,					{.v = dmenucmd } },
-	{ MODKEY,			XK_Return,		spawn,					{.v = termcmd } },
-	{ MODKEY,			XK_b,			togglebar,				{0} },
-	{ MODKEY,			XK_j,			focusstack,				{.i = +1 } },
-	{ MODKEY,			XK_k,			focusstack,				{.i = -1 } },
-	{ MODKEY,			XK_i,			incnmaster,				{.i = +1 } },
-	{ MODKEY|ShiftMask,	XK_i,			incnmaster,				{.i = -1 } },
-	{ MODKEY,			XK_o,			resetnmaster,			{0} },
-	{ MODKEY,			XK_h,			setmfact,				{.f = -0.05} },
-	{ MODKEY,			XK_l,			setmfact,				{.f = +0.05} },
-	{ MODKEY|ShiftMask,	XK_Return,		zoom,					{0} },
-	{ MODKEY,			XK_BackSpace,	view,					{0} },
-	{ MODKEY,			XK_a,			toggleopacity,			{0} },
-	{ MODKEY|ShiftMask,	XK_q,			killclient,				{0} },
-	{ MODKEY,			XK_t,			setlayout,				{.v = &layouts[0]} },
-//	{ MODKEY|ShiftMask,	XK_f,			setlayout,				{.v = &layouts[1]} }, not used
-	{ MODKEY,			XK_m,			setlayout,				{.v = &layouts[2]} },
-	{ MODKEY,			XK_g,			setlayout,				{.v = &layouts[3]} },
-	{ MODKEY,			XK_space,		setlayout,				{0} },
-	{ MODKEY|ShiftMask,	XK_space,		togglefloating,			{0} },
-	{ MODKEY|ShiftMask,	XK_u,			togglealwaysontop,		{0} },
-	{ MODKEY,			XK_f,			togglecanfocusfloating,	{0} },
-	{ MODKEY|ShiftMask,	XK_f,			fullscreen,				{0} },
-	{ MODKEY,			XK_s,			togglesticky,			{0} },
-	{ MODKEY,			XK_0,			view,					{.ui = ~0 } },
-	{ MODKEY|ShiftMask,	XK_0,			tag,					{.ui = ~0 } },
-	{ MODKEY,			XK_comma,		focusmon,				{.i = -1 } },
-	{ MODKEY,			XK_period,		focusmon,				{.i = +1 } },
-	{ MODKEY|ShiftMask,	XK_comma,		tagmon,					{.i = -1 } },
-	{ MODKEY|ShiftMask,	XK_period,		tagmon,					{.i = +1 } },
-	{ MODKEY,			XK_Tab,			shiftview,				{.i = +1 } },
-	{ MODKEY|ShiftMask,	XK_Tab,			shiftview,				{.i = -1 } },
-	TAGKEYS(			XK_1,									0)
-	TAGKEYS(			XK_2,									1)
-	TAGKEYS(			XK_3,									2)
-	TAGKEYS(			XK_4,									3)
-	TAGKEYS(			XK_5,									4)
-	TAGKEYS(			XK_6,									5)
-	TAGKEYS(			XK_7,									6)
-	TAGKEYS(			XK_8,									7)
-	TAGKEYS(			XK_9,									8)
-	{ MODKEY,			XK_o,			winview,				{0} },
-	{ MODKEY|ShiftMask,	XK_e,			quit,					{0} },
-	{ MODKEY|ShiftMask,	XK_r,			quit,					{1} }, /* restart dwm */
+	/* modifier			key							function				argument */
+	{ MODKEY,			XK_Return,					spawn,					{.v = termcmd } },
+	{ MODKEY,			XK_d,						spawn,					{.v = dmenucmd } },
+	{ MODKEY,			XK_b,						togglebar,				{0} },
+	{ MODKEY,			XK_j,						focusstack,				{.i = +1 } },
+	{ MODKEY,			XK_k,						focusstack,				{.i = -1 } },
+	{ MODKEY,			XK_i,						incnmaster,				{.i = +1 } },
+	{ MODKEY|ShiftMask,	XK_i,						incnmaster,				{.i = -1 } },
+	{ MODKEY,			XK_o,						resetnmaster,			{0} },
+	{ MODKEY,			XK_h,						setmfact,				{.f = -0.05} },
+	{ MODKEY,			XK_l,						setmfact,				{.f = +0.05} },
+	{ MODKEY|ShiftMask,	XK_Return,					zoom,					{0} },
+	{ MODKEY,			XK_BackSpace,				view,					{0} },
+	{ MODKEY,			XK_a,						toggleopacity,			{0} },
+	{ MODKEY|ShiftMask,	XK_q,						killclient,				{0} },
+	{ MODKEY,			XK_t,						setlayout,				{.v = &layouts[0]} },
+//	{ MODKEY|ShiftMask,	XK_f,						setlayout,				{.v = &layouts[1]} }, not used
+	{ MODKEY,			XK_m,						setlayout,				{.v = &layouts[2]} },
+	{ MODKEY,			XK_g,						setlayout,				{.v = &layouts[3]} },
+	{ MODKEY,			XK_space,					setlayout,				{0} },
+	{ MODKEY|ShiftMask,	XK_space,					togglefloating,			{0} },
+	{ MODKEY|ShiftMask,	XK_u,						togglealwaysontop,		{0} },
+	{ MODKEY,			XK_f,						togglecanfocusfloating,	{0} },
+	{ MODKEY|ShiftMask,	XK_f,						fullscreen,				{0} },
+	{ MODKEY,			XK_s,						togglesticky,			{0} },
+	{ MODKEY,			XK_0,						view,					{.ui = ~0 } },
+	{ MODKEY|ShiftMask,	XK_0,						tag,					{.ui = ~0 } },
+	{ MODKEY,			XK_comma,					focusmon,				{.i = -1 } },
+	{ MODKEY,			XK_period,					focusmon,				{.i = +1 } },
+	{ MODKEY|ShiftMask,	XK_comma,					tagmon,					{.i = -1 } },
+	{ MODKEY|ShiftMask,	XK_period,					tagmon,					{.i = +1 } },
+	{ MODKEY,			XK_Tab,						shiftview,				{.i = +1 } },
+	{ MODKEY|ShiftMask,	XK_Tab,						shiftview,				{.i = -1 } },
+	{ MODKEY|ShiftMask,	XK_Tab,						shiftview,				{.i = -1 } },
+	{ MODKEY,			XK_o,						winview,				{0} },
+	{ MODKEY|ShiftMask,	XK_e,						quit,					{0} },
+	{ MODKEY|ShiftMask,	XK_r,						quit,					{1} }, /* restart dwm */
+	TAGKEYS(			XK_1,												0)
+	TAGKEYS(			XK_2,												1)
+	TAGKEYS(			XK_3,												2)
+	TAGKEYS(			XK_4,												3)
+	TAGKEYS(			XK_5,												4)
+	TAGKEYS(			XK_6,												5)
+	TAGKEYS(			XK_7,												6)
+	TAGKEYS(			XK_8,												7)
+	TAGKEYS(			XK_9,												8)
+	{ MODKEY,			XK_y,						spawn,					SHCMD("yt") },
+	{ 0,				XK_Print,					spawn,					SHCMD("prtsc") },
+	{ ShiftMask,		XK_Print,					spawn,					SHCMD("scrot -s /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'") },
+	/*{ 0,				XK_XF86AudioRaiseVolume,	spawn,					SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+12") },
+	{ 0,				XK_XF86AudioLowerVolume,	spawn,					SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+12") }, //TODO: check if need to be changed for pipewire
+	{ 0,				XK_XF86AudioMute,			spawn,					SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+12") },
+	{ 0,				XK_XF86AudioMicMute,		spawn,					SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+12") }, */
+	{ 0,				XF86XK_AudioRaiseVolume,	spawn,					SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
+	{ 0,				XF86XK_AudioLowerVolume,	spawn,					SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
+	{ 0,				XF86XK_AudioMute,			spawn,					SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
+	{ 0,				XF86XK_AudioMicMute,		spawn,					SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
 };
 
 /* button definitions */

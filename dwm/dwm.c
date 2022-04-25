@@ -39,6 +39,7 @@
 #include <X11/extensions/Xinerama.h>
 #include <X11/Xft/Xft.h>
 #include <X11/Xlib-xcb.h>
+#include <X11/XF86keysym.h>
 #include <xcb/res.h>
 
 #include "drw.h"
