@@ -1,4 +1,5 @@
 My personalized build of st - the simple terminal by suckless.org somewhat inspired by Luke's [build](https://github.com/LukeSmithxyz/st)
+<!--TODO: now unclutter is being used to hide the mouse cursor, remove that patch when reviewing st -->
 
 ## Useful bindings
 alt-k/j or alt-PgUp/PgDn to scrollback

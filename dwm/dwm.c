@@ -36,16 +36,10 @@
 #include <X11/Xlib.h>
 #include <X11/Xproto.h>
 #include <X11/Xutil.h>
-#ifdef XINERAMA
 #include <X11/extensions/Xinerama.h>
-#endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
 #include <X11/Xlib-xcb.h>
 #include <xcb/res.h>
-#ifdef __OpenBSD__
-#include <sys/sysctl.h>
-#include <kvm.h>
-#endif /* __OpenBSD */
 
 #include "drw.h"
 #include "util.h"
@@ -1230,7 +1224,6 @@ incnmaster(const Arg *arg)
 	arrange(selmon);
 }
 
-#ifdef XINERAMA
 static int
 isuniquegeom(XineramaScreenInfo *unique, size_t n, XineramaScreenInfo *info)
 {
@@ -1240,7 +1233,6 @@ isuniquegeom(XineramaScreenInfo *unique, size_t n, XineramaScreenInfo *info)
 			return 0;
 	return 1;
 }
-#endif /* XINERAMA */
 
 void
 keypress(XEvent *e)
@@ -2380,7 +2372,6 @@ updategeom(void)
 {
 	int dirty = 0;
 
-#ifdef XINERAMA
 	if (XineramaIsActive(dpy)) {
 		int i, j, n, nn;
 		Client *c;
@@ -2435,7 +2426,6 @@ updategeom(void)
 		}
 		free(unique);
 	} else
-#endif /* XINERAMA */
 	{ /* default monitor setup */
 		if (!mons)
 			mons = createmon();
@@ -2650,10 +2640,7 @@ view(const Arg *arg)
 pid_t
 winpid(Window w)
 {
-
 	pid_t result = 0;
-
-#ifdef __linux__
 	xcb_res_client_id_spec_t spec = {0};
 	spec.client = w;
 	spec.mask = XCB_RES_CLIENT_ID_MASK_LOCAL_CLIENT_PID;
@@ -2674,29 +2661,10 @@ winpid(Window w)
 			break;
 		}
 	}
-
 	free(r);
 
 	if (result == (pid_t)-1)
 		result = 0;
-
-#endif /* __linux__ */
-
-#ifdef __OpenBSD__
-        Atom type;
-        int format;
-        unsigned long len, bytes;
-        unsigned char *prop;
-        pid_t ret;
-
-        if (XGetWindowProperty(dpy, w, XInternAtom(dpy, "_NET_WM_PID", 0), 0, 1, False, AnyPropertyType, &type, &format, &len, &bytes, &prop) != Success || !prop)
-               return 0;
-
-        ret = *(pid_t*)prop;
-        XFree(prop);
-        result = ret;
-
-#endif /* __OpenBSD__ */
 	return result;
 }
 
@@ -2704,8 +2672,6 @@ pid_t
 getparentprocess(pid_t p)
 {
 	unsigned int v = 0;
-
-#ifdef __linux__
 	FILE *f;
 	char buf[256];
 	snprintf(buf, sizeof(buf) - 1, "/proc/%u/stat", (unsigned)p);
@@ -2715,21 +2681,6 @@ getparentprocess(pid_t p)
 
 	fscanf(f, "%*u %*s %*c %u", &v);
 	fclose(f);
-#endif /* __linux__*/
-
-#ifdef __OpenBSD__
-	int n;
-	kvm_t *kd;
-	struct kinfo_proc *kp;
-
-	kd = kvm_openfiles(NULL, NULL, NULL, KVM_NO_FILES, NULL);
-	if (!kd)
-		return 0;
-
-	kp = kvm_getprocs(kd, KERN_PROC_PID, p, sizeof(*kp), &n);
-	v = kp->p_ppid;
-#endif /* __OpenBSD__ */
-
 	return (pid_t)v;
 }
 
@@ -2964,10 +2915,6 @@ main(int argc, char *argv[])
 		die("dwm: cannot get xcb connection\n");
 	checkotherwm();
 	setup();
-#ifdef __OpenBSD__
-	if (pledge("stdio rpath proc exec ps", NULL) == -1)
-		die("pledge");
-#endif /* __OpenBSD__ */
 	scan();
 	run();
 	if(restart) execvp(argv[0], argv);
