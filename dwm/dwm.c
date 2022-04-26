@@ -38,6 +38,7 @@
 #include <X11/Xutil.h>
 #include <X11/extensions/Xinerama.h>
 #include <X11/Xft/Xft.h>
+#include <pango/pango.h>
 #include <X11/Xlib-xcb.h>
 #include <X11/XF86keysym.h>
 #include <xcb/res.h>
@@ -57,7 +58,8 @@
 #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
 #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
 #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
-#define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
+#define TEXTW(X)                (drw_font_getwidth(drw, (X), False) + lrpad)
+#define TEXTWM(X)                (drw_font_getwidth(drw, (X), True) + lrpad)
 #define MAXTABS 50
 
 #define OPAQUE                  0xffU
@@ -283,8 +285,8 @@ static pid_t winpid(Window w);
 
 /* variables */
 static const char broken[] = "broken";
-static char stext[256];
-static char rawstext[256];
+static char stext[512];
+static char rawstext[512]; // TODO: consider increasing to 512, as pango patch increased stext to 512
 static int dwmblockssig;
 pid_t dwmblockspid = 0;
 static int screen;
@@ -587,7 +589,7 @@ buttonpress(XEvent *e)
 			arg.ui = 1 << i;
 		} else if (ev->x < x + blw)
 			click = ClkLtSymbol;
-		else if (ev->x > selmon->ww - (int)TEXTW(stext)){
+		else if (ev->x > selmon->ww - (int)TEXTWM(stext)){
 			click = ClkStatusText;
 
 			char *text = rawstext;
@@ -898,8 +900,8 @@ void
 drawbar(Monitor *m)
 {
 	int x, w, tw = 0;
-	int boxs = drw->fonts->h / 9;
-	int boxw = drw->fonts->h / 6 + 2;
+    int boxs = drw->font->h / 9;
+    int boxw = drw->font->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 
@@ -909,8 +911,8 @@ drawbar(Monitor *m)
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) { /* status is only drawn on selected monitor */
 		drw_setscheme(drw, scheme[SchemeNorm]);
-		tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
-		drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);
+        tw = TEXTWM(stext) - lrpad + 2; /* 2px right padding */
+        drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0, True);
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -925,18 +927,18 @@ drawbar(Monitor *m)
 			continue;
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
-		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+        drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i, False);
         drw_rect(drw, x + ulinepad, bh - ulinestroke, w - (ulinepad * 2), ulinestroke, 1, 0);
 		x += w;
 	}
 	w = blw = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeNorm]);
-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+    x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0, False);
 
 	if ((w = m->ww - tw - x) > bh) {
 		if (m->sel) {
 			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
-			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
+            drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0, False);
 			if (m->sel->isfloating) {
 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
 				if (m->sel->isalwaysontop)
@@ -992,7 +994,7 @@ drawtab(Monitor *m) {
 	  drw_setscheme(drw, scheme[(c == m->sel) ? SchemeSel : SchemeNorm]);
 	  tm = (m->tab_widths[i] - (int)TEXTW(c->name)) / 2;
 	  tm = (int)TEXTW(c->name) >= m->tab_widths[i] ? lrpad / 2 : tm;
-	  drw_text(drw, x, 0, w, th, tm, c->name, 0);
+	  drw_text(drw, x, 0, w, th, tm, c->name, 0, False);
 	  x += w;
 	  ++i;
 	}
@@ -1906,10 +1908,10 @@ setup(void)
 	root = RootWindow(dpy, screen);
 	xinitvisual();
 	drw = drw_create(dpy, screen, root, sw, sh, visual, depth, cmap);
-	if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
+    if (!drw_font_create(drw, font))
 		die("no fonts could be loaded.");
-	lrpad = drw->fonts->h;
-	bh = drw->fonts->h + 2;
+    lrpad = drw->font->h;
+    bh = drw->font->h + 2;
 	th = bh;
 	updategeom();
 	/* init atoms */
@@ -1961,7 +1963,6 @@ setup(void)
 	grabkeys();
 	focus(NULL);
 }
-
 
 void
 seturgent(Client *c, int urg)
