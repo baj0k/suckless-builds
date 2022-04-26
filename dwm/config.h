@@ -7,8 +7,6 @@ static const unsigned int snap			= 32;	/* snap pixel */
 static const int swallowfloating		= 0;	/* 1 means swallow floating windows by default */
 static const int showbar				= 1;	/* 0 means no bar */
 static const int topbar					= 1;	/* 0 means bottom bar */
-static const unsigned int ulinepad		= 10;	/* horizontal padding between the underline and tag */
-static const unsigned int ulinestroke	= 1;	/* thickness / height of the underline */
 static const int viewonrulestag			= 1;	/* Follow applications when opened in tags defined by rules*/
 static const Bool viewontag				= True;	/* Follow window when sent to another tag */
 static const double activeopacity		= 0.95f;/* Window opacity when it's focused (0 <= opacity <= 1) */

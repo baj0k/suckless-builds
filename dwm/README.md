@@ -31,7 +31,6 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [sticky](https://dwm.suckless.org/patches/sticky/dwm-sticky-6.1.diff)
 - [swallow](https://dwm.suckless.org/patches/swallow/dwm-swallow-20201211-61bb8b2.diff)
 - [tab](https://dwm.suckless.org/patches/tab/dwm-tab-i3like-20211121-a786211.diff)
-- [underlinetags](https://dwm.suckless.org/patches/underlinetags/dwm-underlinetags-6.2.diff)
 - [viewonrulestag](https://dwm.suckless.org/patches/viewonrulestag/dwm-viewonrulestag-20220410-bece862.diff)
 - [viewontag](https://dwm.suckless.org/patches/viewontag/dwm-viewontag-20210312-61bb8b2.diff)
 - [winview](https://dwm.suckless.org/patches/winview/dwm-6.0-winview.diff)
@@ -49,8 +48,6 @@ The original patch was changed similarly to the Luke Smith's [dwmblocks build](h
 - tab - [diff1](https://github.com/baj0k/suckless-builds/commit/cb4448b3600081358d5fcf05084e03980ac25c77), [diff2](https://github.com/baj0k/suckless-builds/commit/351a574484cd6e550985b6990adbc45c671ed98e)  
 The tabmode function was removed as well as showtab and toptab variables. The patch was changed so that tab bar position and showtab mode are now hardcoded in the source (respectively - top and monocle in the presence of several windows). In addition this patch wasn't working with the 'alpha' patch. Particularly the updatebars(void) function changed in alpha patch and the m->tabwin initialization had to be changed respectively to the m->barwin changes introduced in the alpha patch.
 <!-- TODO: change tab patch so that it respects gaps. Probably can be done by making monocle layout respect gaps --> 
-- underlinetags - [diff](https://github.com/baj0k/suckless-builds/commit/5ffea6b226be0f670c984e53410a545b8fb86c66)  
-Removed ulineall and ulinevoffset options.
 
 ## Installation
 Use GNU make inside the suckless-builds/dwm directory to build and install binary.
