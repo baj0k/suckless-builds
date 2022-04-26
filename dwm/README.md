@@ -26,6 +26,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [restartsig](https://dwm.suckless.org/patches/restartsig/dwm-restartsig-20180523-6.2.diff)
 - [rulerefresher](https://dwm.suckless.org/patches/rulerefresher/dwm-rulerefresher-6.2.diff)
 - [save floats](https://dwm.suckless.org/patches/save_floats/dwm-savefloats-20181212-b69c870.diff)
+- [statuscmd](https://dwm.suckless.org/patches/statuscmd/dwm-statuscmd-20210405-67d76bd.diff)
 - [sticky](https://dwm.suckless.org/patches/sticky/dwm-sticky-6.1.diff)
 - [swallow](https://dwm.suckless.org/patches/swallow/dwm-swallow-20201211-61bb8b2.diff)
 - [tab](https://dwm.suckless.org/patches/tab/dwm-tab-i3like-20211121-a786211.diff)
@@ -42,6 +43,8 @@ Removed floatborderpx rule as border size was already set to 0 for all windows b
 The setgaps function was removed to free the bindings for more useful features than changing gap size on runtime.
 - horizgrid - [diff](https://github.com/baj0k/suckless-builds/commit/58991f029ff07f8965608234aa80eab27534ac31)
 The grid was made to respect the gappx value from the fullgaps patch.
+- statuscmd - [diff](https://github.com/baj0k/suckless-builds/commit/241e935a8c17c107c19d7601b4ac058f9516932a)
+The original patch was changed similarly to the Luke Smith's [dwmblocks build](https://github.com/LukeSmithxyz/dwmblocks).
 - tab - [diff1](https://github.com/baj0k/suckless-builds/commit/cb4448b3600081358d5fcf05084e03980ac25c77), [diff2](https://github.com/baj0k/suckless-builds/commit/351a574484cd6e550985b6990adbc45c671ed98e)  
 The tabmode function was removed as well as showtab and toptab variables. The patch was changed so that tab bar position and showtab mode are now hardcoded in the source (respectively - top and monocle in the presence of several windows). In addition this patch wasn't working with the 'alpha' patch. Particularly the updatebars(void) function changed in alpha patch and the m->tabwin initialization had to be changed respectively to the m->barwin changes introduced in the alpha patch.
 <!-- TODO: change tab patch so that it respects gaps. Probably can be done by making monocle layout respect gaps --> 
