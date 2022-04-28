@@ -6,8 +6,8 @@
 #include <signal.h>
 #include <errno.h>
 #include <X11/Xlib.h>
-#define LENGTH(X) (sizeof(X) / sizeof (X[0]))
-#define CMDLENGTH		50
+#define LENGTH(X)			(sizeof(X) / sizeof (X[0]))
+#define CMDLENGTH			50
 
 typedef struct {
 	char* icon;
@@ -15,6 +15,7 @@ typedef struct {
 	unsigned int interval;
 	unsigned int signal;
 } Block;
+
 void sighandler(int num);
 void buttonhandler(int sig, siginfo_t *si, void *ucontext);
 void replace(char *str, char old, char new);
@@ -28,6 +29,7 @@ void setroot();
 void statusloop();
 void termhandler(int signum);
 
+/* block configuration, allows nested code to access above variables */
 #include "blocks.h"
 
 static Display *dpy;
@@ -45,8 +47,7 @@ void replace(char *str, char old, char new)
 			*c = new;
 }
 
-// the previous function looked nice but unfortunately it didnt work if to_remove was in any position other than the last character
-// theres probably still a better way of doing this
+/* The previous function looked nice but unfortunately it didnt work if to_remove was in any position other than the last character. Theres probably still a better way of doing this */
 void remove_all(char *str, char to_remove) {
 	char *read = str;
 	char *write = str;
@@ -173,12 +174,12 @@ int getstatus(char *str, char *last)
             strcat(str, " ");
     }
 	str[strlen(str)-1] = '\0';
-	return strcmp(str, last);//0 if they are the same
+	return strcmp(str, last); //0 if they are the same
 }
 
 void setroot()
 {
-	if (!getstatus(statusstr[0], statusstr[1]))//Only set root if text has changed.
+	if (!getstatus(statusstr[0], statusstr[1])) //Only set root if text has changed.
 		return;
 	Display *d = XOpenDisplay(NULL);
 	if (d) {
@@ -192,15 +193,17 @@ void setroot()
 
 void pstdout()
 {
-	if (!getstatus(statusstr[0], statusstr[1]))//Only write out if text has changed.
+	if (!getstatus(statusstr[0], statusstr[1])) //Only write out if text has changed.
 		return;
 	printf("%s\n",statusstr[0]);
 	fflush(stdout);
 }
 
+
 void statusloop()
 {
 	setupsignals();
+
     // first figure out the default wait interval by finding the
     // greatest common denominator of the intervals
     unsigned int interval = -1;
@@ -240,7 +243,7 @@ void sighandler(int signum)
 
 void buttonhandler(int sig, siginfo_t *si, void *ucontext)
 {
-	char button[2] = {('0' + si->si_value.sival_int) & 0xff, '\0'};
+	char button[2] = {'0' + si->si_value.sival_int & 0xff, '\0'};
 	pid_t process_id = getpid();
 	sig = si->si_value.sival_int >> 8;
 	if (fork() == 0)

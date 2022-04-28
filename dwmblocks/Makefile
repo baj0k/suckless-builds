@@ -1,31 +1,19 @@
-PREFIX  := /usr/local
-CC      := cc
-CFLAGS  := -pedantic -Wall -Wno-deprecated-declarations -Os
-LDFLAGS := -lX11
+.POSIX:
 
-all: options dwmblocks
+PREFIX = /usr/local
+CC = gcc
 
-options:
-	@echo dwmblocks build options:
-	@echo "CFLAGS  = ${CFLAGS}"
-	@echo "LDFLAGS = ${LDFLAGS}"
-	@echo "CC      = ${CC}"
-
-dwmblocks: dwmblocks.c blocks.h
-	${CC} -o dwmblocks dwmblocks.c ${CFLAGS} ${LDFLAGS}
-
+dwmblocks: dwmblocks.o
+	$(CC) dwmblocks.o -lX11 -o dwmblocks
+dwmblocks.o: dwmblocks.c blocks.h
+	$(CC) -c dwmblocks.c
 clean:
-	rm -f *.o *.gch dwmblocks
-
+	rm -f *.o *.gch dwmblocks *.orig *.rej *.diff
 install: dwmblocks
-	mkdir -p ${DESTDIR}${PREFIX}/bin
-	cp -f dwmblocks ${DESTDIR}${PREFIX}/bin
-	chmod 755 ${DESTDIR}${PREFIX}/bin/dwmblocks
-
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	cp -f dwmblocks $(DESTDIR)$(PREFIX)/bin
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/dwmblocks
 uninstall:
-	rm -f ${DESTDIR}${PREFIX}/bin/dwmblocks
+	rm -f $(DESTDIR)$(PREFIX)/bin/dwmblocks
 
-cleaninstall: install clean
-	rm -f *.orig *.rej *.diff
-
-.PHONY: all options clean install uninstall cleaninstall
+.PHONY: clean install uninstall

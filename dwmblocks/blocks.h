@@ -1,9 +1,9 @@
 //Modify this file to change what commands output to your statusbar, and recompile using the make command.
 static const Block blocks[] = {
-	/*Icon*/	/*Command*/			/*Update Interval*/	/*Update Signal*/
-	{"",		"ovpn.sh",			0,					13},
-	//{"", "",					5,		0},
+	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
+	{"",	"sb-clock",	60,	1},
+	{"🌏",	"sb-ovpn",	0,	15},
 };
 
-//sets delimeter between status commands. NULL character ('\0') means no delimeter.
+//Sets delimiter between status commands. NULL character ('\0') means no delimiter.
 static char *delim = " ";
