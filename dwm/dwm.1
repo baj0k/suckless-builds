@@ -34,7 +34,7 @@ the top left corner.
 Another bar contains a tab for each window of the current view and allows
 navigation between windows, especially in the monocle mode. The different
 display modes of this bar are described under the Mod1\-w Keybord command
-section.  When a single tag is selected, this tag is indicated in the left corner
+section.  When a single tag is selected, that tag is indicated in the left corner
 of the tab bar.
 .P
 dwm draws a small border around windows to indicate the focus state.
@@ -122,6 +122,12 @@ Decrease master area size.
 .B Mod1\-o
 Select view of the window in focus. The list of tags to be displayed is matched to the window tag list.
 .TP
+.B Mod1\-w
+Cycle over the tab bar display modes: never displayed, always displayed,
+displayed only in monocle mode when the view contains than one window (auto
+mode). Some display modes can be disabled in the configuration, config.h. In
+the default configuration only "never" and "auto" display modes are enabled.
+.TP
 .B Mod1\-Return
 Zooms/cycles focused window to/from master area (tiled layouts only).
 .TP
@@ -154,9 +160,6 @@ Add/remove all windows with nth tag to/from the view.
 .TP
 .B Mod1\-Shift\-q
 Quit dwm.
-.TP
-.B Mod1\-Control\-Shift\-q
-Restart dwm.
 .SS Mouse commands
 .TP
 .B Mod1\-Button1
@@ -170,13 +173,6 @@ Resize focused window while dragging. Tiled windows will be toggled to the float
 .SH CUSTOMIZATION
 dwm is customized by creating a custom config.h and (re)compiling the source
 code. This keeps it fast, secure and simple.
-.SH SIGNALS
-.TP
-.B SIGHUP - 1
-Restart the dwm process.
-.TP
-.B SIGTERM - 15
-Cleanly terminate the dwm process.
 .SH SEE ALSO
 .BR dmenu (1),
 .BR st (1)

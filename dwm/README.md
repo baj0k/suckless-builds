@@ -16,12 +16,11 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [fakefullscreen](https://dwm.suckless.org/patches/fakefullscreen/dwm-fakefullscreen-20210714-138b405.diff)
 - [floatrules](https://dwm.suckless.org/patches/floatrules/dwm-floatrules-20210801-138b405.diff)
 - [fullgaps](https://dwm.suckless.org/patches/fullgaps/dwm-fullgaps-6.2.diff)
-- [fullscreen](https://dwm.suckless.org/patches/fullscreen/dwm-fullscreen-6.2.diff)
 - [hide vacant tags](https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.3.diff)
 - [horizgrid](https://dwm.suckless.org/patches/horizgrid/dwm-horizgrid-6.1.diff)
 - [shiftview](https://github.com/baj0k/suckless-builds/commit/eedb5ce78ce2a2b87dc1012479d8301ba8482b84)
 - [pango](https://dwm.suckless.org/patches/pango/dwm-pango-20201020-519f869.diff)
-- [pertag](https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff) <!-- TODO: check if any of the previous patches had a version that works with pertag -->
+- [pertag](https://dwm.suckless.org/patches/tab/dwm-tab-v2b-pertab-56a31dc.diff) <!-- TODO: check if any of the previous patches had a version that works with pertag -->
 - [resetnmaster](https://dwm.suckless.org/patches/resetnmaster/dwm-resetnmaster-pertag-6.3.diff)
 - [resizecorners](https://dwm.suckless.org/patches/resizecorners/dwm-resizecorners-6.2.diff)
 - [restartsig](https://dwm.suckless.org/patches/restartsig/dwm-restartsig-20180523-6.2.diff)
@@ -30,7 +29,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [statuscmd](https://dwm.suckless.org/patches/statuscmd/dwm-statuscmd-20210405-67d76bd.diff)
 - [sticky](https://dwm.suckless.org/patches/sticky/dwm-sticky-6.1.diff)
 - [swallow](https://dwm.suckless.org/patches/swallow/dwm-swallow-20201211-61bb8b2.diff)
-- [tab](https://dwm.suckless.org/patches/tab/dwm-tab-i3like-20211121-a786211.diff)
+- [tab](https://dwm.suckless.org/patches/tab/dwm-tab-v2b-pertab-56a31dc.diff)
 - [viewonrulestag](https://dwm.suckless.org/patches/viewonrulestag/dwm-viewonrulestag-20220410-bece862.diff)
 - [viewontag](https://dwm.suckless.org/patches/viewontag/dwm-viewontag-20210312-61bb8b2.diff)
 - [winview](https://dwm.suckless.org/patches/winview/dwm-6.0-winview.diff)
