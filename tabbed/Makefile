@@ -38,7 +38,7 @@ dist: clean
 	@gzip tabbed-${VERSION}.tar
 	@rm -rf tabbed-${VERSION}
 
-install: all
+install: clean all
 	@echo installing executable files to ${DESTDIR}${PREFIX}/bin
 	@mkdir -p "${DESTDIR}${PREFIX}/bin"
 	@cp -f ${BIN} "${DESTDIR}${PREFIX}/bin"
@@ -49,6 +49,7 @@ install: all
 	@chmod 644 "${DESTDIR}${MANPREFIX}/man1/tabbed.1"
 	@sed "s/VERSION/${VERSION}/g" < xembed.1 > "${DESTDIR}${MANPREFIX}/man1/xembed.1"
 	@chmod 644 "${DESTDIR}${MANPREFIX}/man1/xembed.1"
+	@rm -f ${BIN} ${OBJ} tabbed-${VERSION}.tar.gz *.orig *.rej *.diff
 
 uninstall:
 	@echo removing executable files from ${DESTDIR}${PREFIX}/bin
@@ -58,7 +59,4 @@ uninstall:
 	@rm -f "${DESTDIR}${MANPREFIX}/man1/tabbed.1"
 	@rm -f "${DESTDIR}${MANPREFIX}/man1/xembed.1"
 
-cleaninstall: install clean
-	rm -f *.orig *.rej *.diff
-
-.PHONY: all options clean dist install uninstall cleaninstall
+.PHONY: all options clean dist install uninstall

@@ -37,7 +37,7 @@ dist: clean
 	tar -cf - st-$(VERSION) | gzip > st-$(VERSION).tar.gz
 	rm -rf st-$(VERSION)
 
-install: st
+install: clean st
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	cp -f st $(DESTDIR)$(PREFIX)/bin
 	cp -f st-copyout $(DESTDIR)$(PREFIX)/bin
@@ -48,13 +48,11 @@ install: st
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/st.1
 	tic -sx st.info
 	@echo Please see the README file regarding the terminfo entry of st.
+	rm -f st $(OBJ) st-$(VERSION).tar.gz *.orig *.rej *.diff
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/st
 	rm -f $(DESTDIR)$(PREFIX)/bin/st-copyout
 	rm -f $(DESTDIR)$(MANPREFIX)/man1/st.1
 
-cleaninstall: install clean
-	rm -f *.orig *.rej *.diff
-
-.PHONY: all options clean dist install uninstall cleaninstall
+.PHONY: all options clean dist install uninstall

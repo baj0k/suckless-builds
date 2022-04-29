@@ -12,7 +12,7 @@ My personalized build of slock - the simple screen locker for X by suckless.org
 ## Installation
 Use GNU make inside the suckless-builds/slock directory to build and install binary.
 ```
-$ sudo make clean install
+$ sudo make install
 ```
 # Usage
 ```

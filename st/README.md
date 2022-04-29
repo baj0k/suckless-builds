@@ -23,5 +23,5 @@ alt-shift-return to spawn new terminal instance with the same CWD as the current
 ## Installation
 Use GNU make inside the suckless-builds/st directory to build and install binary.
 ```
-$ sudo make clean install
+$ sudo make install
 ```

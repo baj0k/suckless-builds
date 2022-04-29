@@ -51,5 +51,5 @@ The tabmode function was removed as well as showtab and toptab variables. The pa
 ## Installation
 Use GNU make inside the suckless-builds/dwm directory to build and install binary.
 ```
-$ sudo make clean install
+$ sudo make install
 ```

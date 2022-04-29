@@ -35,7 +35,7 @@ dist: clean
 	gzip dmenu-$(VERSION).tar
 	rm -rf dmenu-$(VERSION)
 
-install: all
+install: clean all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	cp -f dmenu dmenu_path dmenu_run stest $(DESTDIR)$(PREFIX)/bin
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/dmenu
@@ -47,6 +47,7 @@ install: all
 	sed "s/VERSION/$(VERSION)/g" < stest.1 > $(DESTDIR)$(MANPREFIX)/man1/stest.1
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/dmenu.1
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/stest.1
+	rm -f dmenu stest $(OBJ) dmenu-$(VERSION).tar.gz *.orig *.rej *.diff
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/dmenu\
@@ -56,7 +57,4 @@ uninstall:
 		$(DESTDIR)$(MANPREFIX)/man1/dmenu.1\
 		$(DESTDIR)$(MANPREFIX)/man1/stest.1
 
-cleaninstall: install clean
-	rm -f *.orig *.rej *.diff
-
-.PHONY: all options clean dist install uninstall cleaninstall
+.PHONY: all options clean dist install uninstall

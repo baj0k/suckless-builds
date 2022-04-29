@@ -37,7 +37,7 @@ dist: clean
 	@gzip slock-${VERSION}.tar
 	@rm -rf slock-${VERSION}
 
-install: all
+install: clean all
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
 	@cp -f slock ${DESTDIR}${PREFIX}/bin
@@ -47,6 +47,7 @@ install: all
 	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	@sed "s/VERSION/${VERSION}/g" <slock.1 >${DESTDIR}${MANPREFIX}/man1/slock.1
 	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/slock.1
+	@rm -f slock ${OBJ} slock-${VERSION}.tar.gz *.orig *.rej *.diff
 
 uninstall:
 	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
@@ -54,7 +55,4 @@ uninstall:
 	@echo removing manual page from ${DESTDIR}${MANPREFIX}/man1
 	@rm -f ${DESTDIR}${MANPREFIX}/man1/slock.1
 
-cleaninstall: install clean
-	rm -f *.orig *.rej *.diff
-
-.PHONY: all options clean dist install uninstall cleaninstall
+.PHONY: all options clean dist install uninstall

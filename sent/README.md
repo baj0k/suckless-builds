@@ -12,7 +12,7 @@ My personalized build of sent - the simple plaintext presentation tool by suckle
 ## Installation
 Use GNU make inside the suckless-builds/sent directory to build and install binary.
 ```
-$ sudo make clean install
+$ sudo make install
 ```
 ## Usage
 ```

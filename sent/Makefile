@@ -40,7 +40,7 @@ dist: clean
 	@gzip sent-${VERSION}.tar
 	@rm -rf sent-${VERSION}
 
-install: all
+install: clean all
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
 	@cp -f sent ${DESTDIR}${PREFIX}/bin
@@ -49,12 +49,10 @@ install: all
 	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	@cp sent.1 ${DESTDIR}${MANPREFIX}/man1/sent.1
 	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/sent.1
+	@rm -f sent ${OBJ} sent-${VERSION}.tar.gz *.orig *.rej *.diff
 
 uninstall:
 	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
 	@rm -f ${DESTDIR}${PREFIX}/bin/sent
 
-cleaninstall: install clean
-	rm -f *.orig *.rej *.diff
-
-.PHONY: all options clean dist install uninstall cscope cleaninstall
+.PHONY: all options clean dist install uninstall cscope

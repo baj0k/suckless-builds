@@ -10,5 +10,5 @@ The original code was patched manually with a combination of code from multiple 
 ## Installation
 Use GNU make inside the suckless-builds/dwmblocks directory to build and install binary.
 ```
-$ sudo make clean install
+$ sudo make install
 ```
