@@ -11,7 +11,7 @@ static const int swallowfloating	= 0;        /* swallow floating windows */
 static const int showbar			= 1;		/* 0 means no bar */
 static const int topbar				= 1;       	/* 0 means bottom bar */
 
-static char *fonts[]				= { "monospace:size=10", "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true"  };
+static char *fonts[]				= { "monospace:size=11", "NotoColorEmoji:pixelsize=11:antialias=true:autohint=true" };
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -22,12 +22,12 @@ static const char *colors[][3]      = {
    [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
    [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
-static       Bool bUseOpacity       	= 1;     /* Default inactive opacity */
-static const double activeopacity		= 0.95f;     /* Focused window opacity */
+static       Bool bUseOpacity       	= 1;      /* Default inactive opacity */
+static const double activeopacity		= 0.95f;  /* Focused window opacity */
 static const double inactiveopacity 	= 0.9f;   /* Inactive window opacity */
-static const unsigned int baralpha		= 0xd0;		/* statusbar opacity */
-static const unsigned int borderalpha	= OPAQUE;	/* border opacity */
-static const unsigned int alphas[][3]      = {
+static const unsigned int baralpha		= 0xd0;	  /* statusbar opacity */
+static const unsigned int borderalpha	= OPAQUE; /* border opacity */
+static const unsigned int alphas[][3]   = {
        /*               fg      bg        border     */
        [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
        [SchemeSel]  = { OPAQUE, baralpha, borderalpha },
@@ -36,10 +36,8 @@ static const unsigned int alphas[][3]      = {
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
-/* default layout per tags */
-/* The first element is for all-tag view, following i-th element corresponds to */
-/* tags[i]. Layout is referred using the layouts array index.*/
-static int def_layouts[1 + LENGTH(tags)]  = { 4, 0, 3, 0, 0, 4, 0, 0, 0, 0};
+/* default layout per tags [0-9] */
+static int def_layouts[1 + LENGTH(tags)]  = { 4, 0, 3, 0, 0, 0, 0, 0, 0, 4};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -51,10 +49,10 @@ static const Rule rules[] = {
     { "mpv",		 NULL,		NULL,           0,          1,           0,          0,         -1 }, //    2055,1150,500,275   }, TODO: add floating rules
     { "firefox",	 NULL,		NULL,           1 << 1,		0,           0,          0,			 1 },
     { "Thunderbird", NULL,		NULL,           1 << 1,		0,           0,          0,			 1 },
-    { "Spotify",	 NULL,		NULL,           1 << 4,     0,           0,          0,          1 },
-    { "Caprine",	 NULL,		NULL,           1 << 4,     0,           0,          0,          1 },
-    { "discord",	 NULL,		NULL,           1 << 4,     0,           0,          0,          1 },
-    { "Signal",		 NULL,		NULL,           1 << 4,     0,           0,          0,          1 },
+    { "Spotify",	 NULL,		NULL,           1 << 8,     0,           0,          0,          1 },
+    { "Caprine",	 NULL,		NULL,           1 << 8,     0,           0,          0,          1 },
+    { "discord",	 NULL,		NULL,           1 << 8,     0,           0,          0,          1 },
+    { "Signal",		 NULL,		NULL,           1 << 8,     0,           0,          0,          1 },
 	{ NULL,			 NULL,      "Event Tester", 0,          0,           0,          1,         -1 },
 };
 
@@ -65,7 +63,7 @@ static const int resizehints	= 0;    /* 1 means respect size hints in tiled resi
 static const int lockfullscreen = 0;	/* 1 will force focus on the fullscreen window */
 #define FORCE_VSPLIT 1					/* nrowgrid layout: force two clients to always split vertically */
 static const Layout layouts[]	= {
-	/* symbol     arrange function */
+	/* symbol   arrange function */
 	{ "[]=",	tile },			/* Default: Master on left, slaves on right */
 	{ "TTT",	bstack },		/* Master on top, slaves on bottom */
 	{ "[D]",	deck },			/* Master on left, slaves in monocle on right */
@@ -109,7 +107,7 @@ static Key keys[] = {
 	{ MODKEY,					XK_0,				view,			{.ui = ~0 } },
 	{ MODKEY|ShiftMask,			XK_0,				tag,			{.ui = ~0 } },
 	{ MODKEY,					XK_Escape,          quit,           {0} },
-	{ MODKEY|ShiftMask,			XK_Escape,          quit,           {1} }, // TODO: add restart patch
+	{ MODKEY|ShiftMask,			XK_Escape,          quit,           {1} },
     { 0,						XK_Print,           spawn,          SHCMD("prtsc") },
     { ShiftMask,        		XK_Print,           spawn,		    SHCMD("scrot -s /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'") },
     //{ MODKEY,					XK_minus,			spawn,          SHCMD("") }, // Unused
@@ -138,7 +136,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask,         XK_i,				resetnmaster,   {0} },
 	{ MODKEY,					XK_o,				incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask,         XK_o,				toggleopacity,  {0} },
-	{ MODKEY|ShiftMask,			XK_p,				spawn,			SHCMD("pw") }, //TODO: checkout passmenu
+	{ MODKEY,					XK_p,				spawn,			SHCMD("pw") }, //TODO: checkout passmenu
 	{ MODKEY|ShiftMask,			XK_p,				spawn,			SHCMD("2fa") },
 	{ MODKEY,					XK_bracketleft,		setlayout,		{.v = &layouts[0]} }, /* tile */
 	{ MODKEY|ShiftMask,			XK_bracketleft,		setlayout,		{.v = &layouts[1]} }, /* bstack */
@@ -183,6 +181,16 @@ static Key keys[] = {
     { 0,	XF86XK_AudioLowerVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
     { 0,	XF86XK_AudioMute,           spawn,	SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
     { 0,	XF86XK_AudioMicMute,        spawn,	SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
+
+// bindcode 171 exec --no-startup-id mpc next && pkill -RTMIN+11 i3blocks
+// bindcode 172 exec --no-startup-id mpc toggle && pkill -RTMIN+11 i3blocks
+// bindcode 173 exec --no-startup-id mpc prev && pkill -RTMIN+11 i3blocks
+// bindcode 174 exec --no-startup-id mpc stop && pkill -RTMIN+11 i3blocks
+
+  	{ 0,	XF86XK_AudioPrev,			spawn,	SHCMD("mpc prev") },
+  	{ 0, 	XF86XK_AudioNext,			spawn,	SHCMD("mpc next") },
+  	{ 0, 	XF86XK_AudioPlay,			spawn,	SHCMD("mpc toggle") },
+  	{ 0, 	XF86XK_AudioStop,			spawn,	SHCMD("mpc stop") },
 
 
 	//{ MODKEY,				XK_grave,			spawn,		SHCMD("dmenuunicode") },
@@ -229,10 +237,6 @@ static Key keys[] = {
 //	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
 //	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)") },
 //	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)") },
-//	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev") },
-//	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("mpc next") },
-//	{ 0, XF86XK_AudioPause,		spawn,		SHCMD("mpc pause") },
-//	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("mpc play") },
 //	{ 0, XF86XK_AudioStop,		spawn,		SHCMD("mpc stop") },
 //	{ 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10") },
 //	{ 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10") },
@@ -260,7 +264,6 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
 	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
 	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },
