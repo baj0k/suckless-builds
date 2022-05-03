@@ -37,9 +37,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xproto.h>
 #include <X11/Xutil.h>
-#ifdef XINERAMA
 #include <X11/extensions/Xinerama.h>
-#endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
 #include <X11/Xlib-xcb.h>
 #include <xcb/res.h>
@@ -1317,7 +1315,6 @@ incnmaster(const Arg *arg)
 	arrange(selmon);
 }
 
-#ifdef XINERAMA
 static int
 isuniquegeom(XineramaScreenInfo *unique, size_t n, XineramaScreenInfo *info)
 {
@@ -1327,7 +1324,6 @@ isuniquegeom(XineramaScreenInfo *unique, size_t n, XineramaScreenInfo *info)
 			return 0;
 	return 1;
 }
-#endif /* XINERAMA */
 
 void
 keypress(XEvent *e)
@@ -2020,7 +2016,7 @@ setup(void)
 	/* init appearance */
 	scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
 	for (i = 0; i < LENGTH(colors); i++)
-		scheme[i] = drw_scm_create(drw, colors[i], alphas[i], 3);
+		scheme[i] = drw_scm_create(drw, colors[i], alphas[i], 2);
 	/* init bars */
 	updatebars();
 	updatestatus();
@@ -2061,11 +2057,6 @@ seturgent(Client *c, int urg)
 	XFree(wmh);
 }
 
-/** Function to shift the current view to the left/right
- *
- * @param: "arg->i" stores the number of tags to shift right (positive value)
- *          or left (negative value)
- */
 void
 shiftview(const Arg *arg)
 {
@@ -2428,7 +2419,6 @@ updategeom(void)
 {
 	int dirty = 0;
 
-#ifdef XINERAMA
 	if (XineramaIsActive(dpy)) {
 		int i, j, n, nn;
 		Client *c;
@@ -2483,7 +2473,6 @@ updategeom(void)
 		}
 		free(unique);
 	} else
-#endif /* XINERAMA */
 	{ /* default monitor setup */
 		if (!mons)
 			mons = createmon();
@@ -2715,9 +2704,7 @@ winpid(Window w)
 			break;
 		}
 	}
-
 	free(r);
-
 	if (result == (pid_t)-1)
 		result = 0;
 	return result;
@@ -2764,7 +2751,6 @@ termforwin(const Client *w)
 				return c;
 		}
 	}
-
 	return NULL;
 }
 
@@ -2780,7 +2766,6 @@ swallowingclient(Window w)
 				return c;
 		}
 	}
-
 	return NULL;
 }
 
@@ -2814,8 +2799,6 @@ wintomon(Window w)
 	return selmon;
 }
 
-/* Selects for the view of the focused window. The list of tags */
-/* to be displayed is matched to the focused window tag list. */
 void
 winview(const Arg* arg){
 	Window win, win_r, win_p, *win_c;
@@ -2861,8 +2844,6 @@ xerrordummy(Display *dpy, XErrorEvent *ee)
 	return 0;
 }
 
-/* Startup Error handler to check if another window manager
- * is already running. */
 int
 xerrorstart(Display *dpy, XErrorEvent *ee)
 {
@@ -2897,9 +2878,7 @@ xinitvisual()
 			break;
 		}
 	}
-
 	XFree(infos);
-
 	if (! visual) {
 		visual = DefaultVisual(dpy, screen);
 		depth = DefaultDepth(dpy, screen);

@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* constants */
+#define FORCE_VSPLIT 1 /* nrowgrid layout: force two clients to always split vertically */
 #define TERM "st"
 
 /* appearance */
@@ -11,20 +12,19 @@ static       Bool bUseOpacity       	= 1;      /* Default inactive opacity */
 static const double activeopacity		= 0.95f;  /* Focused window opacity */
 static const double inactiveopacity 	= 0.9f;   /* Inactive window opacity */
 static const unsigned int baralpha		= 0xd0;	  /* statusbar opacity */
-static const unsigned int borderalpha	= OPAQUE; /* border opacity */
 
 static char *fonts[] = { "monospace:size=11", "NotoColorEmoji:pixelsize=11:antialias=true:autohint=true" };
-static const char *colors[][3] = {
-   /*					fg         bg         border   */
-   [SchemeStatus]   = { "#DDDDDD", "#333333", "#000000" }, // Statusbar right
-   [SchemeTagsSel]  = { "#DDDDDD", "#004444", "#000000" }, // Tagbar left selected
-   [SchemeTagsNorm] = { "#BBBBBB", "#112222", "#000000" }, // Tagbar left unselected
+static const char *colors[][2] = {
+   /*					fg         bg       */
+   [SchemeStatus]   = { "#DDDDDD", "#333333" }, // Statusbar right
+   [SchemeTagsSel]  = { "#DDDDDD", "#004444" }, // Tagbar left selected
+   [SchemeTagsNorm] = { "#BBBBBB", "#112222" }, // Tagbar left unselected
 };
-static const unsigned int alphas[][3]   = {
-   /*					fg      bg        border     */
-   [SchemeStatus]	= { OPAQUE, baralpha, borderalpha },
-   [SchemeTagsSel]  = { OPAQUE, baralpha, borderalpha },
-   [SchemeTagsNorm] = { OPAQUE, baralpha, borderalpha },
+static const unsigned int alphas[][2]   = {
+   /*					fg      bg		*/
+   [SchemeStatus]	= { OPAQUE, baralpha },
+   [SchemeTagsSel]  = { OPAQUE, baralpha },
+   [SchemeTagsNorm] = { OPAQUE, baralpha },
 };
 
 /* tagging */
@@ -47,7 +47,7 @@ static const Rule rules[] = {
     { "Caprine",	 NULL,		NULL,           1 << 8,     0,           0,          0,          1, 	-1,-1,-1,-1 },
     { "discord",	 NULL,		NULL,           1 << 8,     0,           0,          0,          1, 	-1,-1,-1,-1 },
     { "Signal",		 NULL,		NULL,           1 << 8,     0,           0,          0,          1, 	-1,-1,-1,-1 },
-	{ NULL,			 NULL,      "Event Tester", 0,          0,           0,          1,         -1, 	-1,-1,-1,-1 },
+	{  NULL,		 NULL,      "Event Tester", 0,          0,           0,          1,         -1, 	-1,-1,-1,-1 },
 };
 
 /* layout(s) */
@@ -55,7 +55,6 @@ static const float mfact		= 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster		= 1;    /* number of clients in master area */
 static const int resizehints	= 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 0;	/* 1 will force focus on the fullscreen window */
-#define FORCE_VSPLIT 1					/* nrowgrid layout: force two clients to always split vertically */
 static const Layout layouts[]	= {
 	/* symbol   arrange function */
 	{ "[]=",	tile },			/* Default: Master on left, slaves on right */
