@@ -157,6 +157,7 @@ typedef struct {
 	int isterminal;
 	int noswallow;
 	int monitor;
+	int floatx, floaty, floatw, floath;
 } Rule;
 
 /* function declarations */
@@ -371,6 +372,12 @@ applyrules(Client *c)
 			c->isfloating = r->isfloating;
 			c->noswallow  = r->noswallow;
 			c->tags |= r->tags;
+			if (r->isfloating) {
+				c->x = r->floatx;
+				c->y = r->floaty;
+				c->w = r->floatw;
+				c->h = r->floath;
+			}
 			for (m = mons; m && m->num != r->monitor; m = m->next);
 			if (m)
 				c->mon = m;
@@ -1413,8 +1420,6 @@ manage(Window w, XWindowAttributes *wa)
 	configure(c); /* propagates border_width, if size doesn't change */
 	updatewindowtype(c);
 	updatewmhints(c);
-	c->x = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
-	c->y = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
 	XSelectInput(dpy, w, EnterWindowMask|FocusChangeMask|PropertyChangeMask|StructureNotifyMask);
 	grabbuttons(c, 0);
 	if (!c->isfloating)
