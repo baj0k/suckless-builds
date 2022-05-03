@@ -1,5 +1,4 @@
 My personalized build of dwm - the dynamic window manager for X by suckless.org
-<!-- TODO: Update manual so it shows correct keybinds -->
 
 ## Dependencies
 - libxcb
@@ -21,7 +20,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [hide vacant tags](https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.3.diff)
 - [horizgrid](https://dwm.suckless.org/patches/horizgrid/dwm-horizgrid-6.1.diff)
 - [notitle](https://dwm.suckless.org/patches/notitle/dwm-notitle-6.2.diff)
-- [pertag](https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff) <!-- TODO: check if any of the previous patches had a version that works with pertag -->
+- [pertag](https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff)
 - [resetnmaster](https://dwm.suckless.org/patches/resetnmaster/dwm-resetnmaster-pertag-6.3.diff)
 - [resizecorners](https://dwm.suckless.org/patches/resizecorners/dwm-resizecorners-6.2.diff)
 - [restartsig](https://dwm.suckless.org/patches/restartsig/dwm-restartsig-20180523-6.2.diff)

@@ -70,7 +70,7 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel, SchemeStatus, SchemeTagsSel, SchemeTagsNorm }; /* color schemes */
+enum { SchemeStatus, SchemeTagsSel, SchemeTagsNorm }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
        NetWMWindowTypeDialog, NetClientList, NetWMWindowsOpacity, NetLast }; /* EWMH atoms */
@@ -570,7 +570,6 @@ swallow(Client *p, Client *c)
 	wc.border_width = p->bw;
 	XConfigureWindow(dpy, p->win, CWBorderWidth, &wc);
 	XMoveResizeWindow(dpy, p->win, p->x, p->y, p->w, p->h);
-	XSetWindowBorder(dpy, p->win, scheme[SchemeNorm][ColBorder].pixel);
 
 	arrange(p->mon);
 	configure(p);
@@ -595,7 +594,6 @@ unswallow(Client *c)
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, c->win, CWBorderWidth, &wc);
 	XMoveResizeWindow(dpy, c->win, c->x, c->y, c->w, c->h);
-	XSetWindowBorder(dpy, c->win, scheme[SchemeNorm][ColBorder].pixel);
 
 	setclientstate(c, NormalState);
 	focus(NULL);
@@ -687,7 +685,7 @@ cleanup(void)
 	selmon->lt[selmon->sellt] = &foo;
 	for (m = mons; m; m = m->next)
 		while(m->stack)
-			unmanage(m->stack, 0); //TODO: if it doesnt work change 0 to False
+			unmanage(m->stack, 0);
 	XUngrabKey(dpy, AnyKey, AnyModifier, root);
 	while (mons)
 		cleanupmon(mons);
@@ -1075,7 +1073,6 @@ focus(Client *c)
 		detachstack(c);
 		attachstack(c);
 		grabbuttons(c, 1);
-		XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColBorder].pixel);
 		setfocus(c);
 		opacity(c, activeopacity);
 	} else {
@@ -1171,8 +1168,8 @@ getfacts(Monitor *m, int msize, int ssize, float *mf, float *sf, int *mr, int *s
 		else
 			stotal += ssize / sfacts;
 
-	*mf = mfacts; // total factor of master area
-	*sf = sfacts; // total factor of stack area
+	*mf = mfacts;		  // total factor of master area
+	*sf = sfacts;		  // total factor of stack area
 	*mr = msize - mtotal; // the remainder (rest) of pixels after an even master split
 	*sr = ssize - stotal; // the remainder (rest) of pixels after an even stack split
 }
@@ -1403,7 +1400,6 @@ manage(Window w, XWindowAttributes *wa)
 
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
-	XSetWindowBorder(dpy, w, scheme[SchemeNorm][ColBorder].pixel);
 	configure(c); /* propagates border_width, if size doesn't change */
 	updatewindowtype(c);
 	updatewmhints(c);
@@ -1666,14 +1662,6 @@ recttomon(int x, int y, int w, int h)
 		}
 	return r;
 }
-
-// TODO: use this with pertag patch
-//void
-//resetnmaster(const Arg *arg)
-//{
-//       selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag] = 1;
-//       arrange(selmon);
-//}
 
 void
 resetnmaster(const Arg *arg)
@@ -2327,7 +2315,6 @@ unfocus(Client *c, int setfocus)
 		return;
 	grabbuttons(c, 0);
 	opacity(c, inactiveopacity);
-	XSetWindowBorder(dpy, c->win, scheme[SchemeNorm][ColBorder].pixel);
 	if (setfocus) {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
@@ -2587,7 +2574,6 @@ updatestatus(void)
 void
 updaterules(Client *c)
 {
-    //applyrules(c)
 	const char *class, *instance;
 	unsigned int i;
 	const Rule *r;

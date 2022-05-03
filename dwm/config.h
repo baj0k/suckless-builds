@@ -4,33 +4,27 @@
 #define TERM "st"
 
 /* appearance */
-static const unsigned int snap     	= 32;       /* snap pixel */
-static const unsigned int gappx    	= 10;       /* gap between windows */
-static const int swallowfloating	= 0;        /* swallow floating windows */
-
-static char *fonts[]				= { "monospace:size=11", "NotoColorEmoji:pixelsize=11:antialias=true:autohint=true" };
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char *colors[][3]      = {
-   /*					fg         bg         border   */
-   [SchemeNorm]     = { col_gray3, col_gray1, col_gray2 },
-   [SchemeSel]      = { col_gray4, col_cyan,  col_cyan  },
-   [SchemeStatus]   = { "#DDDDDD", "#333333", "#000000" }, // Statusbar right
-   [SchemeTagsSel]  = { "#DDDDDD", "#004444", "#000000" }, // Tagbar left selected
-   [SchemeTagsNorm] = { "#BBBBBB", "#112222", "#000000" }, // Tagbar left unselected
-};
+static const unsigned int snap		   	= 32;     /* snap pixel */
+static const unsigned int gappx 	   	= 10;     /* gap between windows */
+static const int swallowfloating		= 0;      /* swallow floating windows */
 static       Bool bUseOpacity       	= 1;      /* Default inactive opacity */
 static const double activeopacity		= 0.95f;  /* Focused window opacity */
 static const double inactiveopacity 	= 0.9f;   /* Inactive window opacity */
 static const unsigned int baralpha		= 0xd0;	  /* statusbar opacity */
 static const unsigned int borderalpha	= OPAQUE; /* border opacity */
+
+static char *fonts[] = { "monospace:size=11", "NotoColorEmoji:pixelsize=11:antialias=true:autohint=true" };
+static const char *colors[][3] = {
+   /*					fg         bg         border   */
+   [SchemeStatus]   = { "#DDDDDD", "#333333", "#000000" }, // Statusbar right
+   [SchemeTagsSel]  = { "#DDDDDD", "#004444", "#000000" }, // Tagbar left selected
+   [SchemeTagsNorm] = { "#BBBBBB", "#112222", "#000000" }, // Tagbar left unselected
+};
 static const unsigned int alphas[][3]   = {
-   /*               fg      bg        border     */
-   [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-   [SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+   /*					fg      bg        border     */
+   [SchemeStatus]	= { OPAQUE, baralpha, borderalpha },
+   [SchemeTagsSel]  = { OPAQUE, baralpha, borderalpha },
+   [SchemeTagsNorm] = { OPAQUE, baralpha, borderalpha },
 };
 
 /* tagging */
@@ -46,8 +40,7 @@ static const Rule rules[] = {
 	*/
 	/* class		 instance	title			tags mask   isfloating   isterminal  noswallow	monitor float x,y,w,h */
 	{ TERM,			 NULL,      NULL,       	0,          0,           1,          0,         -1,		-1,-1,-1,-1 },
-    { "mpv",		 NULL,		NULL,           0,          1,           0,          0,          1,		4625,1155,490,275 },
-//{ "mpv",		 NULL,		NULL,           0,          1,           0,          0,          1,		2055,1150,500,275 },
+    { "mpv",		 NULL,		NULL,           ~0,		    1,           0,          0,          1,		4625,1155,490,275 },
     { "firefox",	 NULL,		NULL,           1 << 1,		0,           0,          0,			 1, 	-1,-1,-1,-1 },
     { "Thunderbird", NULL,		NULL,           1 << 1,		0,           0,          0,			 1, 	-1,-1,-1,-1 },
     { "Spotify",	 NULL,		NULL,           1 << 8,     0,           0,          0,          1, 	-1,-1,-1,-1 },
