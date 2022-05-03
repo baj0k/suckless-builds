@@ -5,10 +5,9 @@ static const Block blocks[] = {
 	{"",		"sb-brightness",	0,					13 },
 	{"🔉",		"sb-audio",			0,					12 },
 	{"🌏",		"sb-openvpn",		0,					11 },
-	{"📡",		"sb-ip",			0,					10 },
 	{"🎵",		"sb-music",			10,					9  },
-	{"💻",		"sb-memory",		10,					4  },
-	{"🖴",		"sb-disk",			60,					3  },
+	{"🌏",		"sb-network",		0,					3  },
+	{"💻",		"sb-system",		0,					3  },
 	{"🕓",		"sb-clock",			1,					2  },
 	{"🤔",		"sb-update",		1800,				1  },
 };
