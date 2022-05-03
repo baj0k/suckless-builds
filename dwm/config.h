@@ -5,13 +5,17 @@
 #define TERM "st"
 
 /* appearance */
-static const unsigned int snap		   	= 32;     /* snap pixel */
-static const unsigned int gappx 	   	= 10;     /* gap between windows */
-static const int swallowfloating		= 0;      /* swallow floating windows */
-static       Bool bUseOpacity       	= 1;      /* Default inactive opacity */
-static const double activeopacity		= 0.95f;  /* Focused window opacity */
-static const double inactiveopacity 	= 0.9f;   /* Inactive window opacity */
-static const unsigned int baralpha		= 0xd0;	  /* statusbar opacity */
+static const float mfact			= 0.55;	  /* factor of master area size [0.05..0.95] */
+static const int nmaster			= 1;      /* number of clients in master area */
+static const int resizehints		= 0;      /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen 	= 0;	  /* 1 will force focus on the fullscreen window */
+static Bool bUseOpacity			    = 1;      /* Default inactive opacity */
+static const double activeopacity	= 0.95f;  /* Focused window opacity */
+static const double inactiveopacity	= 0.9f;   /* Inactive window opacity */
+static const unsigned int snap	   	= 32;     /* snap pixel */
+static const unsigned int gappx    	= 10;     /* gap between windows */
+static const int swallowfloating	= 0;      /* swallow floating windows */
+static const unsigned int baralpha	= 0xb0;	  /* statusbar opacity */
 
 static char *fonts[] = { "monospace:size=11", "NotoColorEmoji:pixelsize=11:antialias=true:autohint=true" };
 static const char *colors[][2] = {
@@ -27,12 +31,8 @@ static const unsigned int alphas[][2]   = {
    [SchemeTagsNorm] = { OPAQUE, baralpha },
 };
 
-/* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-
-/* default layout per tags [0-9] */
-static int def_layouts[1 + LENGTH(tags)]  = { 4, 0, 3, 0, 0, 0, 0, 0, 0, 4};
-
+static const char *tags[]				  = { /*~0*/ "1", "2", "3", "4", "5", "6", "7", "8", "9" }; /* tagging */
+static int def_layouts[1 + LENGTH(tags)]  = {    4,   0,   3,   0,   0,   0,   0,   0,   0,   4  }; /* default layout per tag */
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -51,10 +51,6 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact		= 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster		= 1;    /* number of clients in master area */
-static const int resizehints	= 0;    /* 1 means respect size hints in tiled resizals */
-static const int lockfullscreen = 0;	/* 1 will force focus on the fullscreen window */
 static const Layout layouts[]	= {
 	/* symbol   arrange function */
 	{ "[]=",	tile },			/* Default: Master on left, slaves on right */
@@ -164,8 +160,6 @@ static Key keys[] = {
 	{ MODKEY,					XK_n,				spawn,			SHCMD(TERM " -e ncmpcpp") },
 	{ MODKEY|ShiftMask,			XK_n,				spawn,			SHCMD(TERM " -e newsboat; pkill -RTMIN+6 dwmblocks") },
 
-
-	//TODO: check if below need to be changed for pipewire
     //{ 0,	XK_XF86AudioRaiseVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+12") },
     //{ 0,	XK_XF86AudioLowerVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+12") },
     //{ 0,	XK_XF86AudioMute,           spawn,	SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+12") },
