@@ -138,8 +138,6 @@ struct Monitor {
 	unsigned int seltags;
 	unsigned int sellt;
 	unsigned int tagset[2];
-	int showbar;
-	int topbar;
 	Client *clients;
 	Client *sel;
 	Client *stack;
@@ -248,7 +246,6 @@ static int stackpos(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *);
-static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void toggleopacity(const Arg *arg);
 static void togglesticky(const Arg *arg);
@@ -339,7 +336,6 @@ struct Pertag {
 	float mfacts[LENGTH(tags) + 1]; /* mfacts per tag */
 	unsigned int sellts[LENGTH(tags) + 1]; /* selected layouts */
 	const Layout *ltidxs[LENGTH(tags) + 1][2]; /* matrix of tags and layouts indexes  */
-	int showbars[LENGTH(tags) + 1]; /* display bar for the current tag */
 	Client *prevzooms[LENGTH(tags) + 1]; /* store zoom information */
 };
 
@@ -864,8 +860,6 @@ createmon(void)
 	m->tagset[0] = m->tagset[1] = 1;
 	m->mfact = mfact;
 	m->nmaster = nmaster;
-	m->showbar = showbar;
-	m->topbar = topbar;
     m->lt[0] = &layouts[0];
 	m->gappx = gappx;
 	m->lt[1] = &layouts[1 % LENGTH(layouts)];
@@ -884,9 +878,6 @@ createmon(void)
         m->pertag->ltidxs[i][0] = &layouts[def_layouts[i % LENGTH(def_layouts)] % LENGTH(layouts)];
         m->pertag->ltidxs[i][1] = m->lt[1];
         m->pertag->sellts[i] = m->sellt;
-
-        /* init showbar */
-        m->pertag->showbars[i] = m->showbar;
 
         /* swap focus and zoomswap*/
         m->pertag->prevzooms[i] = NULL;
@@ -993,9 +984,6 @@ drawbar(Monitor *m)
 	int x, w, tw = 0;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
-
-	if (!m->showbar)
-		return;
 
 	/* draw status first so it can be overdrawn by tags later */
     drw_setscheme(drw, scheme[SchemeStatus]);
@@ -2252,15 +2240,6 @@ tile(Monitor *m)
 }
 
 void
-togglebar(const Arg *arg)
-{
-    selmon->showbar = selmon->pertag->showbars[selmon->pertag->curtag] = !selmon->showbar;
-	updatebarpos(selmon);
-	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
-	arrange(selmon);
-}
-
-void
 togglefloating(const Arg *arg)
 {
 	if (!selmon->sel)
@@ -2336,8 +2315,6 @@ toggleview(const Arg *arg)
 		selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag];
 		selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt];
 		selmon->lt[selmon->sellt^1] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt^1];
-		if (selmon->showbar != selmon->pertag->showbars[selmon->pertag->curtag])
-			togglebar(NULL);
 		focus(NULL);
 		arrange(selmon);
 	}
@@ -2440,14 +2417,9 @@ updatebars(void)
 void
 updatebarpos(Monitor *m)
 {
-	m->wy = m->my;
-	m->wh = m->mh;
-	if (m->showbar) {
-		m->wh -= bh;
-		m->by = m->topbar ? m->wy : m->wy + m->wh;
-        m->wy = m->topbar ? m->wy + bh : m->wy;
-    } else
-		m->by = -bh;
+	m->wh = m->mh - bh;
+	m->by = m->wy;
+    m->wy = m->my + bh;
 }
 
 void
@@ -2728,8 +2700,6 @@ view(const Arg *arg)
 	selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag];
 	selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt];
 	selmon->lt[selmon->sellt^1] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt^1];
-	if (selmon->showbar != selmon->pertag->showbars[selmon->pertag->curtag])
-		togglebar(NULL);
 	focus(NULL);
 	arrange(selmon);
 }

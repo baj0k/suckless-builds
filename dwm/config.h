@@ -8,8 +8,6 @@ static const unsigned int borderpx	= 0;        /* border pixel of windows */
 static const unsigned int snap     	= 32;       /* snap pixel */
 static const unsigned int gappx    	= 10;       /* gap between windows */
 static const int swallowfloating	= 0;        /* swallow floating windows */
-static const int showbar			= 1;		/* 0 means no bar */
-static const int topbar				= 1;       	/* 0 means bottom bar */
 
 static char *fonts[]				= { "monospace:size=11", "NotoColorEmoji:pixelsize=11:antialias=true:autohint=true" };
 static const char col_gray1[]       = "#222222";
@@ -282,5 +280,4 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,			0,				Button4,		shiftview,		{.i = -1} },
 	{ ClkTagBar,			0,				Button5,		shiftview,		{.i = 1} },
-    { ClkRootWin,           0,              Button2,        togglebar,      {0} },
 };
