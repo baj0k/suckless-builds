@@ -401,18 +401,18 @@ applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact)
 			*x = sw - WIDTH(c);
 		if (*y > sh)
 			*y = sh - HEIGHT(c);
-		if (*x + *w + 2 * c->bw < 0)
+		if (*x + *w < 0)
 			*x = 0;
-		if (*y + *h + 2 * c->bw < 0)
+		if (*y + *h < 0)
 			*y = 0;
 	} else {
 		if (*x >= m->wx + m->ww)
 			*x = m->wx + m->ww - WIDTH(c);
 		if (*y >= m->wy + m->wh)
 			*y = m->wy + m->wh - HEIGHT(c);
-		if (*x + *w + 2 * c->bw <= m->wx)
+		if (*x + *w <= m->wx)
 			*x = m->wx;
-		if (*y + *h + 2 * c->bw <= m->wy)
+		if (*y + *h <= m->wy)
 			*y = m->wy;
 	}
 	if (*h < bh)
@@ -535,10 +535,10 @@ bstack(Monitor *m)
 
 	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
 		if (i < m->nmaster) {
-			resize(c, mx, my, (mw / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), mh - (2*c->bw), 0);
+			resize(c, mx, my, (mw / mfacts) + (i < mrest ? 1 : 0), mh, 0);
 			mx += WIDTH(c) + gx;
 		} else {
-			resize(c, sx, sy, (sw / sfacts) + ((i - m->nmaster) < srest ? 1 : 0) - (2*c->bw), sh - (2*c->bw), 0);
+			resize(c, sx, sy, (sw / sfacts) + ((i - m->nmaster) < srest ? 1 : 0), sh, 0);
 			sx += WIDTH(c) + gx;
 		}
 	}
@@ -920,10 +920,10 @@ deck(Monitor *m)
 
 	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
-			resize(c, mx, my, mw - (2*c->bw), (mh / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), 0);
+			resize(c, mx, my, mw, (mh / mfacts) + (i < mrest ? 1 : 0), 0);
 			my += HEIGHT(c) + gx;
 		} else {
-			resize(c, sx, sy, sw - (2*c->bw), sh - (2*c->bw), 0);
+			resize(c, sx, sy, sw, sh, 0);
 		}
 }
 
@@ -1294,21 +1294,21 @@ horizgrid(Monitor *m) {
 		return;
 	else if(n == 1) { /* Just fill the whole screen */
 		c = nexttiled(m->clients);
-		resize(c, m->wx + m->gappx, m->wy + m->gappx, m->ww - (2*c->bw) - (2*m->gappx), m->wh - (2*c->bw) - (2*m->gappx), False);
+		resize(c, m->wx + m->gappx, m->wy + m->gappx, m->ww - (2*m->gappx), m->wh - (2*m->gappx), False);
 	} else if(n == 2) { /* Split vertically */
 		w = m->ww / 2;
 		c = nexttiled(m->clients);
-		resize(c, m->wx + m->gappx, m->wy + m->gappx, w - (2*c->bw) - (2*m->gappx), m->wh - (2*c->bw) - (2*m->gappx), False);
+		resize(c, m->wx + m->gappx, m->wy + m->gappx, w - (2*m->gappx), m->wh - (2*m->gappx), False);
 		c = nexttiled(c->next);
-		resize(c, m->wx + w, m->wy + m->gappx, w - (2*c->bw) - m->gappx, m->wh - (2*c->bw) - (2*m->gappx), False);
+		resize(c, m->wx + w, m->wy + m->gappx, w - m->gappx, m->wh - (2*m->gappx), False);
 	} else {
 		ntop = n / 2;
 		nbottom = n - ntop;
 		for(i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
 			if(i < ntop)
-					resize(c, m->wx + m->gappx + i * m->ww / ntop, m->wy + m->gappx, m->ww / ntop - (2*c->bw) - ((i+1 == ntop) ? (2*m->gappx) : m->gappx), m->wh / 2 - (2*c->bw) - (2*m->gappx), False);
+					resize(c, m->wx + m->gappx + i * m->ww / ntop, m->wy + m->gappx, m->ww / ntop - ((i+1 == ntop) ? (2*m->gappx) : m->gappx), m->wh / 2 - (2*m->gappx), False);
 			else
-					resize(c, m->wx + m->gappx + (i - ntop) * m->ww / nbottom, m->wy + m->wh / 2, m->ww / nbottom - (2*c->bw) - ((i+1 == n) ? (2*m->gappx) : m->gappx), m->wh / 2 - (2*c->bw) - m->gappx, False);
+					resize(c, m->wx + m->gappx + (i - ntop) * m->ww / nbottom, m->wy + m->wh / 2, m->ww / nbottom - ((i+1 == n) ? (2*m->gappx) : m->gappx), m->wh / 2 - m->gappx, False);
 		}
 	}
 }
@@ -1399,7 +1399,7 @@ manage(Window w, XWindowAttributes *wa)
 	/* only fix client y-offset, if the client center might cover the bar */
 	c->y = MAX(c->y, ((c->mon->by == c->mon->my) && (c->x + (c->w / 2) >= c->mon->wx)
 		&& (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
-	c->bw = borderpx;
+	c->bw = 0;
 
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
@@ -1471,7 +1471,7 @@ monocle(Monitor *m)
 	if (n > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-		resize(c, m->wx + gx, m->wy + gx, m->ww - 2 * c->bw - 2 * gx, m->wh - 2 * c->bw - 2 * gx, 0);
+		resize(c, m->wx + gx, m->wy + gx, m->ww - 2 * gx, m->wh - 2 * gx, 0);
 }
 
 void
@@ -1734,8 +1734,8 @@ resizemouse(const Arg *arg)
 	horizcorner = nx < c->w / 2;
 	vertcorner  = ny < c->h / 2;
 	XWarpPointer (dpy, None, c->win, 0, 0, 0, 0,
-			horizcorner ? (-c->bw) : (c->w + c->bw -1),
-			vertcorner  ? (-c->bw) : (c->h + c->bw -1));
+			horizcorner ? 0 : (c->w + -1),
+			vertcorner  ? 0 : (c->h + -1));
 	do {
 		XMaskEvent(dpy, MOUSEMASK|ExposureMask|SubstructureRedirectMask, &ev);
 		switch(ev.type) {
@@ -1751,8 +1751,8 @@ resizemouse(const Arg *arg)
 
 			nx = horizcorner ? ev.xmotion.x : c->x;
 			ny = vertcorner ? ev.xmotion.y : c->y;
-			nw = MAX(horizcorner ? (ocx2 - nx) : (ev.xmotion.x - ocx - 2 * c->bw + 1), 1);
-			nh = MAX(vertcorner ? (ocy2 - ny) : (ev.xmotion.y - ocy - 2 * c->bw + 1), 1);
+			nw = MAX(horizcorner ? (ocx2 - nx) : (ev.xmotion.x - ocx + 1), 1);
+			nh = MAX(vertcorner ? (ocy2 - ny) : (ev.xmotion.y - ocy + 1), 1);
 
 			if (c->mon->wx + nw >= selmon->wx && c->mon->wx + nw <= selmon->wx + selmon->ww
 			&& c->mon->wy + nh >= selmon->wy && c->mon->wy + nh <= selmon->wy + selmon->wh)
@@ -1767,8 +1767,8 @@ resizemouse(const Arg *arg)
 		}
 	} while (ev.type != ButtonRelease);
 	XWarpPointer(dpy, None, c->win, 0, 0, 0, 0,
-		      horizcorner ? (-c->bw) : (c->w + c->bw - 1),
-		      vertcorner ? (-c->bw) : (c->h + c->bw - 1));
+		      horizcorner ? 0 : (c->w + - 1),
+		      vertcorner ? 0 : (c->h + - 1));
 	XUngrabPointer(dpy, CurrentTime);
 	while (XCheckMaskEvent(dpy, EnterWindowMask, &ev));
 	if ((m = recttomon(c->x, c->y, c->w, c->h)) != selmon) {
@@ -2231,10 +2231,10 @@ tile(Monitor *m)
 
 	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
-			resize(c, mx, my, mw - (2*c->bw), (mh / mfacts) + (i < mrest ? 1 : 0) - (2*c->bw), 0);
+			resize(c, mx, my, mw, (mh / mfacts) + (i < mrest ? 1 : 0), 0);
 			my += HEIGHT(c) + gx;
 		} else {
-			resize(c, sx, sy, sw - (2*c->bw), (sh / sfacts) + ((i - m->nmaster) < srest ? 1 : 0) - (2*c->bw), 0);
+			resize(c, sx, sy, sw, (sh / sfacts) + ((i - m->nmaster) < srest ? 1 : 0), 0);
 			sy += HEIGHT(c) + gx;
 		}
 }
