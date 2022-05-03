@@ -8,7 +8,6 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 
 ## Patches applied
 - [alpha](https://dwm.suckless.org/patches/alpha/dwm-alpha-20201019-61bb8b2.diff)
-//- [alwayscenter](https://dwm.suckless.org/patches/alwayscenter/dwm-alwayscenter-20200625-f04cac6.diff)
 //- [alwaysontop](https://dwm.suckless.org/patches/alwaysontop/alwaysontop-6.2.diff)
 - [attachaside](https://dwm.suckless.org/patches/attachaside/dwm-attachaside-6.3.diff)
 - [bottomstack](https://dwm.suckless.org/patches/bottomstack/dwm-bottomstack-6.1.diff)
@@ -16,7 +15,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [deck](https://dwm.suckless.org/patches/deck/dwm-deck-double-6.2.diff)
 - [fadeinactive](https://dwm.suckless.org/patches/fadeinactive/dwm-fadeinactive-20211114-a786211.diff)
 - [fakefullscreen](https://dwm.suckless.org/patches/fakefullscreen/dwm-fakefullscreen-20210714-138b405.diff)
-//- [floatrules](https://dwm.suckless.org/patches/floatrules/dwm-floatrules-20210801-138b405.diff)
+- [floatrules](https://dwm.suckless.org/patches/floatrules/dwm-floatrules-20210801-138b405.diff)
 - [fullgaps](https://dwm.suckless.org/patches/fullgaps/dwm-fullgaps-6.2.diff)
 - [hide vacant tags](https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.3.diff)
 - [horizgrid](https://dwm.suckless.org/patches/horizgrid/dwm-horizgrid-6.1.diff)
@@ -26,7 +25,7 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 - [resizecorners](https://dwm.suckless.org/patches/resizecorners/dwm-resizecorners-6.2.diff)
 - [restartsig](https://dwm.suckless.org/patches/restartsig/dwm-restartsig-20180523-6.2.diff)
 - [rulerefresher](https://dwm.suckless.org/patches/rulerefresher/dwm-rulerefresher-6.2.diff)
-//- [save floats](https://dwm.suckless.org/patches/save_floats/dwm-savefloats-20181212-b69c870.diff)
+- [save floats](https://dwm.suckless.org/patches/save_floats/dwm-savefloats-20181212-b69c870.diff)
 - [shiftview](https://github.com/baj0k/suckless-builds/commit/eedb5ce78ce2a2b87dc1012479d8301ba8482b84)
 - [statuscmd](https://dwm.suckless.org/patches/statuscmd/dwm-statuscmd-20210405-67d76bd.diff)
 - [sticky](https://dwm.suckless.org/patches/sticky/dwm-sticky-6.1.diff)
