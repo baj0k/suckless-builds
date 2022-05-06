@@ -1,4 +1,8 @@
-My personalized build of dwm - the dynamic window manager for X by suckless.org
+My personalized build of dwm - the dynamic window manager for X by suckless.org  
+
+## Upstream repository
+git clone [git://git.suckless.org/dwm](git://git.suckless.org/dwm)  
+Browse online: [https://git.suckless.org/dwm/](https://git.suckless.org/dwm/)
 
 ## Dependencies
 - libxcb
