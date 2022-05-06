@@ -153,17 +153,42 @@ static Key keys[] = {
     //{ MODKEY|ShiftMask,		XK_apostrophe,		spawn,          SHCMD("") }, // Unused
 	{ MODKEY,					XK_Return,			spawn,			{.v = termcmd } },
     { MODKEY|ShiftMask,			XK_Return,			zoom,           {0} }, // TODO: bind to a function to open terminal in CWD
-	{ MODKEY|ShiftMask,			XK_space,			togglefloating,	{0} },
-	{ MODKEY,					XK_Left,			setmfact,		{.f = -0.05} },
-	{ MODKEY,					XK_Right,			setmfact,      	{.f = +0.05} },
-
+    //{ MODKEY,					XK_z,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_z,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_x,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_x,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_c,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_c,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_v,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_v,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_b,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_b,				spawn,          SHCMD("") }, // Unused
 	{ MODKEY,					XK_n,				spawn,			SHCMD(TERM " -e ncmpcpp") },
 	{ MODKEY|ShiftMask,			XK_n,				spawn,			SHCMD(TERM " -e newsboat; pkill -RTMIN+6 dwmblocks") },
+    //{ MODKEY,					XK_m,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_m,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_comma,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_comma,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_period,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_period,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_slash,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_slash,			spawn,          SHCMD("") }, // Unused
+	//{ MODKEY,					XK_space,			spawn,          SHCMD("") }, // Unused
+	{ MODKEY|ShiftMask,			XK_space,			togglefloating,	{0} },
+    //{ MODKEY,					XK_Up,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_Up,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_Down,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_Down,			spawn,          SHCMD("") }, // Unused
+	{ MODKEY,					XK_Left,			setmfact,		{.f = -0.05} },
+    //{ MODKEY|ShiftMask,		XK_Left,			spawn,          SHCMD("") }, // Unused
+	{ MODKEY,					XK_Right,			setmfact,      	{.f = +0.05} },
+    //{ MODKEY|ShiftMask,		XK_Right,			spawn,          SHCMD("") }, // Unused
 
-    //{ 0,	XK_XF86AudioRaiseVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+12") },
-    //{ 0,	XK_XF86AudioLowerVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+12") },
-    //{ 0,	XK_XF86AudioMute,           spawn,	SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+12") },
-    //{ 0,	XK_XF86AudioMicMute,        spawn,	SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+12") },
+
+//{ 0,	XK_XF86AudioRaiseVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+12") },
+//{ 0,	XK_XF86AudioLowerVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+12") },
+//{ 0,	XK_XF86AudioMute,           spawn,	SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+12") },
+//{ 0,	XK_XF86AudioMicMute,        spawn,	SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+12") },
     { 0,	XF86XK_AudioRaiseVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
     { 0,	XF86XK_AudioLowerVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
     { 0,	XF86XK_AudioMute,           spawn,	SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
@@ -180,75 +205,69 @@ static Key keys[] = {
   	{ 0, 	XF86XK_AudioStop,			spawn,	SHCMD("mpc stop") },
 
 
-	//{ MODKEY,				XK_grave,			spawn,		SHCMD("dmenuunicode") },
-	//{ MODKEY,				XK_BackSpace,		spawn,		SHCMD("sysact") },
-	//{ MODKEY|ShiftMask,	XK_BackSpace,		spawn,		SHCMD("sysact") },
-	//{ MODKEY|ShiftMask,	XK_w,				spawn,		SHCMD(TERM " -e sudo nmtui") },
-	//{ MODKEY,				XK_r,				spawn,		SHCMD(TERM " -e lfub") },
-	//{ MODKEY|ShiftMask,	XK_r,				spawn,		SHCMD(TERM " -e htop") },
-	//
-	//
-	//{ MODKEY,				XK_minus,			spawn,		SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
-	//{ MODKEY|ShiftMask,	XK_minus,			spawn,		SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
-	//{ MODKEY,				XK_equal,			spawn,		SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
-	//{ MODKEY|ShiftMask,	XK_equal,			spawn,		SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
-	//{ MODKEY|ShiftMask,	XK_m,				spawn,		SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
-	//{ MODKEY,				XK_comma,			spawn,		SHCMD("mpc prev") },
-	//{ MODKEY|ShiftMask,	XK_comma,			spawn,		SHCMD("mpc seek 0%") },
-	//{ MODKEY,				XK_period,			spawn,		SHCMD("mpc next") },
-	//{ MODKEY|ShiftMask,	XK_period,			spawn,		SHCMD("mpc repeat") },
-	//{ MODKEY,				XK_p,				spawn,		SHCMD("mpc toggle") },
-	//{ MODKEY|ShiftMask,	XK_p,				spawn,		SHCMD("mpc pause ; pauseallmpv") },
-	//{ MODKEY,				XK_bracketleft,		spawn,		SHCMD("mpc seek -10") },
-	//{ MODKEY|ShiftMask,	XK_bracketleft,		spawn,		SHCMD("mpc seek -60") },
-	//{ MODKEY,				XK_bracketright,	spawn,		SHCMD("mpc seek +10") },
-	//{ MODKEY|ShiftMask,	XK_bracketright,	spawn,		SHCMD("mpc seek +60") },
-
-	//{ MODKEY,			XK_F3,		spawn,		SHCMD("displayselect") },
-	//{ MODKEY,			XK_F4,		spawn,		SHCMD(TERM " -e pulsemixer; kill -44 $(pidof dwmblocks)") },
-	//{ MODKEY,			XK_F6,		spawn,		SHCMD("torwrap") },
-	//{ MODKEY,			XK_F7,		spawn,		SHCMD("td-toggle") },
-	//{ MODKEY,			XK_F8,		spawn,		SHCMD("mw -Y") },
-	//{ MODKEY,			XK_F9,		spawn,		SHCMD("dmenumount") },
-	//{ MODKEY,			XK_F10,		spawn,		SHCMD("dmenuumount") },
-	//{ MODKEY,			XK_F11,		spawn,		SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
-
-//	{ 0,				XK_Print,	spawn,		SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
-//	{ ShiftMask,			XK_Print,	spawn,		SHCMD("maimpick") },
-//	{ MODKEY,			XK_Print,	spawn,		SHCMD("dmenurecord") },
-//	{ MODKEY|ShiftMask,		XK_Print,	spawn,		SHCMD("dmenurecord kill") },
-//
-//	{ MODKEY,			XK_Delete,	spawn,		SHCMD("dmenurecord kill") },
-//	{ MODKEY,			XK_Scroll_Lock,	spawn,		SHCMD("killall screenkey || screenkey &") },
-//
-//	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
-//	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)") },
-//	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)") },
-//	{ 0, XF86XK_AudioStop,		spawn,		SHCMD("mpc stop") },
-//	{ 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10") },
-//	{ 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10") },
-//	{ 0, XF86XK_AudioMedia,		spawn,		SHCMD(TERM " -e ncmpcpp") },
-//	{ 0, XF86XK_AudioMicMute,	spawn,		SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
-//	{ 0, XF86XK_PowerOff,		spawn,		SHCMD("sysact") },
-//	{ 0, XF86XK_Calculator,		spawn,		SHCMD(TERM " -e bc -l") },
-//	{ 0, XF86XK_Sleep,		spawn,		SHCMD("sudo -A zzz") },
-//	{ 0, XF86XK_WWW,		spawn,		SHCMD("$BROWSER") },
-//	{ 0, XF86XK_DOS,		spawn,		SHCMD(TERM) },
-//	{ 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") },
-//	{ 0, XF86XK_TaskPane,		spawn,		SHCMD(TERM " -e htop") },
-//	{ 0, XF86XK_Mail,		spawn,		SHCMD(TERM " -e neomutt ; pkill -RTMIN+12 dwmblocks") },
-//	{ 0, XF86XK_MyComputer,		spawn,		SHCMD(TERM " -e lfub /") },
-//	{ 0, XF86XK_Battery,		spawn,		SHCMD("") },
-//	{ 0, XF86XK_Launch1,		spawn,		SHCMD("xset dpms force off") },
-//	{ 0, XF86XK_TouchpadToggle,	spawn,		SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") },
-//	{ 0, XF86XK_TouchpadOff,	spawn,		SHCMD("synclient TouchpadOff=1") },
-//	{ 0, XF86XK_TouchpadOn,		spawn,		SHCMD("synclient TouchpadOff=0") },
-//	{ 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 15") },
-//	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 15") },
+//{ MODKEY,				XK_grave,					spawn,	SHCMD("dmenuunicode") },
+//{ MODKEY,				XK_BackSpace,				spawn,	SHCMD("sysact") },
+//{ MODKEY|ShiftMask,	XK_BackSpace,				spawn,	SHCMD("sysact") },
+//{ MODKEY|ShiftMask,	XK_w,						spawn,	SHCMD(TERM " -e sudo nmtui") },
+//{ MODKEY,				XK_r,						spawn,	SHCMD(TERM " -e lfub") },
+//{ MODKEY|ShiftMask,	XK_r,						spawn,	SHCMD(TERM " -e htop") },
+//{ MODKEY,				XK_minus,					spawn,	SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
+//{ MODKEY|ShiftMask,	XK_minus,					spawn,	SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
+//{ MODKEY,				XK_equal,					spawn,	SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
+//{ MODKEY|ShiftMask,	XK_equal,					spawn,	SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
+//{ MODKEY|ShiftMask,	XK_m,						spawn,	SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
+//{ MODKEY,				XK_comma,					spawn,	SHCMD("mpc prev") },
+//{ MODKEY|ShiftMask,	XK_comma,					spawn,	SHCMD("mpc seek 0%") },
+//{ MODKEY,				XK_period,					spawn,	SHCMD("mpc next") },
+//{ MODKEY|ShiftMask,	XK_period,					spawn,	SHCMD("mpc repeat") },
+//{ MODKEY,				XK_p,						spawn,	SHCMD("mpc toggle") },
+//{ MODKEY|ShiftMask,	XK_p,						spawn,	SHCMD("mpc pause ; pauseallmpv") },
+//{ MODKEY,				XK_bracketleft,				spawn,	SHCMD("mpc seek -10") },
+//{ MODKEY|ShiftMask,	XK_bracketleft,				spawn,	SHCMD("mpc seek -60") },
+//{ MODKEY,				XK_bracketright,			spawn,	SHCMD("mpc seek +10") },
+//{ MODKEY|ShiftMask,	XK_bracketright,			spawn,	SHCMD("mpc seek +60") },
+//{ MODKEY,				XK_F3,						spawn,	SHCMD("displayselect") },
+//{ MODKEY,				XK_F4,						spawn,	SHCMD(TERM " -e pulsemixer; kill -44 $(pidof dwmblocks)") },
+//{ MODKEY,				XK_F6,						spawn,	SHCMD("torwrap") },
+//{ MODKEY,				XK_F7,						spawn,	SHCMD("td-toggle") },
+//{ MODKEY,				XK_F8,						spawn,	SHCMD("mw -Y") },
+//{ MODKEY,				XK_F9,						spawn,	SHCMD("dmenumount") },
+//{ MODKEY,				XK_F10,						spawn,	SHCMD("dmenuumount") },
+//{ MODKEY,				XK_F11,						spawn,	SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+//{ 0,					XK_Print,					spawn,	SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
+//{ ShiftMask,			XK_Print,					spawn,	SHCMD("maimpick") },
+//{ MODKEY,				XK_Print,					spawn,	SHCMD("dmenurecord") },
+//{ MODKEY|ShiftMask,	XK_Print,					spawn,	SHCMD("dmenurecord kill") },
+//{ MODKEY,				XK_Delete,					spawn,	SHCMD("dmenurecord kill") },
+//{ MODKEY,				XK_Scroll_Lock,				spawn,	SHCMD("killall screenkey || screenkey &") },
+//{ 0,					XF86XK_AudioMute,			spawn,	SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
+//{ 0, 					XF86XK_AudioRaiseVolume,	spawn,	SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)") },
+//{ 0, 					XF86XK_AudioLowerVolume,	spawn,	SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)") },
+//{ 0, 					XF86XK_AudioStop,			spawn,	SHCMD("mpc stop") },
+//{ 0, 					XF86XK_AudioRewind,			spawn,	SHCMD("mpc seek -10") },
+//{ 0, 					XF86XK_AudioForward,		spawn,	SHCMD("mpc seek +10") },
+//{ 0, 					XF86XK_AudioMedia,			spawn,	SHCMD(TERM " -e ncmpcpp") },
+//{ 0, 					XF86XK_AudioMicMute,		spawn,	SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
+//{ 0, 					XF86XK_PowerOff,			spawn,	SHCMD("sysact") },
+//{ 0, 					XF86XK_Calculator,			spawn,	SHCMD(TERM " -e bc -l") },
+//{ 0, 					XF86XK_Sleep,				spawn,	SHCMD("sudo -A zzz") },
+//{ 0, 					XF86XK_WWW,					spawn,	SHCMD("$BROWSER") },
+//{ 0, 					XF86XK_DOS,					spawn,	SHCMD(TERM) },
+//{ 0, 					XF86XK_ScreenSaver,			spawn,	SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") },
+//{ 0, 					XF86XK_TaskPane,			spawn,	SHCMD(TERM " -e htop") },
+//{ 0, 					XF86XK_Mail,				spawn,	SHCMD(TERM " -e neomutt ; pkill -RTMIN+12 dwmblocks") },
+//{ 0, 					XF86XK_MyComputer,			spawn,	SHCMD(TERM " -e lfub /") },
+//{ 0, 					XF86XK_Battery,				spawn,	SHCMD("") },
+//{ 0, 					XF86XK_Launch1,				spawn,	SHCMD("xset dpms force off") },
+//{ 0, 					XF86XK_TouchpadToggle,		spawn,	SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") },
+//{ 0, 					XF86XK_TouchpadOff,			spawn,	SHCMD("synclient TouchpadOff=1") },
+//{ 0, 					XF86XK_TouchpadOn,			spawn,	SHCMD("synclient TouchpadOff=0") },
+//{ 0, 					XF86XK_MonBrightnessUp,		spawn,	SHCMD("xbacklight -inc 15") },
+//{ 0, 					XF86XK_MonBrightnessDown,	spawn,	SHCMD("xbacklight -dec 15") },
 };
 
 /* button definitions */
-/* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
+/* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
@@ -256,8 +275,9 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },
 	{ ClkStatusText,        0,              Button4,        sigdwmblocks,   {.i = 4} },
 	{ ClkStatusText,        0,              Button5,        sigdwmblocks,   {.i = 5} },
-	{ ClkStatusText,        ShiftMask,      Button1,        sigdwmblocks,   {.i = 6} },
-	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD(TERM " -e nvim ~/.local/src/dwmblocks/config.h") },
+	{ ClkStatusText,        MODKEY,			Button1,        sigdwmblocks,   {.i = 6} },
+	{ ClkStatusText,        MODKEY,			Button2,        spawn,			SHCMD(TERM " -e nvim ~/repos/suckless-builds/dwmblocks/blocks.h") },
+	{ ClkStatusText,        MODKEY,			Button3,        sigdwmblocks,   {.i = 7} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
     { ClkClientWin,			MODKEY,			Button2,		togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
