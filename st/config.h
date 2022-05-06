@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+// TODO: now unclutter is being used to hide the mouse cursor, remove that patch when reviewing st
 
 /* fonts */
 static char *font = " ";

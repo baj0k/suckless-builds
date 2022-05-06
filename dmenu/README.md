@@ -1,5 +1,11 @@
-My personalized build of dmenu - the dynamic menu for X by suckless.org
+My personalized build of dmenu - the dynamic menu for X by suckless.org  
 
+## Upstream repository
+Browse online: [https://git.suckless.org/dmenu/](https://git.suckless.org/dmenu/)
+Clone:
+```
+git clone git://git.suckless.org/dmenu
+```
 ## Patches applied
 - alpha
 - border

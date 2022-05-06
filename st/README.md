@@ -1,7 +1,12 @@
-My personalized build of st - the simple terminal by suckless.org somewhat inspired by Luke's [build](https://github.com/LukeSmithxyz/st)
-<!--TODO: now unclutter is being used to hide the mouse cursor, remove that patch when reviewing st -->
+My personalized build of st - the simple terminal by suckless.org.
 
-## Useful bindings
+## Upstream repository
+Browse online: [https://git.suckless.org/st/](https://git.suckless.org/st/)
+Clone:
+```
+git clone git://git.suckless.org/st
+```
+## Bindings
 alt-k/j or alt-PgUp/PgDn to scrollback
 alt-shift-PgUp/PgDn to increase/decrease font size, alt-home ro reset to default
 alt-c to copy, alt-v to paste
