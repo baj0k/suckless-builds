@@ -1,11 +1,9 @@
 My personalized build of st - the simple terminal by suckless.org.
 
 ## Upstream repository
-Browse online: [https://git.suckless.org/st/](https://git.suckless.org/st/)  
-Clone:
-```
-git clone git://git.suckless.org/st
-```
+Clone: git clone git://git.suckless.org/st  
+Browse online: [https://git.suckless.org/st/](https://git.suckless.org/st/)
+
 ## Bindings
 alt-k/j or alt-PgUp/PgDn to scrollback
 alt-shift-PgUp/PgDn to increase/decrease font size, alt-home ro reset to default

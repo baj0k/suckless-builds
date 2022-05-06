@@ -1,11 +1,9 @@
-My personalized build of scron - the simple cron daemon that follows the suckless principles.  
+My personalized build of scron - the simple cron daemon that follows the suckless principles.
 
 ## Upstream repository
-Browse online: [https://git.2f30.org/scron/](https://git.2f30.org/scron/)  
-Clone:
-```
-git clone git://git.2f30.org/scron
-```
+Clone: git clone git://git.2f30.org/scron  
+Browse online: [https://git.2f30.org/scron/](https://git.2f30.org/scron/)
+
 ## Features
 - Schedule commands to be run at specified dates and times.
 - Single daemon and configiguration file.
