@@ -1,7 +1,7 @@
 My personalized build of st - the simple terminal by suckless.org.
 
 ## Upstream repository
-Browse online: [https://git.suckless.org/st/](https://git.suckless.org/st/)
+Browse online: [https://git.suckless.org/st/](https://git.suckless.org/st/)  
 Clone:
 ```
 git clone git://git.suckless.org/st

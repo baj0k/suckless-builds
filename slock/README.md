@@ -1,7 +1,7 @@
 My personalized build of slock - the simple screen locker for X by suckless.org  
 
 ## Upstream repository
-Browse online: [https://git.suckless.org/slock/](https://git.suckless.org/slock/)
+Browse online: [https://git.suckless.org/slock/](https://git.suckless.org/slock/)  
 Clone:
 ```
 git clone git://git.suckless.org/slock

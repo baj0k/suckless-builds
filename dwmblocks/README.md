@@ -1,7 +1,7 @@
 My personalized build of dwmblocks - the modular status bar for dwm that follows the suckless principles.  
 
 ## Upstream repository
-Browse online: [https://github.com/torrinfail/dwmblocks](https://github.com/torrinfail/dwmblocks)
+Browse online: [https://github.com/torrinfail/dwmblocks](https://github.com/torrinfail/dwmblocks)  
 Clone:
 ```
 git clone https://github.com/torrinfail/dwmblocks.git

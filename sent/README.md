@@ -1,7 +1,7 @@
 My personalized build of sent - the simple plaintext presentation tool by suckless.org  
 
 ## Upstream repository
-Browse online: [https://git.suckless.org/sent/](https://git.suckless.org/sent/)
+Browse online: [https://git.suckless.org/sent/](https://git.suckless.org/sent/)  
 Clone:
 ```
 git clone git://git.suckless.org/sent
