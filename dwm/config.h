@@ -185,24 +185,14 @@ static Key keys[] = {
     //{ MODKEY|ShiftMask,		XK_Right,			spawn,          SHCMD("") }, // Unused
 
 
-//{ 0,	XK_XF86AudioRaiseVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+12") },
-//{ 0,	XK_XF86AudioLowerVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+12") },
-//{ 0,	XK_XF86AudioMute,           spawn,	SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+12") },
-//{ 0,	XK_XF86AudioMicMute,        spawn,	SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle && pkill -RTMIN+12") },
-    { 0,	XF86XK_AudioRaiseVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
-    { 0,	XF86XK_AudioLowerVolume,    spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
-    { 0,	XF86XK_AudioMute,           spawn,	SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
-    { 0,	XF86XK_AudioMicMute,        spawn,	SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
-
-// bindcode 171 exec --no-startup-id mpc next && pkill -RTMIN+11 i3blocks
-// bindcode 172 exec --no-startup-id mpc toggle && pkill -RTMIN+11 i3blocks
-// bindcode 173 exec --no-startup-id mpc prev && pkill -RTMIN+11 i3blocks
-// bindcode 174 exec --no-startup-id mpc stop && pkill -RTMIN+11 i3blocks
-
-  	{ 0,	XF86XK_AudioPrev,			spawn,	SHCMD("mpc prev") },
-  	{ 0, 	XF86XK_AudioNext,			spawn,	SHCMD("mpc next") },
-  	{ 0, 	XF86XK_AudioPlay,			spawn,	SHCMD("mpc toggle") },
-  	{ 0, 	XF86XK_AudioStop,			spawn,	SHCMD("mpc stop") },
+    { 0,	XF86XK_AudioMute,           spawn,	SHCMD("pamixer -t; kill -41 $(pidof dwmblocks)") },
+    { 0,	XF86XK_AudioMicMute,        spawn,	SHCMD("pamixer --default-source -t; kill -41 $(pidof dwmblocks)") },
+    { 0,	XF86XK_AudioRaiseVolume,    spawn,	SHCMD("pamixer -i 5;kill -41 $(pidof dwmblocks)") },
+    { 0,	XF86XK_AudioLowerVolume,    spawn,	SHCMD("pamixer -d 5; kill -41 $(pidof dwmblocks)") },
+  	{ 0,	XF86XK_AudioPrev,			spawn,	SHCMD("mpc prev; kill -42 $(pidof dwmblocks)") },
+  	{ 0, 	XF86XK_AudioNext,			spawn,	SHCMD("mpc next; kill -42 $(pidof dwmblocks)") },
+  	{ 0, 	XF86XK_AudioPlay,			spawn,	SHCMD("mpc toggle; kill -42 $(pidof dwmblocks)") },
+  	{ 0, 	XF86XK_AudioStop,			spawn,	SHCMD("mpc stop; kill -42 $(pidof dwmblocks)") },
 
 
 //{ MODKEY,				XK_grave,					spawn,	SHCMD("dmenuunicode") },
