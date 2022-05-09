@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+// TODO: add manual
 
 /* constants */
 #define FORCE_VSPLIT 1 /* nrowgrid layout: force two clients to always split vertically */
@@ -63,7 +64,7 @@ static const Layout layouts[]	= {
 };
 
 /* key definitions */
-#define MODKEY Mod4Mask
+#define MODKEY Mod4Mask // TODO: move to constants
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
@@ -99,28 +100,28 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,			XK_Escape,          quit,           {1} },
     { 0,						XK_Print,           spawn,          SHCMD("prtsc") },
     { ShiftMask,        		XK_Print,           spawn,		    SHCMD("scrot -s /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'") },
-    //{ MODKEY,					XK_minus,			spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_minus,			spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_equal,		    spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_equal,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_minus,			spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_minus,			spawn,          SHCMD("") },
+    //{ MODKEY,					XK_equal,		    spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_equal,			spawn,          SHCMD("") },
     { MODKEY,			        XK_BackSpace,       view,           {0} },
     //{ MODKEY|ShiftMask,		XK_BackSpace,       tag,			{.ui = 0 } }, // TODO: doesn't work atm
 	{ MODKEY,					XK_Tab,				shiftview,		{ .i = +1 } },
 	{ MODKEY|ShiftMask,			XK_Tab,				shiftview,		{ .i = -1 } },
-    //{ MODKEY,					XK_q,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_q,				spawn,          SHCMD("") },
 	{ MODKEY|ShiftMask,			XK_q,				killclient,		{0} },
-    //{ MODKEY,					XK_w,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_w,				spawn,          SHCMD("") }, // Unused
-    { MODKEY,					XK_e,				spawn,          SHCMD("-e ranger") },
-    //{ MODKEY|ShiftMask,		XK_e,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_r,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_r,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_t,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_t,				spawn,          SHCMD("") }, // Unused
-    { MODKEY,					XK_y,				spawn,          SHCMD("yt") },
-    //{ MODKEY|ShiftMask,		XK_y,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_u,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_u,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_w,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_w,				spawn,          SHCMD("") },
+    { MODKEY,					XK_e,				spawn,          SHCMD(TERM " -e lf") },
+    //{ MODKEY|ShiftMask,		XK_e,				spawn,          SHCMD("") },
+    //{ MODKEY,					XK_r,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_r,				spawn,          SHCMD("") },
+    //{ MODKEY,					XK_t,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_t,				spawn,          SHCMD("") },
+    { MODKEY,					XK_y,				spawn,          SHCMD("task='stream video' yt") },
+    { MODKEY|ShiftMask,			XK_y,				spawn,          SHCMD("yt") },
+    //{ MODKEY,					XK_u,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_u,				spawn,          SHCMD("") },
 	{ MODKEY,					XK_i,				incnmaster,     {.i = +1 } },
     { MODKEY|ShiftMask,         XK_i,				resetnmaster,   {0} },
 	{ MODKEY,					XK_o,				incnmaster,     {.i = -1 } },
@@ -136,53 +137,53 @@ static Key keys[] = {
     { MODKEY,                   XK_a,				winview,        {0} },
 	{ MODKEY|ShiftMask,			XK_a,				view,			{.ui = ~0 } },
 	{ MODKEY,					XK_s,				togglesticky,	{0} },
-    //{ MODKEY|ShiftMask,		XK_s,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_s,				spawn,          SHCMD("") },
 	{ MODKEY,					XK_d,				spawn,          SHCMD("dmenu_run") },
-    //{ MODKEY|ShiftMask,		XK_d,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_f,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_f,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_g,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_g,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_d,				spawn,          SHCMD("") },
+    //{ MODKEY,					XK_f,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_f,				spawn,          SHCMD("") },
+    //{ MODKEY,					XK_g,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_g,				spawn,          SHCMD("") },
 	{ MODKEY,					XK_h,				focusmon,		{.i = -1 } },
 	{ MODKEY|ShiftMask,			XK_h,				tagmon,			{.i = -1 } },
 	{ MODKEY,					XK_l,				focusmon,		{.i = +1 } },
 	{ MODKEY|ShiftMask,			XK_l,				tagmon,			{.i = +1 } },
-    //{ MODKEY,					XK_semicolon,		spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_semicolon,		spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_apostrophe,		spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_apostrophe,		spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_semicolon,		spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_semicolon,		spawn,          SHCMD("") },
+    //{ MODKEY,					XK_apostrophe,		spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_apostrophe,		spawn,          SHCMD("") },
 	{ MODKEY,					XK_Return,			spawn,			{.v = termcmd } },
-    { MODKEY|ShiftMask,			XK_Return,			zoom,           {0} }, // TODO: bind to a function to open terminal in CWD
-    //{ MODKEY,					XK_z,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_z,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_x,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_x,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_c,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_c,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_v,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_v,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_b,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_b,				spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,			XK_Return,			zoom,           {0} }, // TODO: st is using this shortcut to open terminal in cwd
+    //{ MODKEY,					XK_z,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_z,				spawn,          SHCMD("") },
+    { MODKEY,					XK_x,				spawn,          SHCMD("slock") },
+    //{ MODKEY|ShiftMask,		XK_x,				spawn,          SHCMD("") },
+    //{ MODKEY,					XK_c,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_c,				spawn,          SHCMD("") },
+    //{ MODKEY,					XK_v,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_v,				spawn,          SHCMD("") },
+    //{ MODKEY,					XK_b,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_b,				spawn,          SHCMD("") },
 	{ MODKEY,					XK_n,				spawn,			SHCMD(TERM " -e ncmpcpp") },
 	{ MODKEY|ShiftMask,			XK_n,				spawn,			SHCMD(TERM " -e newsboat; pkill -RTMIN+6 dwmblocks") },
-    //{ MODKEY,					XK_m,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_m,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_comma,			spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_comma,			spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_period,			spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_period,			spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_slash,			spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_slash,			spawn,          SHCMD("") }, // Unused
-	//{ MODKEY,					XK_space,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_m,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_m,				spawn,          SHCMD("") },
+    //{ MODKEY,					XK_comma,			spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_comma,			spawn,          SHCMD("") },
+    //{ MODKEY,					XK_period,			spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_period,			spawn,          SHCMD("") },
+    //{ MODKEY,					XK_slash,			spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_slash,			spawn,          SHCMD("") },
+	//{ MODKEY,					XK_space,			spawn,          SHCMD("") },
 	{ MODKEY|ShiftMask,			XK_space,			togglefloating,	{0} },
-    //{ MODKEY,					XK_Up,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_Up,				spawn,          SHCMD("") }, // Unused
-    //{ MODKEY,					XK_Down,			spawn,          SHCMD("") }, // Unused
-    //{ MODKEY|ShiftMask,		XK_Down,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY,					XK_Up,				spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_Up,				spawn,          SHCMD("") },
+    //{ MODKEY,					XK_Down,			spawn,          SHCMD("") },
+    //{ MODKEY|ShiftMask,		XK_Down,			spawn,          SHCMD("") },
 	{ MODKEY,					XK_Left,			setmfact,		{.f = -0.05} },
-    //{ MODKEY|ShiftMask,		XK_Left,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_Left,			spawn,          SHCMD("") },
 	{ MODKEY,					XK_Right,			setmfact,      	{.f = +0.05} },
-    //{ MODKEY|ShiftMask,		XK_Right,			spawn,          SHCMD("") }, // Unused
+    //{ MODKEY|ShiftMask,		XK_Right,			spawn,          SHCMD("") },
 
 
     { 0,	XF86XK_AudioMute,           spawn,	SHCMD("pamixer -t; kill -41 $(pidof dwmblocks)") },

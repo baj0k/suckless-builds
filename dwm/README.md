@@ -11,10 +11,8 @@ Browse online: [https://git.suckless.org/dwm/](https://git.suckless.org/dwm/)
 
 ## Patches applied
 - [alpha](https://dwm.suckless.org/patches/alpha/dwm-alpha-20201019-61bb8b2.diff)
-//- [alwaysontop](https://dwm.suckless.org/patches/alwaysontop/alwaysontop-6.2.diff)
 - [attachaside](https://dwm.suckless.org/patches/attachaside/dwm-attachaside-6.3.diff)
 - [bottomstack](https://dwm.suckless.org/patches/bottomstack/dwm-bottomstack-6.1.diff)
-//- [canfocusfloating](https://dwm.suckless.org/patches/canfocusfloating/dwm-canfocusfloating-20210724-b914109.diff)
 - [colorbar](https://dwm.suckless.org/patches/colorbar/dwm-colorbar-6.2.diff)
 - [deck](https://dwm.suckless.org/patches/deck/dwm-deck-double-6.2.diff)
 - [fadeinactive](https://dwm.suckless.org/patches/fadeinactive/dwm-fadeinactive-20211114-a786211.diff)
