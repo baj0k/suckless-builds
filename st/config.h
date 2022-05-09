@@ -1,20 +1,28 @@
 /* See LICENSE file for copyright and license details. */
-// TODO: now unclutter is being used to hide the mouse cursor, remove that patch when reviewing st
 
-/* fonts */
-static char *font = " ";
-static char *font2[] = { " " };
+/* appearance */
+static char *font = "Liberation Mono:pixelsize=15:antialias=true:autohint=true";
+static char *font2[] = {"JoyPixels:pixelsize=14:antialias=true:autohint=true"};
 
-/* internal border width in px */
 static int borderpx = 0;
 
-/* What program is execed by st depends of these precedence rules:
+
+
+
+
+
+
+
+
+
+/*
+ * What program is execed by st depends of these precedence rules:
  * 1: program passed with -e
  * 2: scroll and/or utmp
  * 3: SHELL environment variable
  * 4: value of shell in /etc/passwd
  * 5: value of shell in config.h
-*/
+ */
 static char *shell = "/bin/sh";
 char *utmp = NULL;
 /* scroll program: to enable use a string like "scroll" */
@@ -28,8 +36,9 @@ char *vtiden = "\033[?6c";
 static float cwscale = 1.0;
 static float chscale = 1.0;
 
-/* Word delimeter string. More advanced example:  L"#$%&+,-./:=?_~" */
+/* word delimiters */
 wchar_t *worddelimiters = L"./: ";
+wchar_t *snap_line_delimiters = L"│";
 
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
@@ -51,120 +60,105 @@ int allowwindowops = 0;
 static double minlatency = 8;
 static double maxlatency = 33;
 
-/* blinking timeout (0 to disable blinking) for the terminal blinking attribute */
+/*
+ * blinking timeout (set to 0 to disable blinking) for the terminal blinking
+ * attribute.
+ */
 static unsigned int blinktimeout = 100;
 
-/* thickness of underline and bar cursors */
-static unsigned int cursorthickness = 2;
-
-/* bell volume. Must be between -100 and 100. Use 0 to disable */
+/* bell volume. It must be a value between -100 and 100. Use 0 for disabling it */
 static int bellvolume = 0;
 
 /* default TERM value */
 char *termname = "st-256color";
 
-/* spaces per tab */
+/*
+ * spaces per tab
+ *
+ * When you are changing this value, don't forget to adapt the »it« value in
+ * the st.info and appropriately install the st.info in the environment where
+ * you use this st version.
+ *
+ *	it#$tabspaces,
+ *
+ * Secondly make sure your kernel is not expanding tabs. When running `stty
+ * -a` »tab0« should appear. You can tell the terminal to not expand tabs by
+ *  running following command:
+ *
+ *	stty tabs
+ */
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0;
+float alpha = 0.9;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	"#1D2021",
-	"#cc241d",
-	"#98971a",
-	"#d79921",
-	"#458588",
-	"#b16286",
-	"#689d6a",
-	"#a89984",
-	"#928374",
-	"#fb4934",
-	"#b8bb26",
-	"#fabd2f",
-	"#83a598",
-	"#d3869b",
-	"#8ec07c",
-	"#ebdbb2",
+	/* 8 normal colors */
+	"black",
+	"red3",
+	"green3",
+	"yellow3",
+	"blue2",
+	"magenta3",
+	"cyan3",
+	"gray90",
+
+	/* 8 bright colors */
+	"gray50",
+	"red",
+	"green",
+	"yellow",
+	"#5c5cff",
+	"magenta",
+	"cyan",
+	"white",
+
 	[255] = 0,
+
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc", /* 256 -> cursor */
-	"#555555", /* 257 -> rev cursor*/
-	"#ebdbb2", /* 258 -> foreground colour */
-	"#2e3440", /* 259 -> background colour */
-	"#2e3440", /* 260 -> selbg */
-	"#ebdbb2", /* 261 -> selfg */
+    "#34E2E2", /* 256 -> cursor */
+    "#AD7FA8", /* 257 -> rev cursor*/
+    "#010101", /* 258 -> background colour */
+    "#DBD3C4", /* 259 -> foreground colour */
+    "#262626", /* 260 -> selbg */
+    "#AD7FA8", /* 261 -> selfg */
 };
 
-/* cursor, reverse cursor colors */
-unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
 
-/* fg, bg colors */
+/*
+ * Default colors (colorname index)
+ * foreground, background, cursor, reverse cursor, selection
+ */
 unsigned int defaultbg = 258;
 unsigned int defaultfg = 259;
-
-/* selection colors */
+unsigned int defaultcs = 256;
+unsigned int defaultrcs = 257;
 unsigned int selectionbg = 260;
 unsigned int selectionfg = 261;
-
-/* non zero value keeps original fg color of each cell */
+/* If 0 use selectionfg as foreground in order to have a uniform foreground-color */
+/* Else if 1 keep original foreground-color of each cell => more colors :) */
 static int ignoreselfg = 0;
 
-/* Default shape of cursor
- * 2: Block ("█")
- * 4: Underline ("_")
- * 6: Bar ("|")
- * 7: Snowman ("☃")
-*/
-static unsigned int cursorshape = 4;
+/*
+ * Default columns and rows numbers
+ */
 
-/* Default columns and rows numbers */
 static unsigned int cols = 80;
 static unsigned int rows = 24;
 
-/* Default colour and shape of the mouse cursor */
+/*
+ * Default colour and shape of the mouse cursor
+ */
 static unsigned int mouseshape = XC_xterm;
 static unsigned int mousefg = 7;
 static unsigned int mousebg = 0;
 
-/* Color for font attributes when fontconfig selects font that doesn't match the ones requested */
+/*
+ * Color used to display font attributes when fontconfig selected a font which
+ * doesn't match the ones requested.
+ */
 static unsigned int defaultattr = 11;
-
-/* Xresources preferences to load at startup */
-ResourcePref resources[] = {
-		{ "font",         STRING,  &font },
-		{ "fontalt",      STRING,  &font2[0] },
-		{ "color0",       STRING,  &colorname[0] },
-		{ "color1",       STRING,  &colorname[1] },
-		{ "color2",       STRING,  &colorname[2] },
-		{ "color3",       STRING,  &colorname[3] },
-		{ "color4",       STRING,  &colorname[4] },
-		{ "color5",       STRING,  &colorname[5] },
-		{ "color6",       STRING,  &colorname[6] },
-		{ "color7",       STRING,  &colorname[7] },
-		{ "color8",       STRING,  &colorname[8] },
-		{ "color9",       STRING,  &colorname[9] },
-		{ "color10",      STRING,  &colorname[10] },
-		{ "color11",      STRING,  &colorname[11] },
-		{ "color12",      STRING,  &colorname[12] },
-		{ "color13",      STRING,  &colorname[13] },
-		{ "color14",      STRING,  &colorname[14] },
-		{ "color15",      STRING,  &colorname[15] },
-		{ "cursorColor",  STRING,  &colorname[256] },
-		{ "rcursorColor", STRING,  &colorname[257] },
-		{ "cursorShape",  INTEGER, &cursorshape },
-		{ "background",   STRING,  &colorname[258] },
-		{ "foreground",   STRING,  &colorname[259] },
-		{ "selbg",	  STRING,  &colorname[260] },
-		{ "selfg",	  STRING,  &colorname[261] },
-		{ "termname",     STRING,  &termname },
-		{ "blinktimeout", INTEGER, &blinktimeout },
-		{ "tabspaces",    INTEGER, &tabspaces },
-		{ "borderpx",     INTEGER, &borderpx },
-		{ "alpha",        FLOAT,   &alpha },
-};
 
 /*
  * Force mouse select/shortcuts while mask is active (when MODE_MOUSE is set).
@@ -173,37 +167,24 @@ ResourcePref resources[] = {
  */
 static uint forcemousemod = ShiftMask;
 
-/* Internal mouse shortcuts */
+/*
+ * Internal mouse shortcuts.
+ * Beware that overloading Button1 will disable the selection.
+ */
 static MouseShortcut mshortcuts[] = {
-    /* mask                 button   function        argument       release */
-    { XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
-    { ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
-    { XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
-    { ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
-    { XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
+	/* mask                 button   function        argument       release */
+	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 5},		0, /* !alt */ -1 },
+	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 5},		0, /* !alt */ -1 },
+	{ XK_ANY_MOD,           Button3, clippaste,      {.i = 0},      1 },
+	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
+	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
+	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
+	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
 };
 
 /* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 #define TERMMOD (Mod1Mask|ShiftMask)
-
-MouseKey mkeys[] = {
-	/* button               mask            function        argument */
-	{ Button4,              ShiftMask,      kscrollup,      {.i =  1} },
-	{ Button5,              ShiftMask,      kscrolldown,    {.i =  1} },
-	{ Button4,              MODKEY,         kscrollup,      {.i =  1} },
-	{ Button5,              MODKEY,         kscrolldown,    {.i =  1} },
-	{ Button4,              TERMMOD,        zoom,           {.f = +1} },
-	{ Button5,              TERMMOD,        zoom,           {.f = -1} },
-};
-
-static char *openurlcmd[] = { "/bin/sh", "-c", "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?$#=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)'| uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Follow which url?' -l 10 | xargs -r xdg-open", "externalpipe", NULL };
-
-static char *copyurlcmd[] = { "/bin/sh", "-c", "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?$#=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)' | uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Copy which url?' -l 10 | tr -d '\n' | xclip -selection clipboard", "externalpipe", NULL };
-
-static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout", "externalpipe", NULL };
-
-static char *lockscreen[] = { "/bin/sh", "-c", "slock", "externalpipe", NULL };
 
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
@@ -213,35 +194,15 @@ static Shortcut shortcuts[] = {
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
 	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
 	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
-	{ MODKEY,               XK_Home,        zoomreset,      {.f =  0} },
-	{ ShiftMask,            XK_Insert,      clippaste,      {.i =  0} },
-	{ MODKEY,               XK_c,           clipcopy,       {.i =  0} },
-	{ MODKEY,               XK_v,           clippaste,      {.i =  0} },
-	{ MODKEY,               XK_p,           selpaste,       {.i =  0} },
-	{ XK_ANY_MOD,	    	Button2,	    selpaste,   	{.i =  0} },
-	{ MODKEY,               XK_Num_Lock,    numlock,        {.i =  0} },
-	{ MODKEY,               XK_Control_L,   iso14755,       {.i =  0} },
-	{ TERMMOD,              XK_Return,      newterm,        {.i =  0} },
-	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ MODKEY,               XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ MODKEY,               XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ MODKEY,               XK_k,           kscrollup,      {.i =  1} },
-	{ MODKEY,               XK_j,           kscrolldown,    {.i =  1} },
-	{ MODKEY,               XK_Up,          kscrollup,      {.i =  1} },
-	{ MODKEY,               XK_Down,        kscrolldown,    {.i =  1} },
-	{ MODKEY,               XK_u,           kscrollup,      {.i = -1} },
-	{ MODKEY,               XK_d,           kscrolldown,    {.i = -1} },
-	{ TERMMOD,              XK_Up,          zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Down,        zoom,           {.f = -1} },
-	{ TERMMOD,              XK_K,           zoom,           {.f = +1} },
-	{ TERMMOD,              XK_J,           zoom,           {.f = -1} },
-	{ TERMMOD,              XK_U,           zoom,           {.f = +2} },
-	{ TERMMOD,              XK_D,           zoom,           {.f = -2} },
-	{ MODKEY,               XK_l,           externalpipe,   {.v = openurlcmd } },
-	{ MODKEY,               XK_y,           externalpipe,   {.v = copyurlcmd } },
-	{ MODKEY,               XK_o,           externalpipe,   {.v = copyoutput } },
-	{ MODKEY,               XK_x,           externalpipe,   {.v = lockscreen } },
+	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
+	{ MODKEY,				XK_c,           clipcopy,       {.i =  0} },
+	{ MODKEY,				XK_v,           clippaste,      {.i =  0} },
+    { MODKEY,               XK_k,           kscrollup,      {.i =  1} },
+    { MODKEY,               XK_j,           kscrolldown,    {.i =  1} },
+	{ MODKEY,				XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ MODKEY,	            XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+    { Mod4Mask|ShiftMask,	XK_Return,		newterm,		{.i =  0} },
 };
 
 /*

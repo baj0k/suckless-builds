@@ -22,18 +22,26 @@
 
 enum glyph_attribute {
 	ATTR_NULL       = 0,
-	ATTR_BOLD       = 1 << 0,
-	ATTR_FAINT      = 1 << 1,
-	ATTR_ITALIC     = 1 << 2,
-	ATTR_UNDERLINE  = 1 << 3,
-	ATTR_BLINK      = 1 << 4,
-	ATTR_REVERSE    = 1 << 5,
-	ATTR_INVISIBLE  = 1 << 6,
-	ATTR_STRUCK     = 1 << 7,
-	ATTR_WRAP       = 1 << 8,
-	ATTR_WIDE       = 1 << 9,
-	ATTR_WDUMMY     = 1 << 10,
+	ATTR_SET        = 1 << 0,
+	ATTR_BOLD       = 1 << 1,
+	ATTR_FAINT      = 1 << 2,
+	ATTR_ITALIC     = 1 << 3,
+	ATTR_UNDERLINE  = 1 << 4,
+	ATTR_BLINK      = 1 << 5,
+	ATTR_REVERSE    = 1 << 6,
+	ATTR_INVISIBLE  = 1 << 7,
+	ATTR_STRUCK     = 1 << 8,
+	ATTR_WRAP       = 1 << 9,
+	ATTR_WIDE       = 1 << 10,
+	ATTR_WDUMMY     = 1 << 11,
+	ATTR_SELECTED   = 1 << 12,
 	ATTR_BOLD_FAINT = ATTR_BOLD | ATTR_FAINT,
+};
+
+enum drawing_mode {
+    DRAW_NONE = 0,
+    DRAW_BG = 1 << 0,
+    DRAW_FG = 1 << 1,
 };
 
 enum selection_mode {
@@ -77,19 +85,10 @@ typedef union {
 	const char *s;
 } Arg;
 
-typedef struct {
-	uint b;
-	uint mask;
-	void (*func)(const Arg *);
-	const Arg arg;
-} MouseKey;
-
 void die(const char *, ...);
 void redraw(void);
 void draw(void);
 
-void externalpipe(const Arg *);
-void iso14755(const Arg *);
 void kscrolldown(const Arg *);
 void kscrollup(const Arg *);
 void newterm(const Arg *);
@@ -99,7 +98,9 @@ void sendbreak(const Arg *);
 void toggleprinter(const Arg *);
 
 int tattrset(int);
+int tisaltscr(void);
 void tnew(int, int);
+int tisaltscreen(void);
 void tresize(int, int);
 void tsetdirtattr(int);
 void ttyhangup(void);
@@ -123,14 +124,13 @@ void *xmalloc(size_t);
 void *xrealloc(void *, size_t);
 char *xstrdup(const char *);
 
-int xgetcolor(int x, unsigned char *r, unsigned char *g, unsigned char *b);
-
 /* config.h globals */
 extern char *utmp;
 extern char *scroll;
 extern char *stty_args;
 extern char *vtiden;
 extern wchar_t *worddelimiters;
+extern wchar_t *snap_line_delimiters;
 extern int allowaltscreen;
 extern int allowwindowops;
 extern char *termname;
@@ -138,5 +138,3 @@ extern unsigned int tabspaces;
 extern unsigned int defaultfg;
 extern unsigned int defaultbg;
 extern unsigned int defaultcs;
-extern float alpha;
-extern MouseKey mkeys[];

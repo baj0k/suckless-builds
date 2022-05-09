@@ -230,7 +230,7 @@ st-meta-256color| simpleterm with meta key and 256 colors,
 
 st-bs| simpleterm with backspace as backspace,
 	use=st,
-    kbs=\010,
+	kbs=\010,
 	kdch1=\177,
 
 st-bs-256color| simpleterm with backspace as backspace and 256colors,
