@@ -1,0 +1,9 @@
+#!/bin/sh
+# Using external pipe with st, give a dmenu prompt of recent commands, allowing the user to copy the output of one.
+TMPFILE=$(mktemp) && trap 'rm -f "$TMPFILE"' EXIT
+sed -n "w ${TMPFILE}"
+sed -i 's/\x0//g' "${TMPFILE}"
+ps1="$(grep "\S" "${TMPFILE}" | tail -n 1 | sed 's/^\s*//' | cut -d' ' -f1)"
+chosen="$(grep -F "${ps1}" "${TMPFILE}" | sed '$ d' | tac | dmenu -i -p "Copy which command's output?" | sed 's/[^^]/[&]/g; s/\^/\\^/g')"
+eps1="$(echo "${ps1}" | sed 's/[^^]/[&]/g; s/\^/\\^/g')"
+awk "/^${chosen}$/{p=1;print;next} p&&/${eps1}/{p=0};p" "${TMPFILE}" | xclip -selection clipboard
