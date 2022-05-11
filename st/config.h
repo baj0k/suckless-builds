@@ -142,6 +142,9 @@ static unsigned int defaultattr = 11;
  */
 static uint forcemousemod = ShiftMask;
 
+/* externalpipe commands */
+static char *openurlcmd[] = { "/bin/sh", "-c", "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?$#=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)'| uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Follow which url?' -l 10 | xargs -r xdg-open", "externalpipe", NULL };
+
 /* Internal mouse shortcuts. */
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
@@ -172,6 +175,7 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,	            XK_Page_Down,   kscrolldown,    {.i = -1} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
     { Mod4Mask|ShiftMask,	XK_Return,		newterm,		{.i =  0} },
+    { MODKEY,               XK_l,           externalpipe,   {.v = openurlcmd } },
 };
 
 /*

@@ -5,9 +5,7 @@
 static int topbar = 1;
 
 /* -fn option overrides fonts[0]; default X11 font or font set */
-static const char *fonts[] = {
-	"monospace:size=10"
-};
+static const char *fonts[] = { "Liberation Mono:pixelsize=25:antialias=true:autohint=true" };
 
 static const unsigned int bgalpha = 0x99999999999999;
 static const unsigned int fgalpha = OPAQUE;

@@ -14,6 +14,8 @@ This build is based on the following commit:
 ## Patches applied
 - [alpha](https://st.suckless.org/patches/alpha/st-alpha-osc11-20220222-0.8.5.diff)
 - [bold is not bright](https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff)
+- [externalpipe](https://st.suckless.org/patches/externalpipe/st-externalpipe-0.8.4.diff)
+- [externalpipe-eternal](https://st.suckless.org/patches/externalpipe/st-externalpipe-eternal-0.8.3.diff)
 - [font2](https://st.suckless.org/patches/font2/st-font2-20190416-ba72400.diff)
 - [glyph wide support](https://st.suckless.org/patches/glyph_wide_support/st-glyph-wide-support-20220411-ef05519.diff)
 - [newterm](https://st.suckless.org/patches/newterm/st-newterm-20220221-0.8.5.diff)
