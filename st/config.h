@@ -1,17 +1,25 @@
 /* See LICENSE file for copyright and license details. */
 
+/* constants */
+#define MODKEY Mod1Mask
+#define TERMMOD (Mod1Mask|ShiftMask)
+
+/* miscellaneous */
+char *termname = "st-256color";	/* default TERM value */
+char *vtiden = "\033[?6c";		/* identification sequence returned in DA and DECID */
+int allowaltscreen = 1;			/* alt screens */
+int allowwindowops = 0;			/* allow certain non-interactive window operations */
+
 /* appearance */
-static char *font = "Liberation Mono:pixelsize=15:antialias=true:autohint=true";
-static char *font2[] = {"JoyPixels:pixelsize=14:antialias=true:autohint=true"};
+static char *font = "Liberation Mono:pixelsize=18:antialias=true:autohint=true"; /* default font */
+static char *font2[] = {"JoyPixels:pixelsize=15:antialias=true:autohint=true"};  /* fallback fonts prioritization */
 
-static int borderpx = 0;
-
-
+static int borderpx = 0; /* border px size TODO: remove*/
 
 
 
-
-
+wchar_t *worddelimiters = L"./: ";		/* word delimiters */
+wchar_t *snap_line_delimiters = L"│";	/* snap line delimiters */
 
 
 
@@ -29,27 +37,13 @@ char *utmp = NULL;
 char *scroll = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
-/* identification sequence returned in DA and DECID */
-char *vtiden = "\033[?6c";
-
 /* Kerning / character bounding-box multipliers */
 static float cwscale = 1.0;
 static float chscale = 1.0;
 
-/* word delimiters */
-wchar_t *worddelimiters = L"./: ";
-wchar_t *snap_line_delimiters = L"│";
-
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
 static unsigned int tripleclicktimeout = 600;
-
-/* alt screens */
-int allowaltscreen = 1;
-
-/* allow certain non-interactive (insecure) window operations such as:
-   setting the clipboard text */
-int allowwindowops = 0;
 
 /*
  * draw latency range in ms - from new content/keypress/etc until drawing.
@@ -64,13 +58,10 @@ static double maxlatency = 33;
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
  * attribute.
  */
-static unsigned int blinktimeout = 100;
+static unsigned int blinktimeout = 0;
 
 /* bell volume. It must be a value between -100 and 100. Use 0 for disabling it */
 static int bellvolume = 0;
-
-/* default TERM value */
-char *termname = "st-256color";
 
 /*
  * spaces per tab
@@ -89,33 +80,32 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
-/* bg opacity */
-float alpha = 0.9;
+
+float alpha = 0.9; /* bg opacity */
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	"#252a2c", /* onyx */
+	"#CC0000", /* red */
+	"#4E9A06", /* shrek */
+	"#C4A000", /* orange */
+	"#3465A4", /* blue */
+	"#75507B", /* fuchsia */
+	"#06989A", /* tiffany */
+	"#D3D7CF", /* peach */
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	"#555753", /* brown */
+	"#B7410E", /* rust */
+	"#8AE234", /* lime */
+	"#FCE94F", /* yellow */
+	"#729FCF", /* lavander */
+	"#AD7FA8", /* pink */
+	"#34E2E2", /* cyan */
+	"#EEEEEC", /* white */
 
 	[255] = 0,
-
 	/* more colors can be added after 255 to use with DefaultXX */
     "#34E2E2", /* 256 -> cursor */
     "#AD7FA8", /* 257 -> rev cursor*/
@@ -125,11 +115,7 @@ static const char *colorname[] = {
     "#AD7FA8", /* 261 -> selfg */
 };
 
-
-/*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor, selection
- */
+/* Default colors (foreground, background, cursor, reverse cursor, selection) */
 unsigned int defaultbg = 258;
 unsigned int defaultfg = 259;
 unsigned int defaultcs = 256;
@@ -140,24 +126,13 @@ unsigned int selectionfg = 261;
 /* Else if 1 keep original foreground-color of each cell => more colors :) */
 static int ignoreselfg = 0;
 
-/*
- * Default columns and rows numbers
- */
+static unsigned int mouseshape = XC_xterm;	/* mouse cursor shape */
+static unsigned int mousefg = 7;			/* mouse cursor fg */
+static unsigned int mousebg = 0;			/* mouse cursor bg */
+static unsigned int cols = 80;				/* default columns number */
+static unsigned int rows = 24;				/* default rows number */
 
-static unsigned int cols = 80;
-static unsigned int rows = 24;
-
-/*
- * Default colour and shape of the mouse cursor
- */
-static unsigned int mouseshape = XC_xterm;
-static unsigned int mousefg = 7;
-static unsigned int mousebg = 0;
-
-/*
- * Color used to display font attributes when fontconfig selected a font which
- * doesn't match the ones requested.
- */
+/* color of font attributes when font doesn't match the ones requested. */
 static unsigned int defaultattr = 11;
 
 /*
@@ -167,10 +142,7 @@ static unsigned int defaultattr = 11;
  */
 static uint forcemousemod = ShiftMask;
 
-/*
- * Internal mouse shortcuts.
- * Beware that overloading Button1 will disable the selection.
- */
+/* Internal mouse shortcuts. */
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
 	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 5},		0, /* !alt */ -1 },
@@ -183,9 +155,6 @@ static MouseShortcut mshortcuts[] = {
 };
 
 /* Internal keyboard shortcuts. */
-#define MODKEY Mod1Mask
-#define TERMMOD (Mod1Mask|ShiftMask)
-
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
 	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },

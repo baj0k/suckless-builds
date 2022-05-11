@@ -1,8 +1,11 @@
 My personalized build of st - the simple terminal by suckless.org.
 
 ## Upstream repository
-Clone: git clone git://git.suckless.org/st
+Clone: git clone git://git.suckless.org/st  
 Browse online: [https://git.suckless.org/st/](https://git.suckless.org/st/)
+
+This build is based on the following commit:  
+*2022-05-01 16:38	Makefile: add manual path for OpenBSD	Hiltjo Posthuma*
 
 ## Dependencies
 - libxcb
