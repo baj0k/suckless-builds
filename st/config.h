@@ -1,9 +1,5 @@
 /* See LICENSE file for copyright and license details. */
 
-/* constants */
-#define MODKEY Mod1Mask
-#define TERMMOD (Mod1Mask|ShiftMask)
-
 /* miscellaneous */
 char *termname = "st-256color";	/* default TERM value */
 char *vtiden = "\033[?6c";		/* identification sequence returned in DA and DECID */
@@ -37,27 +33,15 @@ char *utmp = NULL;
 char *scroll = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
-/* Kerning / character bounding-box multipliers */
-static float cwscale = 1.0;
-static float chscale = 1.0;
 
-/* selection timeouts (in milliseconds) */
-static unsigned int doubleclicktimeout = 300;
-static unsigned int tripleclicktimeout = 600;
+static unsigned int doubleclicktimeout	= 300; /* double selection timeout in ms */
+static unsigned int tripleclicktimeout 	= 600; /* triple selection timeout in ms */
+static float cwscale					= 1.0; /* Kerning / character bounding-box width multiplier */
+static float chscale 					= 1.0; /* Kerning / character bounding-box height multiplier */
+static double minlatency				= 8;   /* min draw latency in ms */
+static double maxlatency 				= 33;  /* max draw latency in ms */
 
-/*
- * draw latency range in ms - from new content/keypress/etc until drawing.
- * within this range, st draws when content stops arriving (idle). mostly it's
- * near minlatency, but it waits longer for slow updates to avoid partial draw.
- * low minlatency will tear/flicker more, as it can "detect" idle too early.
- */
-static double minlatency = 8;
-static double maxlatency = 33;
-
-/*
- * blinking timeout (set to 0 to disable blinking) for the terminal blinking
- * attribute.
- */
+/* blinking timeout (set to 0 to disable blinking) for the terminal blinking attribute. */
 static unsigned int blinktimeout = 0;
 
 /* bell volume. It must be a value between -100 and 100. Use 0 for disabling it */
@@ -85,7 +69,6 @@ float alpha = 0.9; /* bg opacity */
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	/* 8 normal colors */
 	"#252a2c", /* onyx */
 	"#CC0000", /* red */
 	"#4E9A06", /* shrek */
@@ -104,8 +87,8 @@ static const char *colorname[] = {
 	"#AD7FA8", /* pink */
 	"#34E2E2", /* cyan */
 	"#EEEEEC", /* white */
-
 	[255] = 0,
+
 	/* more colors can be added after 255 to use with DefaultXX */
     "#34E2E2", /* 256 -> cursor */
     "#AD7FA8", /* 257 -> rev cursor*/
@@ -135,15 +118,21 @@ static unsigned int rows = 24;				/* default rows number */
 /* color of font attributes when font doesn't match the ones requested. */
 static unsigned int defaultattr = 11;
 
-/*
- * Force mouse select/shortcuts while mask is active (when MODE_MOUSE is set).
+/* Force mouse select/shortcuts while mask is active (when MODE_MOUSE is set).
  * Note that if you want to use ShiftMask with selmasks, set this to an other
- * modifier, set to 0 to not use it.
- */
+ * modifier, set to 0 to not use it. */
 static uint forcemousemod = ShiftMask;
 
 /* externalpipe commands */
 static char *openurlcmd[] = { "/bin/sh", "-c", "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?$#=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)'| uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Follow which url?' -l 10 | xargs -r xdg-open", "externalpipe", NULL };
+
+static char *copyurlcmd[] = { "/bin/sh", "-c", "sed 's/.*│//g' | tr -d '\n' | grep -aEo '(((http|https)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?$#=_-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)' | uniq | sed 's/^www./http:\\/\\/www\\./g' | dmenu -i -p 'Copy which url?' -l 10 | tr -d '\n' | xclip -selection clipboard", "externalpipe", NULL };
+
+static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout", "externalpipe", NULL };
+
+/* key definitions */
+#define MODKEY Mod1Mask
+#define TERMMOD (Mod1Mask|ShiftMask)
 
 /* Internal mouse shortcuts. */
 static MouseShortcut mshortcuts[] = {
@@ -164,18 +153,25 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
-	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
+
+
+	{ TERMMOD,				XK_Prior,       zoom,           {.f = +1} },
+	{ TERMMOD,				XK_Next,        zoom,           {.f = -1} },
+	{ TERMMOD,				XK_Home,        zoomreset,      {.f =  0} },
 	{ MODKEY,				XK_c,           clipcopy,       {.i =  0} },
 	{ MODKEY,				XK_v,           clippaste,      {.i =  0} },
-    { MODKEY,               XK_k,           kscrollup,      {.i =  1} },
-    { MODKEY,               XK_j,           kscrolldown,    {.i =  1} },
-	{ MODKEY,				XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ MODKEY,	            XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+
+    { MODKEY,       		XK_k,           kscrollup,      {.i =  1} },
+    { MODKEY,       		XK_j,           kscrolldown,    {.i =  1} },
+    { MODKEY,               XK_Page_Up,     kscrollup,      {.i = -1} },
+    { MODKEY,               XK_Page_Down,   kscrolldown,    {.i = -1} },
+
+	{ TERMMOD,				XK_Num_Lock,    numlock,        {.i =  0} },
+
     { Mod4Mask|ShiftMask,	XK_Return,		newterm,		{.i =  0} },
     { MODKEY,               XK_l,           externalpipe,   {.v = openurlcmd } },
+    { MODKEY,               XK_y,           externalpipe,   {.v = copyurlcmd } },
+    { MODKEY,               XK_o,           externalpipe,   {.v = copyoutput } },
 };
 
 /*

@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
+#include <pty.h>
 #include <pwd.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -19,16 +20,6 @@
 
 #include "st.h"
 #include "win.h"
-
-extern char *argv0;
-
-#if   defined(__linux)
- #include <pty.h>
-#elif defined(__OpenBSD__) || defined(__NetBSD__) || defined(__APPLE__)
- #include <util.h>
-#elif defined(__FreeBSD__) || defined(__DragonFly__)
- #include <libutil.h>
-#endif
 
 /* Arbitrary sizes */
 #define UTF_INVALID   0xFFFD
@@ -47,9 +38,8 @@ extern char *argv0;
 #define ISCONTROL(c)			(ISCONTROLC0(c) || ISCONTROLC1(c))
 #define ISDELIM(u)				(u && wcschr(worddelimiters, u))
 #define IS_SNAP_LINE_DELIM(u)	(u && wcschr(snap_line_delimiters, u))
-
 #define TLINE(y)				((y) < term.scr ? term.hist[(term.histi + (y) - term.scr + 1 + HISTSIZE) % HISTSIZE] \
-								: term.line[(y) - term.scr])
+									: term.line[(y) - term.scr])
 #define TLINEABS(y)				((y) < 0 ? term.hist[(term.histi + (y) + 1 + HISTSIZE) % HISTSIZE] : term.line[(y)])
 #define TLINE_HIST(y)           ((y) <= HISTSIZE-term.row+2 ? term.hist[(y)] : term.line[(y-HISTSIZE+term.row-3)])
 
@@ -179,6 +169,7 @@ typedef struct {
 	int narg;              /* nb of args */
 } STREscape;
 
+extern char *argv0;
 static void execsh(char *, char **);
 static int chdir_by_pid(pid_t pid);
 static void stty(char **);
@@ -903,17 +894,9 @@ ttynew(const char *line, char *cmd, const char *out, char **args)
 			die("ioctl TIOCSCTTY failed: %s\n", strerror(errno));
 		if (s > 2)
 			close(s);
-#ifdef __OpenBSD__
-		if (pledge("stdio getpw proc exec", NULL) == -1)
-			die("pledge\n");
-#endif
 		execsh(cmd, args);
 		break;
 	default:
-#ifdef __OpenBSD__
-		if (pledge("stdio rpath tty proc", NULL) == -1)
-			die("pledge\n");
-#endif
 		fcntl(m, F_SETFD, FD_CLOEXEC);
 		close(s);
 		cmdfd = m;
