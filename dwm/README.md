@@ -4,6 +4,9 @@ My personalized build of dwm - the dynamic window manager for X by suckless.org
 Clone: git clone git://git.suckless.org/dwm  
 Browse online: [https://git.suckless.org/dwm/](https://git.suckless.org/dwm/)
 
+This build is based on the following commit:  
+*2022-05-10 17:07	sync latest drw.{c,h} changes from dmenu	Hiltjo Posthuma*
+
 ## Dependencies
 - libxcb
 - Xlib-libxcb
