@@ -42,7 +42,6 @@ static const char *colorname[] = {
     "#29242C", /* 259 -> selbg */
 };
 
-static int borderpx		 	   = 0;		/* border px size TODO: remove*/
 float alpha					   = 0.9;	/* background opacity */
 unsigned int defaultcs	 	   = 256;	/* cursor color */
 unsigned int defaultbg 	 	   = 257;	/* background color */
