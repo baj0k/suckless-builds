@@ -1582,8 +1582,6 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
 
 	if (base.mode & ATTR_SELECTED) {
 		bg = &dc.col[selectionbg];
-		if (!ignoreselfg)
-			fg = &dc.col[selectionfg];
 	}
 
 	if (base.mode & ATTR_BLINK && win.mode & MODE_BLINK)
@@ -1660,12 +1658,11 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
 		g.mode |= ATTR_REVERSE;
 		g.fg = defaultcs;
 		g.bg = defaultfg;
-		drawcol = dc.col[defaultrcs];
 	} else {
 		g.fg = defaultbg;
 		g.bg = defaultcs;
-		drawcol = dc.col[defaultcs];
 	}
+	drawcol = dc.col[defaultcs];
 
 	/* draw the new one */
 	if (IS_SET(MODE_FOCUSED)) {

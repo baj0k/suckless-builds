@@ -1,137 +1,62 @@
 /* See LICENSE file for copyright and license details. */
 
 /* miscellaneous */
-char *termname = "st-256color";	/* default TERM value */
-char *vtiden = "\033[?6c";		/* identification sequence returned in DA and DECID */
-int allowaltscreen = 1;			/* alt screens */
-int allowwindowops = 0;			/* allow certain non-interactive window operations */
+char *stty_args							= "stty raw pass8 nl -echo -iexten -cstopb 38400";
+char *termname							= "st-256color";	/* default TERM value */
+static char *shell						= "/bin/sh";		/* fallback shell */
+char *vtiden							= "\033[?6c";		/* identification sequence returned in DA and DECID */
+char *utmp								= NULL;				/* utmp program, use "utmp" to enable */
+char *scroll							= NULL;				/* scroll program, use "scroll" to enable */
+int allowaltscreen						= 1;				/* alt screens */
+int allowwindowops						= 0;				/* allow certain non-interactive window operations */
+wchar_t *worddelimiters					= L" ./:";			/* word delimiters */
+wchar_t *snap_line_delimiters			= L"│";				/* snap line delimiters */
+unsigned int tabspaces					= 8;				/* spaces per tab */
+static unsigned int doubleclicktimeout	= 300;				/* double selection timeout in ms */
+static unsigned int tripleclicktimeout 	= 600; 				/* triple selection timeout in ms */
+static float cwscale					= 1.0; 				/* kerning / character bounding-box width multiplier */
+static float chscale 					= 1.0; 				/* kerning / character bounding-box height multiplier */
+static double minlatency				= 8;   				/* min draw latency in ms */
+static double maxlatency 				= 33;  				/* max draw latency in ms */
+static unsigned int blinktimeout		= 0;				/* blinking timeout, set to 0 to disable blinking */
+static int bellvolume					= 0;				/* bell volume, use 0 for disabling it */
+static unsigned int defaultattr			= 11;				/* fallback color of font attributes */
+static unsigned int mouseshape  		= XC_xterm;			/* mouse cursor shape */
+static unsigned int mousefg	    		= 7;				/* mouse cursor fg */
+static unsigned int mousebg     		= 0;				/* mouse cursor bg */
+static unsigned int cols				= 80;				/* default columns number */
+static unsigned int rows 				= 24;				/* default rows number */
 
 /* appearance */
-static char *font = "Liberation Mono:pixelsize=18:antialias=true:autohint=true"; /* default font */
-static char *font2[] = {"JoyPixels:pixelsize=15:antialias=true:autohint=true"};  /* fallback fonts prioritization */
+static char *font	 = "Liberation Mono:pixelsize=18:antialias=true:autohint=true"; /* default font */
+static char *font2[] = {"JoyPixels:pixelsize=15:antialias=true:autohint=true"};		/* fallback for glyphs */
 
-static int borderpx = 0; /* border px size TODO: remove*/
-
-
-
-wchar_t *worddelimiters = L"./: ";		/* word delimiters */
-wchar_t *snap_line_delimiters = L"│";	/* snap line delimiters */
-
-
-
-/*
- * What program is execed by st depends of these precedence rules:
- * 1: program passed with -e
- * 2: scroll and/or utmp
- * 3: SHELL environment variable
- * 4: value of shell in /etc/passwd
- * 5: value of shell in config.h
- */
-static char *shell = "/bin/sh";
-char *utmp = NULL;
-/* scroll program: to enable use a string like "scroll" */
-char *scroll = NULL;
-char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
-
-
-static unsigned int doubleclicktimeout	= 300; /* double selection timeout in ms */
-static unsigned int tripleclicktimeout 	= 600; /* triple selection timeout in ms */
-static float cwscale					= 1.0; /* Kerning / character bounding-box width multiplier */
-static float chscale 					= 1.0; /* Kerning / character bounding-box height multiplier */
-static double minlatency				= 8;   /* min draw latency in ms */
-static double maxlatency 				= 33;  /* max draw latency in ms */
-
-/* blinking timeout (set to 0 to disable blinking) for the terminal blinking attribute. */
-static unsigned int blinktimeout = 0;
-
-/* bell volume. It must be a value between -100 and 100. Use 0 for disabling it */
-static int bellvolume = 0;
-
-/*
- * spaces per tab
- *
- * When you are changing this value, don't forget to adapt the »it« value in
- * the st.info and appropriately install the st.info in the environment where
- * you use this st version.
- *
- *	it#$tabspaces,
- *
- * Secondly make sure your kernel is not expanding tabs. When running `stty
- * -a` »tab0« should appear. You can tell the terminal to not expand tabs by
- *  running following command:
- *
- *	stty tabs
- */
-unsigned int tabspaces = 8;
-
-
-float alpha = 0.9; /* bg opacity */
-
-/* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	"#252a2c", /* onyx */
-	"#CC0000", /* red */
-	"#4E9A06", /* shrek */
-	"#C4A000", /* orange */
-	"#3465A4", /* blue */
-	"#75507B", /* fuchsia */
-	"#06989A", /* tiffany */
-	"#D3D7CF", /* peach */
+	"#252a2c", "#CC0000", "#4E9A06", "#C4A000", "#3465A4", "#75507B", "#06989A", "#D3D7CF", /* 8 normal colors */
+	"#555753", "#B7410E", "#8AE234", "#FCE94F", "#729FCF", "#AD7FA8", "#34E2E2", "#EEEEEC",	/* 8 bright colors */
 
-	/* 8 bright colors */
-	"#555753", /* brown */
-	"#B7410E", /* rust */
-	"#8AE234", /* lime */
-	"#FCE94F", /* yellow */
-	"#729FCF", /* lavander */
-	"#AD7FA8", /* pink */
-	"#34E2E2", /* cyan */
-	"#EEEEEC", /* white */
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
+	[255] = 0, /* more colors can be added after 255 to use with DefaultXX */
     "#34E2E2", /* 256 -> cursor */
-    "#AD7FA8", /* 257 -> rev cursor*/
-    "#010101", /* 258 -> background colour */
-    "#DBD3C4", /* 259 -> foreground colour */
-    "#262626", /* 260 -> selbg */
-    "#AD7FA8", /* 261 -> selfg */
+    "#010101", /* 257 -> background colour */
+    "#DBD3C4", /* 258 -> foreground colour */
+    "#29242C", /* 259 -> selbg */
 };
 
-/* Default colors (foreground, background, cursor, reverse cursor, selection) */
-unsigned int defaultbg = 258;
-unsigned int defaultfg = 259;
-unsigned int defaultcs = 256;
-unsigned int defaultrcs = 257;
-unsigned int selectionbg = 260;
-unsigned int selectionfg = 261;
-/* If 0 use selectionfg as foreground in order to have a uniform foreground-color */
-/* Else if 1 keep original foreground-color of each cell => more colors :) */
-static int ignoreselfg = 0;
-
-static unsigned int mouseshape = XC_xterm;	/* mouse cursor shape */
-static unsigned int mousefg = 7;			/* mouse cursor fg */
-static unsigned int mousebg = 0;			/* mouse cursor bg */
-static unsigned int cols = 80;				/* default columns number */
-static unsigned int rows = 24;				/* default rows number */
-
-/* color of font attributes when font doesn't match the ones requested. */
-static unsigned int defaultattr = 11;
-
-/* Force mouse select/shortcuts while mask is active (when MODE_MOUSE is set).
- * Note that if you want to use ShiftMask with selmasks, set this to an other
- * modifier, set to 0 to not use it. */
-static uint forcemousemod = ShiftMask;
-
-/* externalpipe commands */
-
-static char *openurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -o", "externalpipe", NULL };
-static char *copyurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -c", "externalpipe", NULL };
-static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout",	   "externalpipe", NULL };
+static int borderpx		 	   = 0;		/* border px size TODO: remove*/
+float alpha					   = 0.9;	/* background opacity */
+unsigned int defaultcs	 	   = 256;	/* cursor color */
+unsigned int defaultbg 	 	   = 257;	/* background color */
+unsigned int defaultfg 	 	   = 258;	/* foreground color */
+unsigned int selectionbg 	   = 259;	/* selection background color */
 
 /* key definitions */
 #define MODKEY Mod1Mask
 #define TERMMOD (Mod1Mask|ShiftMask)
+
+/* externalpipe commands */
+static char *openurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -o", "externalpipe", NULL };
+static char *copyurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -c", "externalpipe", NULL };
+static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout",	   "externalpipe", NULL };
 
 /* Internal mouse shortcuts. */
 static MouseShortcut mshortcuts[] = {
@@ -144,6 +69,7 @@ static MouseShortcut mshortcuts[] = {
 	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
 };
+static uint forcemousemod = ShiftMask; /* force mouse select/shortcuts while MODE_MOUSE is set. 0 to disable */
 
 /* Internal keyboard shortcuts. */
 static Shortcut shortcuts[] = {
