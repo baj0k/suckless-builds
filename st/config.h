@@ -77,24 +77,19 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-
-
 	{ TERMMOD,				XK_Prior,       zoom,           {.f = +1} },
 	{ TERMMOD,				XK_Next,        zoom,           {.f = -1} },
 	{ TERMMOD,				XK_Home,        zoomreset,      {.f =  0} },
 	{ MODKEY,				XK_c,           clipcopy,       {.i =  0} },
 	{ MODKEY,				XK_v,           clippaste,      {.i =  0} },
-
     { MODKEY,       		XK_k,           kscrollup,      {.i =  1} },
     { MODKEY,       		XK_j,           kscrolldown,    {.i =  1} },
     { MODKEY,               XK_Page_Up,     kscrollup,      {.i = -1} },
     { MODKEY,               XK_Page_Down,   kscrolldown,    {.i = -1} },
-
 	{ TERMMOD,				XK_Num_Lock,    numlock,        {.i =  0} },
-
     { Mod4Mask|ShiftMask,	XK_Return,		newterm,		{.i =  0} },
-    { MODKEY,               XK_l,           externalpipe,   {.v = openurlcmd } },
     { MODKEY,               XK_y,           externalpipe,   {.v = copyurlcmd } },
+    { MODKEY,               XK_l,           externalpipe,   {.v = openurlcmd } },
     { MODKEY,               XK_o,           externalpipe,   {.v = copyoutput } },
 };
 
