@@ -23,7 +23,7 @@ static const char *fonts[] = { "Liberation Mono:pixelsize=25:antialias=true:auto
 							   "JoyPixels:pixelsize=15:antialias=true:autohint=true"
 };
 
-static const unsigned int border_width	= 2;	/* Size of the window border */
+static const unsigned int border_width	= 1;	/* Size of the window border */
 static const char worddelimiters[]		= " ";	/* Characters not considered part of a word while deleting words */
 static int min_width					= 500;  /* minimum width when centered */
 static unsigned int lines      			= 5;	/* -l option; if nonzero, dmenu uses vertical list */
