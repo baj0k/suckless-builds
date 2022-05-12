@@ -81,9 +81,9 @@ static Shortcut shortcuts[] = {
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
 	{ MODKEY|ShiftMask,		XK_Num_Lock,    numlock,        {.i =  0} },
 
-    { MODKEY|ShiftMask,     XK_plus,        zoom,           {.f = +1} },
-    { MODKEY|ShiftMask,     XK_underscore,  zoom,           {.f = -1} },
-	{ MODKEY|ShiftMask,		XK_BackSpace,	zoomreset,      {.f =  0} },
+    { MODKEY,				XK_equal,		zoom,           {.f = +1} },
+    { MODKEY,				XK_minus,		zoom,           {.f = -1} },
+	{ MODKEY,				XK_BackSpace,	zoomreset,      {.f =  0} },
     { MODKEY,       		XK_k,           kscrollup,      {.i =  1} },
     { MODKEY|ShiftMask,     XK_K,			kscrollup,      {.i = -1} },
     { MODKEY,       		XK_j,           kscrolldown,    {.i =  1} },
