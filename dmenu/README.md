@@ -10,11 +10,10 @@ This build is based on the following commit:
 ## Patches applied
 
 - [numbers](https://tools.suckless.org/dmenu/patches/numbers/dmenu-numbers-4.9.diff)
-
 - [alpha](https://tools.suckless.org/dmenu/patches/alpha/dmenu-alpha-20210605-1a13d04.diff)
-//- border
+- [border](https://tools.suckless.org/dmenu/patches/border/dmenu-border-4.9.diff)
 - [center](https://tools.suckless.org/dmenu/patches/center/dmenu-center-20200111-8cd37e1.diff)
-//- highlight
+- [highlight](https://tools.suckless.org/dmenu/patches/highlight/dmenu-highlight-20201211-fcdc159.diff)
 - [initial text](https://tools.suckless.org/dmenu/patches/initialtext/dmenu-initialtext-4.7.diff)
 - [password](https://tools.suckless.org/dmenu/patches/password/dmenu-password-5.0.diff)
 - [prefix completion](https://tools.suckless.org/dmenu/patches/prefix-completion/dmenu-prefixcompletion-4.9.diff)
