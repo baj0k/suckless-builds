@@ -32,14 +32,15 @@ static char *font	 = "Liberation Mono:pixelsize=18:antialias=true:autohint=true"
 static char *font2[] = {"JoyPixels:pixelsize=15:antialias=true:autohint=true"};		/* fallback for glyphs */
 
 static const char *colorname[] = {
-	"#252a2c", "#CC0000", "#4E9A06", "#C4A000", "#3465A4", "#75507B", "#06989A", "#D3D7CF", /* 8 normal colors */
-	"#555753", "#B7410E", "#8AE234", "#FCE94F", "#729FCF", "#AD7FA8", "#34E2E2", "#EEEEEC",	/* 8 bright colors */
+	/* black	red		   green	  yellow	 blue		magenta	   cyan		  beige	*/
+	"#1D2021", "#CC241D", "#4E9A06", "#D79921", "#3465A4", "#956A9B", "#06989A", "#BFBFB5", /* 8 normal colors */
+	"#555753", "#B7410E", "#8AB234", "#ECD94F", "#729FCF", "#AD7FA8", "#34b2b2", "#e0d6ba",	/* 8 bright colors */
 
 	[255] = 0, /* more colors can be added after 255 to use with DefaultXX */
-    "#34E2E2", /* 256 -> cursor */
+    "#3DBDBF", /* 256 -> cursor */
     "#010101", /* 257 -> background colour */
     "#DBD3C4", /* 258 -> foreground colour */
-    "#29242C", /* 259 -> selbg */
+    "#2E3440", /* 259 -> selbg */
 };
 
 float alpha					   = 0.9;	/* background opacity */
@@ -59,15 +60,16 @@ static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout",	   "externalpipe", 
 
 /* Internal mouse shortcuts. */
 static MouseShortcut mshortcuts[] = {
-	/* mask                 button   function        argument       release */
-	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 5},		0, /* !alt */ -1 },
-	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 5},		0, /* !alt */ -1 },
-	{ XK_ANY_MOD,           Button3, clippaste,      {.i = 0},      1 },
-	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
-	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
-	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
-	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
+	/* mask                 button   function        argument			release */
+	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 5},			0, /* !alt */ -1 },
+	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 5},			0, /* !alt */ -1 },
+	{ XK_ANY_MOD,           Button3, clippaste,      {.i = 0},      	1 },
+	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"}	  },
+	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"}		  },
+	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"}   },
+	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"}		  },
 };
+
 static uint forcemousemod = ShiftMask; /* force mouse select/shortcuts while MODE_MOUSE is set. 0 to disable */
 
 /* Internal keyboard shortcuts. */
