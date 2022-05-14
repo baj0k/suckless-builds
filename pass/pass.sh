@@ -13,7 +13,7 @@ command -v gpg2 &>/dev/null && GPG="gpg2"
 [[ -n $GPG_AGENT_INFO || $GPG == "gpg2" ]] && GPG_OPTS+=( "--batch" "--use-agent" )
 
 PREFIX="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
-EXTENSION_DIR="/usr/lib/password-store/extensions"
+EXTENSION_DIR="/usr/local/lib/password-store/extensions"
 X_SELECTION="${PASSWORD_STORE_X_SELECTION:-clipboard}"
 CLIP_TIME="${PASSWORD_STORE_CLIP_TIME:-45}"
 GENERATED_LENGTH="${PASSWORD_STORE_GENERATED_LENGTH:-25}"
@@ -400,7 +400,7 @@ cmd_show() {
 		else
 			echo "${path%\/}"
 		fi
-		tree -N -C -l --noreport "$PREFIX/$path" 3>&- | tail -n +2 | sed -E 's/\.gpg(\x1B\[[0-9]+m)?( ->|$)/\1\2/g' # remove .gpg at end of line, but keep colors
+		tree -N -C -l --dirsfirst --noreport "$PREFIX/$path" 3>&- | tail -n +2 | sed -E 's/\.gpg(\x1B\[[0-9]+m)?( ->|$)/\1\2/g' # remove .gpg at end of line, but keep colors
 	elif [[ -z $path ]]; then
 		die "Error: password store is empty. Try \"pass init\"."
 	else
@@ -677,7 +677,7 @@ cmd_extension_or_show() {
 cmd_extension() {
 	check_sneaky_paths "$1"
 	local user_extension system_extension extension
-	[[ -n $EXTENSION_DIR ]] && system_extension="$EXTENSION_DIR/$1.bash"
+	[[ -n $EXTENSION_DIR ]] && system_extension="$EXTENSION_DIR/$1.sh"
 	if [[ -n $system_extension && -f $system_extension && -x $system_extension ]]; then
 		extension="$system_extension"
 	else
