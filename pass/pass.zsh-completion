@@ -84,6 +84,17 @@ _pass () {
 				)
 				_describe -t commands 'pass git' subcommands
 				;;
+			otp)
+				local -a subcommands
+				subcommands=(
+					"insert:insert a new OTP"
+					"append:append an OTP to existing entry"
+					"uri:show TOTP URI of an entry"
+					"validate:check if TOTP URI is valid"
+				)
+				_describe -t commands 'pass otp' subcommands
+				_pass_complete_entries_with_subdirs
+				;;
 			show|*)
 				_pass_cmd_show
 				;;
@@ -103,6 +114,7 @@ _pass () {
 			"cp:Copy the password"
 			"rm:Remove the password"
 			"git:Call git on the password store"
+			"otp:Interact with the TOTP URI in storage"
 			"version:Output version information"
 			"help:Output help message"
 		)
