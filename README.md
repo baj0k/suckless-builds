@@ -6,6 +6,7 @@ For more information checkout https://suckless.org/
 - dmenu
 - dwm
 - dwmblocks
+- pass
 - scron
 - sent
 - slock

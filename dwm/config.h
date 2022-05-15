@@ -56,8 +56,8 @@ static const Layout layouts[]	= {
 	/* symbol   arrange function */
 	{ "[]=",	tile },			/* Default: Master on left, slaves on right */
 	{ "TTT",	bstack },		/* Master on top, slaves on bottom */
-	{ "[D]",	deck },			/* Master on left, slaves in monocle on right */
 	{ "[M]",	monocle },		/* All windows on top of eachother */
+	{ "[D]",	deck },			/* Master on left, slaves in monocle on right */
     { "###",	horizgrid },	/* All windows in grid */
 	{ "><>",	NULL },			/* no layout function means floating behavior */
 	{ NULL,		NULL },
@@ -130,8 +130,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,			XK_p,				spawn,			SHCMD("2fa") },
 	{ MODKEY,					XK_bracketleft,		setlayout,		{.v = &layouts[0]} }, /* tile */
 	{ MODKEY|ShiftMask,			XK_bracketleft,		setlayout,		{.v = &layouts[1]} }, /* bstack */
-	{ MODKEY,					XK_bracketright,	setlayout,		{.v = &layouts[2]} }, /* deck */
-	{ MODKEY|ShiftMask,			XK_bracketright,	setlayout,		{.v = &layouts[3]} }, /* monocle */
+	{ MODKEY,					XK_bracketright,	setlayout,		{.v = &layouts[2]} }, /* monocle */
+	{ MODKEY|ShiftMask,			XK_bracketright,	setlayout,		{.v = &layouts[3]} }, /* deck */
 	{ MODKEY,					XK_backslash,		setlayout,		{.v = &layouts[4]} }, /* horizgrid */
 	{ MODKEY|ShiftMask,			XK_backslash,		view,			{0} },
     { MODKEY,                   XK_a,				winview,        {0} },
