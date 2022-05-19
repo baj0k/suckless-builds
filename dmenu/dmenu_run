@@ -1,17 +1,14 @@
 #!/bin/sh
 
 cachedir=${XDG_CACHE_HOME:-"${HOME}/.cache"}
-if [ -d "${cachedir}" ]; then
-	cache=${cachedir}/dmenu_run
-	historyfile=${cachedir}/dmenu_history
-else			# if no xdg dir, fall back to dotfiles in ~
-	cache=${HOME}/.dmenu_cache
-	historyfile=${HOME}/.dmenu_history
-fi
+cache=${cachedir}/dmenu_run
+historyfile=${cachedir}/dmenu_history
 
 IFS=:
 if stest -dqr -n "${cache}" "${PATH}"; then
-	stest -flx "${PATH}" | sort -u > "${cache}"
+	stest -flx "${PATH}" | sort -u | tee "${cache}"
+else
+	cat "${cache}"
 fi
 unset IFS
 
@@ -46,3 +43,12 @@ awk -v histfile="${historyfile}" '
 			for (f in history)
 				print history[f],f | "sort -k1rn >" histfile
 		} '	| while read -r cmd; do ${SHELL:-"/bin/sh"} -c "${cmd}" & done
+
+
+
+#
+# Override dmenu_path sorting results by atime. TESTING
+#
+
+#echo "${PATH}" | tr ':' '\n' | uniq | sed 's#$#/#' | xargs ls -lt --time-style=+%s | 
+#		awk '/^(-|l)/ { print $6, $7 }' | sort -rn | cut -d' ' -f2
