@@ -33,7 +33,7 @@ static const unsigned int alphas[][2]   = {
 };
 
 static const char *tags[]				  = { /*~0*/ "1", "2", "3", "4", "5", "6", "7", "8", "9" }; /* tagging */
-static int def_layouts[1 + LENGTH(tags)]  = {    4,   0,   3,   0,   0,   0,   0,   0,   0,   4  }; /* default layout per tag */
+static int def_layouts[1 + LENGTH(tags)]  = {    4,   0,   2,   0,   0,   0,   0,   0,   0,   4  }; /* default layout per tag */
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -126,8 +126,8 @@ static Key keys[] = {
     { MODKEY|ShiftMask,         XK_i,				resetnmaster,   {0} },
 	{ MODKEY,					XK_o,				incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask,         XK_o,				toggleopacity,  {0} },
-	{ MODKEY,					XK_p,				spawn,			SHCMD("pw") }, //TODO: checkout passmenu
-	{ MODKEY|ShiftMask,			XK_p,				spawn,			SHCMD("2fa") },
+	{ MODKEY,					XK_p,				spawn,			SHCMD("pw") },
+	{ MODKEY|ShiftMask,			XK_p,				spawn,			SHCMD("pw --otp") },
 	{ MODKEY,					XK_bracketleft,		setlayout,		{.v = &layouts[0]} }, /* tile */
 	{ MODKEY|ShiftMask,			XK_bracketleft,		setlayout,		{.v = &layouts[1]} }, /* bstack */
 	{ MODKEY,					XK_bracketright,	setlayout,		{.v = &layouts[2]} }, /* monocle */
@@ -153,7 +153,7 @@ static Key keys[] = {
     //{ MODKEY,					XK_apostrophe,		spawn,          SHCMD("") },
     //{ MODKEY|ShiftMask,		XK_apostrophe,		spawn,          SHCMD("") },
 	{ MODKEY,					XK_Return,			spawn,			{.v = termcmd } },
-    //{ MODKEY|ShiftMask,			XK_Return,			zoom,           {0} }, // TODO: st is using this shortcut to open terminal in cwd
+    /*{ MODKEY|ShiftMask,		XK_Return,			zoom,           {0} }, st is using this shortcut to open terminal in cwd */
     //{ MODKEY,					XK_z,				spawn,          SHCMD("") },
     //{ MODKEY|ShiftMask,		XK_z,				spawn,          SHCMD("") },
     { MODKEY,					XK_x,				spawn,          SHCMD("slock") },
@@ -164,8 +164,8 @@ static Key keys[] = {
     //{ MODKEY|ShiftMask,		XK_v,				spawn,          SHCMD("") },
     //{ MODKEY,					XK_b,				spawn,          SHCMD("") },
     //{ MODKEY|ShiftMask,		XK_b,				spawn,          SHCMD("") },
-	{ MODKEY,					XK_n,				spawn,			SHCMD(TERM " -e ncmpcpp") },
-	{ MODKEY|ShiftMask,			XK_n,				spawn,			SHCMD(TERM " -e newsboat; pkill -RTMIN+6 dwmblocks") },
+	{ MODKEY,					XK_n,				spawn,			SHCMD(TERM " -e newsboat; pkill -RTMIN+6 dwmblocks") },
+	{ MODKEY|ShiftMask,			XK_n,				spawn,			SHCMD(TERM " -e ncmpcpp") },
     //{ MODKEY,					XK_m,				spawn,          SHCMD("") },
     //{ MODKEY|ShiftMask,		XK_m,				spawn,          SHCMD("") },
     //{ MODKEY,					XK_comma,			spawn,          SHCMD("") },
