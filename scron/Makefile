@@ -2,24 +2,21 @@ CFLAGS += -std=c99 -Wall -Wextra -pedantic -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=2
 PREFIX = /usr/local
 MANPREFIX = $(PREFIX)/share/man
 
-BIN = crond
-MAN = crond.1
-
-all: $(BIN)
-
-install: clean all
-	mkdir -p $(DESTDIR)$(PREFIX)/bin
-	cp -f $(BIN) $(DESTDIR)$(PREFIX)/bin
-	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
-	cp -f $(MAN) $(DESTDIR)$(MANPREFIX)/man1
-	rm -f $(BIN) *.orig *.rej *.diff
-
-uninstall:
-	rm -f $(DESTDIR)$(PREFIX)/bin/$(BIN)
-	rm -f $(DESTDIR)$(MANPREFIX)/man1/$(MAN)
+all: crond
 
 clean:
-	rm -f $(BIN)
+	rm -f crond
+
+install: clean all
+	mkdir -p $(PREFIX)/bin
+	cp -f crond $(PREFIX)/bin
+	mkdir -p $(MANPREFIX)/man1
+	cp -f crond.1 $(MANPREFIX)/man1
+	rm -f crond *.orig *.rej *.diff
+
+uninstall:
+	rm -f $(PREFIX)/bin/crond
+	rm -f $(MANPREFIX)/man1/crond.1
 
 .PHONY:
 	all install uninstall clean
