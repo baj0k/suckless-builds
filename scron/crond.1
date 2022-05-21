@@ -4,26 +4,14 @@
 .Sh NAME
 .Nm scron
 .Nd clock daemon
-.Sh SYNOPSIS
-.Nm
-.Op Fl f Ar file
-.Op Fl n
 .Sh DESCRIPTION
 .Nm
 schedules commands to be run at specified dates and times.
 .Pp
-.Sh OPTIONS
-.Bl -tag -width Ds
-.It Fl f Ar file
-Use the specified
-.Ar file
-instead of the default
-.Ar /etc/crontab .
-.It Fl n
-Do not daemonize.
-.El
 .Sh CONFIGURATION
 Configuration is done by editing the crontab file.
+
+\fICRONTAB\fP environment variable specifies the crontab file. 
 
 Columns:
  minute, hour, day of month, month, day of week, command

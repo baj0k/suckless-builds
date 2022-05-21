@@ -3,7 +3,7 @@ PREFIX = /usr/local
 MANPREFIX = $(PREFIX)/share/man
 
 BIN = crond
-MAN = scron.1
+MAN = crond.1
 
 all: $(BIN)
 

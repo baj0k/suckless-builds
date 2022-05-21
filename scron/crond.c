@@ -14,7 +14,6 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "arg.h"
 #include "queue.h"
 
 #define VERSION "0.4"
@@ -56,7 +55,7 @@ static sig_atomic_t reload;
 static sig_atomic_t quit;
 static TAILQ_HEAD(, ctabentry) ctabhead = TAILQ_HEAD_INITIALIZER(ctabhead);
 static TAILQ_HEAD(, jobentry) jobhead = TAILQ_HEAD_INITIALIZER(jobhead);
-static char *config = "/etc/crontab";
+static char *config;
 static char *pidfile = "/var/run/crond.pid";
 static int nflag;
 
@@ -516,16 +515,6 @@ sighandler(int sig)
 	}
 }
 
-static void
-usage(void)
-{
-	fprintf(stderr, VERSION " (c) 2014-2015\n");
-	fprintf(stderr, "usage: %s [-f file] [-n]\n", argv0);
-	fprintf(stderr, "  -f	config file\n");
-	fprintf(stderr, "  -n	do not daemonize\n");
-	exit(EXIT_FAILURE);
-}
-
 int
 main(int argc, char *argv[])
 {
@@ -534,20 +523,12 @@ main(int argc, char *argv[])
 	time_t t;
 	struct tm *tm;
 	struct sigaction sa;
+	config = getenv("CRONTAB");
 
-	ARGBEGIN {
-	case 'n':
-		nflag = 1;
-		break;
-	case 'f':
-		config = EARGF(usage());
-		break;
-	default:
-		usage();
-	} ARGEND;
-
-	if (argc > 0)
-		usage();
+	if (argc > 0) {
+		fprintf(stderr,"Use crond without arguments\n");
+		exit(EXIT_FAILURE);
+	}
 
 	if (nflag == 0) {
 		openlog(argv[0], LOG_CONS | LOG_PID, LOG_CRON);
