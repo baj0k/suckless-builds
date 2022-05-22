@@ -11,8 +11,8 @@ static const int nmaster			= 1;      /* number of clients in master area */
 static const int resizehints		= 0;      /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen 	= 0;	  /* 1 will force focus on the fullscreen window */
 static Bool bUseOpacity			    = 1;      /* Default inactive opacity */
-static const double activeopacity	= 0.95f;  /* Focused window opacity */
-static const double inactiveopacity	= 0.9f;   /* Inactive window opacity */
+static const double activeopacity	= 0.97f;  /* Focused window opacity */
+static const double inactiveopacity	= 0.87f;   /* Inactive window opacity */
 static const unsigned int snap	   	= 32;     /* snap pixel */
 static const unsigned int gappx    	= 10;     /* gap between windows */
 static const int swallowfloating	= 0;      /* swallow floating windows */
@@ -39,16 +39,16 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	*/
-	/* class		 instance	title			tags mask   isfloating   isterminal  noswallow	monitor float x,y,w,h */
-	{ TERM,			 NULL,      NULL,       	0,          0,           1,          0,         -1,		-1,-1,-1,-1 },
-    { "mpv",		 NULL,		NULL,           ~0,		    1,           0,          0,          1,		4625,1155,490,275 },
-    { "firefox",	 NULL,		NULL,           1 << 1,		0,           0,          0,			 1, 	-1,-1,-1,-1 },
-    { "Thunderbird", NULL,		NULL,           1 << 1,		0,           0,          0,			 1, 	-1,-1,-1,-1 },
-    { "Spotify",	 NULL,		NULL,           1 << 8,     0,           0,          0,          1, 	-1,-1,-1,-1 },
-    { "Caprine",	 NULL,		NULL,           1 << 8,     0,           0,          0,          1, 	-1,-1,-1,-1 },
-    { "discord",	 NULL,		NULL,           1 << 8,     0,           0,          0,          1, 	-1,-1,-1,-1 },
-    { "Signal",		 NULL,		NULL,           1 << 8,     0,           0,          0,          1, 	-1,-1,-1,-1 },
-	{  NULL,		 NULL,      "Event Tester", 0,          0,           0,          1,         -1, 	-1,-1,-1,-1 },
+	/* class		 instance	title			tags mask   isfloating	isterminal  noswallow	monitor float x,y,w,h */
+	{ TERM,			 NULL,      NULL,       	0,          0,          1,          0,          -1,		-1,-1,-1,-1 },
+    { "mpv",		 NULL,		NULL,           ~0,		    1,          0,          0,           1,		4625,1155,490,275 },
+    { "firefox",	 NULL,		NULL,           1 << 1,		0,          0,          0,			 1, 	-1,-1,-1,-1 },
+    { "Thunderbird", NULL,		NULL,           1 << 1,		0,          0,          0,			 1, 	-1,-1,-1,-1 },
+    { "Spotify",	 NULL,		NULL,           1 << 8,     0,          0,          0,           1, 	-1,-1,-1,-1 },
+    { "Caprine",	 NULL,		NULL,           1 << 8,     0,          0,          0,           1, 	-1,-1,-1,-1 },
+    { "discord",	 NULL,		NULL,           1 << 8,     0,          0,          0,           1, 	-1,-1,-1,-1 },
+    { "Signal",		 NULL,		NULL,           1 << 8,     0,          0,          0,           1, 	-1,-1,-1,-1 },
+	{  NULL,		 NULL,      "Event Tester", 0,          0,          0,          1,          -1, 	-1,-1,-1,-1 },
 };
 
 /* layout(s) */
@@ -108,7 +108,7 @@ static Key keys[] = {
     //{ MODKEY|ShiftMask,		XK_BackSpace,       tag,			{.ui = 0 } }, // TODO: doesn't work atm
 	{ MODKEY,					XK_Tab,				shiftview,		{ .i = +1 } },
 	{ MODKEY|ShiftMask,			XK_Tab,				shiftview,		{ .i = -1 } },
-    //{ MODKEY,					XK_q,				spawn,          SHCMD("") },
+    { MODKEY,					XK_q,				spawn,          SHCMD("killall mpv") },
 	{ MODKEY|ShiftMask,			XK_q,				killclient,		{0} },
     //{ MODKEY,					XK_w,				spawn,          SHCMD("") },
     //{ MODKEY|ShiftMask,		XK_w,				spawn,          SHCMD("") },
@@ -160,8 +160,8 @@ static Key keys[] = {
     //{ MODKEY|ShiftMask,		XK_x,				spawn,          SHCMD("") },
     //{ MODKEY,					XK_c,				spawn,          SHCMD("") },
     //{ MODKEY|ShiftMask,		XK_c,				spawn,          SHCMD("") },
-    //{ MODKEY,					XK_v,				spawn,          SHCMD("") },
-    //{ MODKEY|ShiftMask,		XK_v,				spawn,          SHCMD("") },
+    { MODKEY,					XK_v,				spawn,          SHCMD("vm") },
+    { MODKEY|ShiftMask,			XK_v,				spawn,          SHCMD("virt-manager") },
     //{ MODKEY,					XK_b,				spawn,          SHCMD("") },
     //{ MODKEY|ShiftMask,		XK_b,				spawn,          SHCMD("") },
 	{ MODKEY,					XK_n,				spawn,			SHCMD(TERM " -e newsboat; pkill -RTMIN+6 dwmblocks") },
