@@ -395,20 +395,20 @@ movewordedge(int dir)
 static void
 keypress(XKeyEvent *ev)
 {
-	char buf[32];
+	char buf[64];
 	int len;
 	struct item * item;
-	KeySym ksym;
+	KeySym ksym = NoSymbol;
 	Status status;
 
 	len = XmbLookupString(xic, ev, buf, sizeof buf, &ksym, &status);
 	switch (status) {
 	default: /* XLookupNone, XBufferOverflow */
 		return;
-	case XLookupChars:
+	case XLookupChars: /* composed string from input method */
 		goto insert;
 	case XLookupKeySym:
-	case XLookupBoth:
+	case XLookupBoth: /* a KeySym and a string are returned: use keysym */
 		break;
 	}
 
@@ -587,10 +587,12 @@ insert:
 		}
 		break;
 	case XK_Tab:
-		if (!matches) break; /* cannot complete no matches */
-		strncpy(text, matches->text, sizeof text - 1);
-		text[sizeof text - 1] = '\0';
-		len = cursor = strlen(text); /* length of longest common prefix */
+		if (!matches) /* cannot complete no matches */
+			break;
+		len = cursor = strnlen(matches->text, sizeof text - 1); /* length of longest common prefix */
+		memcpy(text, matches->text, cursor);
+		text[cursor] = '\0';
+
 		for (item = matches; item && item->text; item = item->right) {
 			cursor = 0;
 			while (cursor < len && text[cursor] == item->text[cursor])
@@ -626,22 +628,23 @@ paste(void)
 static void
 readstdin(void)
 {
-	char buf[sizeof text], *p;
-	size_t i, size = 0;
+	char *line = NULL;
+	size_t i, junk, size = 0;
+	ssize_t len;
+
     if(passwd){
 	   inputw = lines = 0;
 	   return;
 	}
 
 	/* read each line from stdin and add it to the item list */
-	for (i = 0; fgets(buf, sizeof buf, stdin); i++) {
+	for (i = 0; (len = getline(&line, &junk, stdin)) != -1; i++, line = NULL) {
 		if (i + 1 >= size / sizeof *items)
 			if (!(items = realloc(items, (size += BUFSIZ))))
 				die("cannot realloc %zu bytes:", size);
-		if ((p = strchr(buf, '\n')))
-			*p = '\0';
-		if (!(items[i].text = strdup(buf)))
-			die("cannot strdup %zu bytes:", strlen(buf) + 1);
+		if (line[len - 1] == '\n')
+			line[len - 1] = '\0';
+		items[i].text = line;
 		items[i].out = 0;
 	}
 	if (items)
@@ -790,10 +793,8 @@ setup(void)
 static void
 usage(void)
 {
-	fputs("usage: dmenu [-fivP] [-l lines] [-p prompt] [-m monitor]\n"
-          "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n"
-          "             [-it text]\n", stderr);
-	exit(1);
+	die("usage: dmenu [-fivP] [-l lines] [-p prompt] [-m monitor]\n"
+        "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid] [-it text]");
 }
 
 int
