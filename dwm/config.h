@@ -78,7 +78,7 @@ static const Layout layouts[]	= {
 
 /* commands */
 static const char *termcmd[]  = { TERM, NULL };
-static Key keys[] = {
+static const Key keys[] = {
 	/* modifier                 key					function		argument */
 	STACKKEYS(MODKEY,								focus)
 	STACKKEYS(MODKEY|ShiftMask,						push)
@@ -255,7 +255,7 @@ static Key keys[] = {
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkClientWin, or ClkRootWin */
-static Button buttons[] = {
+static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
 	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
