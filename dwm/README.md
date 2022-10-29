@@ -31,7 +31,6 @@ This build is based on the following commit:
 - [rulerefresher](https://dwm.suckless.org/patches/rulerefresher/dwm-rulerefresher-6.2.diff)
 - [save floats](https://dwm.suckless.org/patches/save_floats/dwm-savefloats-20181212-b69c870.diff)
 - [shiftview](https://github.com/baj0k/suckless-builds/commit/eedb5ce78ce2a2b87dc1012479d8301ba8482b84)
-- [statusallmons](https://dwm.suckless.org/patches/statusallmons/dwm-statusallmons-6.2.diff)
 - [statuscmd](https://dwm.suckless.org/patches/statuscmd/dwm-statuscmd-20210405-67d76bd.diff)
 - [sticky](https://dwm.suckless.org/patches/sticky/dwm-sticky-6.1.diff)
 - [swallow](https://dwm.suckless.org/patches/swallow/dwm-swallow-20201211-61bb8b2.diff)
