@@ -71,7 +71,7 @@ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
 enum { SchemeStatus, SchemeTagsSel, SchemeTagsNorm }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
-       NetWMWindowTypeDialog, NetClientList, NetWMWindowsOpacity, NetLast }; /* EWMH atoms */
+       NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
 enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
 enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkClientWin,
        ClkRootWin, ClkLast }; /* clicks */
@@ -210,7 +210,6 @@ static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
 static Client *nexttagged(Client *c);
 static Client *nexttiled(Client *c);
-static void opacity(Client *c, double opacity);
 static void propertynotify(XEvent *e);
 static void pushstack(const Arg *arg);
 static void quit(const Arg *arg);
@@ -244,7 +243,6 @@ static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *);
 static void togglefloating(const Arg *arg);
-static void toggleopacity(const Arg *arg);
 static void togglesticky(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
@@ -1071,7 +1069,6 @@ focus(Client *c)
 		attachstack(c);
 		grabbuttons(c, 1);
 		setfocus(c);
-		opacity(c, activeopacity);
 	} else {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
@@ -1558,18 +1555,6 @@ nexttiled(Client *c)
 }
 
 void
-opacity(Client *c, double opacity)
-{
-	if(bUseOpacity && opacity > 0 && opacity < 1) {
-		unsigned long real_opacity[] = { opacity * 0xffffffff };
-		XChangeProperty(dpy, c->win, netatom[NetWMWindowsOpacity], XA_CARDINAL,
-				32, PropModeReplace, (unsigned char *)real_opacity,
-				1);
-	} else
-		XDeleteProperty(dpy, c->win, netatom[NetWMWindowsOpacity]);
-}
-
-void
 pushstack(const Arg *arg) {
 	int i = stackpos(arg);
 	Client *sel = selmon->sel, *c, *p;
@@ -1998,7 +1983,6 @@ setup(void)
 	netatom[NetWMWindowType] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE", False);
 	netatom[NetWMWindowTypeDialog] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE_DIALOG", False);
 	netatom[NetClientList] = XInternAtom(dpy, "_NET_CLIENT_LIST", False);
-	netatom[NetWMWindowsOpacity] = XInternAtom(dpy, "_NET_WM_WINDOW_OPACITY", False);
 	/* init cursors */
 	cursor[CurNormal] = drw_cur_create(drw, XC_left_ptr);
 	cursor[CurResize] = drw_cur_create(drw, XC_sizing);
@@ -2237,14 +2221,6 @@ togglesticky(const Arg *arg)
 }
 
 void
-toggleopacity(const Arg *arg) {
-	bUseOpacity = !bUseOpacity;
-	for (Monitor* m = mons; m; m = m->next)
-		for (Client* c = m->clients; c; c = c->next)
-			opacity(c, (bUseOpacity && c != selmon->sel) ? inactiveopacity : activeopacity);
-}
-
-void
 toggletag(const Arg *arg)
 {
 	unsigned int newtags;
@@ -2295,7 +2271,6 @@ unfocus(Client *c, int setfocus)
 	if (!c)
 		return;
 	grabbuttons(c, 0);
-	opacity(c, inactiveopacity);
 	if (setfocus) {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);

@@ -10,9 +10,6 @@ static const float mfact			= 0.55;	  /* factor of master area size [0.05..0.95] 
 static const int nmaster			= 1;      /* number of clients in master area */
 static const int resizehints		= 0;      /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen 	= 0;	  /* 1 will force focus on the fullscreen window */
-static Bool bUseOpacity			    = 1;      /* Default inactive opacity */
-static const double activeopacity	= 0.97f;  /* Focused window opacity */
-static const double inactiveopacity	= 0.87f;   /* Inactive window opacity */
 static const unsigned int snap	   	= 32;     /* snap pixel */
 static const unsigned int gappx    	= 10;     /* gap between windows */
 static const int swallowfloating	= 0;      /* swallow floating windows */
@@ -125,7 +122,6 @@ static Key keys[] = {
 	{ MODKEY,					XK_i,				incnmaster,     {.i = +1 } },
     { MODKEY|ShiftMask,         XK_i,				resetnmaster,   {0} },
 	{ MODKEY,					XK_o,				incnmaster,     {.i = -1 } },
-	{ MODKEY|ShiftMask,         XK_o,				toggleopacity,  {0} },
 	{ MODKEY,					XK_p,				spawn,			SHCMD("pw") },
 	{ MODKEY|ShiftMask,			XK_p,				spawn,			SHCMD("pw --otp") },
 	{ MODKEY,					XK_bracketleft,		setlayout,		{.v = &layouts[0]} }, /* tile */
